@@ -19,23 +19,18 @@ composer require spatie/array-to-xml
 
 ## Usage
 
-``` php
+```php
 
 use Spatie\ArrayToXml\ArrayToXml
-
 ...
 $array = [
     'Good guy' => [
-
         'name' => 'Luke Skywalker',
         'weapon' => 'Lightsaber'
-
     ],
     'Bad guy' => [
-
         'name' => 'Sauron',
         'weapon' => 'Evil Eye'
-
     ]
 ];
 
@@ -55,11 +50,11 @@ After running this piece of code `$result` will contain:
         <weapon>Evil Eye</weapon>
     </Bad_guy>
 </root>
-``
+```
 
 ## Testing
 
-``` bash
+```bash
 vendor/bin/phpunit
 ```
 
