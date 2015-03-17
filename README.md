@@ -55,7 +55,7 @@ After running this piece of code `$result` will contain:
     <weapon>Evil Eye</weapon>
 </Bad_guy>
 </root>
-``
+```
 
 ## Testing
 
