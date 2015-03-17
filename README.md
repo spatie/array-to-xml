@@ -50,12 +50,12 @@ After running this piece of code `$result` will contain:
         <name>Luke Skywalker</name>
         <weapon>Lightsaber</weapon>
     </Good_guy>
-<Bad_guy>
-    <name>Sauron</name>
-    <weapon>Evil Eye</weapon>
-</Bad_guy>
+    <Bad_guy>
+        <name>Sauron</name>
+        <weapon>Evil Eye</weapon>
+    </Bad_guy>
 </root>
-```
+``
 
 ## Testing
 
