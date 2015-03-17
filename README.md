@@ -1,4 +1,4 @@
-# Convert an arry to xml
+# Convert an array to xml
 
 [![Latest Version](https://img.shields.io/github/release/freekmurze/array-to-xml.svg?style=flat-square)](https://github.com/freekmurze/array-to-xml/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
