@@ -20,8 +20,7 @@ composer require spatie/array-to-xml
 ## Usage
 
 ```php
-
-use Spatie\ArrayToXml\ArrayToXml
+use Spatie\ArrayToXml\ArrayToXml;
 ...
 $array = [
     'Good guy' => [
