@@ -11,7 +11,7 @@ This package provides a very simple class to convert an array to an xml string.
 
 ## Install
 
-Via Composer
+You can install this package via composer.
 
 ``` bash
 composer require spatie/array-to-xml
