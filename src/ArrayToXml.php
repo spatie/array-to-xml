@@ -2,45 +2,47 @@
 
 namespace Spatie\ArrayToXml;
 
-use SimpleXMLElement;
+use DOMDocument;
 
-class ArrayToXml
-{
+class ArrayToXml {
+
     /**
      * Convert the given array to an xml string
-     *
-     * @param $array
+     * 
+     * @param string[] $array
      * @param string $rootElementName
-     * @param null $xml
-     * @return string
+     * @return type
      */
-    public static function convert($array, $rootElementName = '', $xml = null)
-    {
-        if ($xml === null) {
-            $xml = new SimpleXMLElement(self::getRootElement($rootElementName));
-        }
-
+    public static function convert(array $array, $rootElementName = '') {
+        $DOMDocument = new DOMDocument();
+        $root = $DOMDocument->createElement($rootElementName == '' ? 'root' : $rootElementName);
         foreach ($array as $key => $value) {
-            $key = str_replace(' ', '_', $key);
-
-            if (is_array($value)) {
-                self::convert($value, $key, $xml->addChild($key));
-            } else {
-                $xml->addChild($key, $value);
-            }
+            $root->appendChild(self::convertElement($value, $key, $DOMDocument));
         }
 
-        return $xml->asXML();
+        $DOMDocument->appendChild($root);
+        return $DOMDocument->saveXML();
     }
 
     /**
-     * Get the root element for the given name
-     *
-     * @param $name
-     * @return string
+     * Parse individual element
+     * 
+     * @param string|string[] $value
+     * @param string $key
+     * @param \DOMDocument $DOMDocument
+     * @return \DOMElement
      */
-    private static function getRootElement($name)
-    {
-        return '<'.($name == '' ? 'root' : $name).'/>';
+    private static function convertElement($value, $key, DOMDocument $DOMDocument) {
+        $key = str_replace(' ', '_', $key);
+        $element = $DOMDocument->createElement($key);
+        if (is_array($value)) {
+            foreach ($value as $key => $value) {
+                $element->appendChild(self::convertElement($value, $key, $DOMDocument));
+            }
+        } else {
+            $element->nodeValue = $value;
+        }
+        return $element;
     }
+
 }
