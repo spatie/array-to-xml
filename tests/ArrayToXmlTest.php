@@ -95,7 +95,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_will_raise_an_exception_when_spaces_should_not_be_replaced_an_a_key_contains_a_space()
+    public function it_will_raise_an_exception_when_spaces_should_not_be_replaced_and_a_key_contains_a_space()
     {
         $this->setExpectedException('DOMException');
 
