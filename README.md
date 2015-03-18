@@ -50,6 +50,20 @@ After running this piece of code `$result` will contain:
 </root>
 ```
 
+Optionally you can set the name of the rootElement by passing it as the second argument. If you don't specify
+this argument (or set it to an empty string) "root" will be used.
+```
+$result = ArrayToXml::convert($array, 'customrootname')
+```
+
+By default all spaces in the key names of your array will be converted to underscores. If you want to opt out of
+this behaviour you can set the third argument to false. We'll leave all keynames alone.
+```
+$result = ArrayToXml::convert($array, 'customrootname', false)
+```
+
+If your input contains something that cannot be parsed a `DOMException` will be thrown.
+
 ## Testing
 
 ```bash

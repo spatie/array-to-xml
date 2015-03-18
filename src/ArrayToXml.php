@@ -4,45 +4,57 @@ namespace Spatie\ArrayToXml;
 
 use DOMDocument;
 
-class ArrayToXml {
-
+class ArrayToXml
+{
     /**
-     * Convert the given array to an xml string
-     * 
+     * Convert the given array to an xml string.
+     *
      * @param string[] $array
-     * @param string $rootElementName
+     * @param string   $rootElementName
+     * @param bool     $replaceSpacesByUnderScoresInKeyNames
+     *
      * @return type
      */
-    public static function convert(array $array, $rootElementName = '') {
-        $DOMDocument = new DOMDocument();
-        $root = $DOMDocument->createElement($rootElementName == '' ? 'root' : $rootElementName);
+    public static function convert(array $array, $rootElementName = '', $replaceSpacesByUnderScoresInKeyNames = true)
+    {
+        $domDocument = new DOMDocument();
+
+        $root = $domDocument->createElement($rootElementName == '' ? 'root' : $rootElementName);
+
         foreach ($array as $key => $value) {
-            $root->appendChild(self::convertElement($value, $key, $DOMDocument));
+            $root->appendChild(self::convertElement($value, $key, $domDocument, $replaceSpacesByUnderScoresInKeyNames));
         }
 
-        $DOMDocument->appendChild($root);
-        return $DOMDocument->saveXML();
+        $domDocument->appendChild($root);
+
+        return $domDocument->saveXML();
     }
 
     /**
-     * Parse individual element
-     * 
+     * Parse individual element.
+     *
      * @param string|string[] $value
-     * @param string $key
-     * @param \DOMDocument $DOMDocument
+     * @param string          $key
+     * @param \DOMDocument    $domDocument
+     * @param $replaceSpacesByUnderScoresInKeyNames
+     *
      * @return \DOMElement
      */
-    private static function convertElement($value, $key, DOMDocument $DOMDocument) {
-        $key = str_replace(' ', '_', $key);
-        $element = $DOMDocument->createElement($key);
+    private static function convertElement($value, $key, DOMDocument $domDocument, $replaceSpacesByUnderScoresInKeyNames)
+    {
+        if ($replaceSpacesByUnderScoresInKeyNames) {
+            $key = str_replace(' ', '_', $key);
+        }
+
+        $element = $domDocument->createElement($key);
         if (is_array($value)) {
             foreach ($value as $key => $value) {
-                $element->appendChild(self::convertElement($value, $key, $DOMDocument));
+                $element->appendChild(self::convertElement($value, $key, $domDocument, $replaceSpacesByUnderScoresInKeyNames));
             }
         } else {
             $element->nodeValue = $value;
         }
+
         return $element;
     }
-
 }
