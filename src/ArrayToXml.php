@@ -52,7 +52,7 @@ class ArrayToXml
                 $element->appendChild(self::convertElement($value, $key, $domDocument, $replaceSpacesByUnderScoresInKeyNames));
             }
         } else {
-            $element->nodeValue = $value;
+            $element->nodeValue = htmlspecialchars($value);
         }
 
         return $element;

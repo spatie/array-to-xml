@@ -19,7 +19,6 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
 
             ],
             'Bad guy' => [
-
                 'name' => 'Sauron',
                 'weapon' => 'Evil Eye',
 
@@ -100,5 +99,20 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
         $this->setExpectedException('DOMException');
 
         ArrayToXml::convert($this->testArray, '', false);
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_handle_values_with_special_characters()
+    {
+        $array =  ['name'=>'this & that'] ;
+
+        $expectedXml = '<?xml version="1.0"?>
+<root><name>this &amp; that</name></root>'.PHP_EOL;
+
+        $result = ArrayToXml::convert($array);
+
+        $this->assertEquals($expectedXml, $result);
     }
 }
