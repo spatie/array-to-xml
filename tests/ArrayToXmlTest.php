@@ -106,7 +106,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
      */
     public function it_can_handle_values_with_special_characters()
     {
-        $array =  ['name'=>'this & that'] ;
+        $array =  ['name' => 'this & that'];
 
         $expectedXml = '<?xml version="1.0"?>
 <root><name>this &amp; that</name></root>'.PHP_EOL;
