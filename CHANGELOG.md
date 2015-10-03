@@ -2,7 +2,7 @@
 
 All Notable changes to `array-to-xml` will be documented in this file
 
-## 1.0.2 - 2015-10-03
+## 1.0.3 - 2015-10-03
 - handle values with special characters
 
 ## 1.0.1 - 2015-03-18
