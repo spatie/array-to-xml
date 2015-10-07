@@ -2,7 +2,9 @@
 
 namespace Spatie\ArrayToXml;
 
+use DOMElement;
 use DOMDocument;
+use DOMException;
 
 class ArrayToXml
 {
@@ -17,44 +19,159 @@ class ArrayToXml
      */
     public static function convert(array $array, $rootElementName = '', $replaceSpacesByUnderScoresInKeyNames = true)
     {
-        $domDocument = new DOMDocument();
+        $converter = new static($array, $rootElementName, $replaceSpacesByUnderScoresInKeyNames);
 
-        $root = $domDocument->createElement($rootElementName == '' ? 'root' : $rootElementName);
+        return $converter->toXml();
+    }
 
-        foreach ($array as $key => $value) {
-            $root->appendChild(self::convertElement($value, $key, $domDocument, $replaceSpacesByUnderScoresInKeyNames));
+    /**
+     * The root DOM Document.
+     *
+     * @var \DOMDocument
+     */
+    protected $document;
+
+    /**
+     * Set to enable replacing space with underscore.
+     *
+     * @var bool
+     */
+    protected $replaceSpacesByUnderScoresInKeyNames = true;
+
+    /**
+     * Construct a new instance.
+     *
+     * @param string[] $array
+     * @param string   $rootElementName
+     * @param bool     $replaceSpacesByUnderScoresInKeyNames
+     */
+    public function __construct(array $array, $rootElementName = '', $replaceSpacesByUnderScoresInKeyNames = true)
+    {
+        $this->document = new DOMDocument();
+        $this->replaceSpacesByUnderScoresInKeyNames = $replaceSpacesByUnderScoresInKeyNames;
+
+        if ($this->isArrayAllKeySequentual($array) && ! empty($array)) {
+            throw new DOMException("Invalid Character Error");
         }
 
-        $domDocument->appendChild($root);
+        $root = $this->document->createElement($rootElementName == '' ? 'root' : $rootElementName);
 
-        return $domDocument->saveXML();
+        $this->document->appendChild($root);
+
+        $this->convertElement($root, $array);
+    }
+
+    /**
+     * Return as XML
+     *
+     * @return string
+     */
+    public function toXml()
+    {
+        return $this->document->saveXML();
     }
 
     /**
      * Parse individual element.
      *
+     * @param \DOMElement     $element
      * @param string|string[] $value
-     * @param string          $key
-     * @param \DOMDocument    $domDocument
-     * @param $replaceSpacesByUnderScoresInKeyNames
      *
-     * @return \DOMElement
+     * @return void
      */
-    private static function convertElement($value, $key, DOMDocument $domDocument, $replaceSpacesByUnderScoresInKeyNames)
+    private function convertElement(DOMElement $element, $value)
     {
-        if ($replaceSpacesByUnderScoresInKeyNames) {
+        $sequential = $this->isArrayAllKeySequentual($value);
+
+        if (! is_array($value)) {
+            $element->nodeValue = htmlspecialchars($value);
+            return ;
+        }
+
+        foreach ($value as $key => $data) {
+            if (! $sequential) {
+                $this->addNode($element, $key, $data);
+            } elseif (is_array($data)) {
+                $this->addCollectionNode($element, $data);
+            } else {
+                $this->addSequentualNode($element, $data);
+            }
+        }
+    }
+
+    /**
+     * Add node.
+     *
+     * @param \DOMElement      $element
+     * @param string           $key
+     * @param string|string[]  $value
+     */
+    protected function addNode(DOMElement $element, $key, $value)
+    {
+        if ($this->replaceSpacesByUnderScoresInKeyNames) {
             $key = str_replace(' ', '_', $key);
         }
 
-        $element = $domDocument->createElement($key);
-        if (is_array($value)) {
-            foreach ($value as $key => $value) {
-                $element->appendChild(self::convertElement($value, $key, $domDocument, $replaceSpacesByUnderScoresInKeyNames));
-            }
-        } else {
-            $element->nodeValue = htmlspecialchars($value);
+        $child = $this->document->createElement($key);
+        $element->appendChild($child);
+        $this->convertElement($child, $value);
+    }
+
+    /**
+     * Add collection node.
+     *
+     * @param \DOMElement      $element
+     * @param string           $key
+     * @param string|string[]  $value
+     */
+    protected function addCollectionNode(DOMElement $element, $value)
+    {
+        if ($element->childNodes->length == 0) {
+            $this->convertElement($element, $value);
+            return ;
         }
 
-        return $element;
+        $child = $element->cloneNode();
+        $element->parentNode->appendChild($child);
+        $this->convertElement($child, $value);
+    }
+
+    /**
+     * Add sequential node.
+     *
+     * @param \DOMElement      $element
+     * @param string           $key
+     * @param string|string[]  $value
+     */
+    protected function addSequentualNode(DOMElement $element, $value)
+    {
+        if (empty($element->nodeValue)) {
+            $element->nodeValue = htmlspecialchars($value);
+            return ;
+        }
+
+        $child = $element->cloneNode();
+        $child->nodeValue = htmlspecialchars($value);
+        $element->parentNode->appendChild($child);
+    }
+
+    /**
+     * Check if array are all sequential.
+     *
+     * @param array|string $value
+     *
+     * @return bool
+     */
+    protected function isArrayAllKeySequentual($value)
+    {
+        if(! is_array($value)) {
+            return false;
+        }
+
+        if(count($value) <= 0)  {
+            return true;
+        }
+
+        return array_unique(array_map("is_int", array_keys($value))) === array(true);
     }
 }
