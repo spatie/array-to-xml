@@ -78,7 +78,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('DOMException');
 
-        ArrayToXml::convert(['een', 'twee', 'drie']);
+        ArrayToXml::convert(['one', 'two', 'three']);
     }
 
     /**
@@ -129,9 +129,9 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
                 ],
                 [
                     'name' => 'twee',
-                    'age' => 12
+                    'age' => 12,
                 ],
-            ]
+            ],
         ];
 
         $expectedXml = '<?xml version="1.0"?>
@@ -157,9 +157,9 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
                 ],
                 'twee' => [
                     'name' => 'twee',
-                    'age' => 12
+                    'age' => 12,
                 ],
-            ]
+            ],
         ];
 
         ArrayToXml::convert($array);
@@ -174,6 +174,21 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
 
         $expectedXml = '<?xml version="1.0"?>
 <root><name>this &amp; that</name></root>'.PHP_EOL;
+
+        $result = ArrayToXml::convert($array);
+
+        $this->assertEquals($expectedXml, $result);
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_group_by_values_when_values_are_in_a_numeric_array()
+    {
+        $array = ['user' => ['foo', 'bar']];
+
+        $expectedXml = '<?xml version="1.0"?>
+<root><user>foo</user><user>bar</user></root>'.PHP_EOL;
 
         $result = ArrayToXml::convert($array);
 

@@ -9,22 +9,6 @@ use DOMException;
 class ArrayToXml
 {
     /**
-     * Convert the given array to an xml string.
-     *
-     * @param string[] $array
-     * @param string   $rootElementName
-     * @param bool     $replaceSpacesByUnderScoresInKeyNames
-     *
-     * @return type
-     */
-    public static function convert(array $array, $rootElementName = '', $replaceSpacesByUnderScoresInKeyNames = true)
-    {
-        $converter = new static($array, $rootElementName, $replaceSpacesByUnderScoresInKeyNames);
-
-        return $converter->toXml();
-    }
-
-    /**
      * The root DOM Document.
      *
      * @var \DOMDocument
@@ -44,13 +28,15 @@ class ArrayToXml
      * @param string[] $array
      * @param string   $rootElementName
      * @param bool     $replaceSpacesByUnderScoresInKeyNames
+     *
+     * @throws DOMException
      */
     public function __construct(array $array, $rootElementName = '', $replaceSpacesByUnderScoresInKeyNames = true)
     {
         $this->document = new DOMDocument();
         $this->replaceSpacesByUnderScoresInKeyNames = $replaceSpacesByUnderScoresInKeyNames;
 
-        if ($this->isArrayAllKeySequentual($array) && ! empty($array)) {
+        if ($this->isArrayAllKeySequential($array) && ! empty($array)) {
             throw new DOMException("Invalid Character Error");
         }
 
@@ -62,7 +48,23 @@ class ArrayToXml
     }
 
     /**
-     * Return as XML
+     * Convert the given array to an xml string.
+     *
+     * @param string[] $array
+     * @param string   $rootElementName
+     * @param bool     $replaceSpacesByUnderScoresInKeyNames
+     *
+     * @return type
+     */
+    public static function convert(array $array, $rootElementName = '', $replaceSpacesByUnderScoresInKeyNames = true)
+    {
+        $converter = new static($array, $rootElementName, $replaceSpacesByUnderScoresInKeyNames);
+
+        return $converter->toXml();
+    }
+
+    /**
+     * Return as XML.
      *
      * @return string
      */
@@ -76,16 +78,15 @@ class ArrayToXml
      *
      * @param \DOMElement     $element
      * @param string|string[] $value
-     *
-     * @return void
      */
     private function convertElement(DOMElement $element, $value)
     {
-        $sequential = $this->isArrayAllKeySequentual($value);
+        $sequential = $this->isArrayAllKeySequential($value);
 
         if (! is_array($value)) {
             $element->nodeValue = htmlspecialchars($value);
-            return ;
+
+            return;
         }
 
         foreach ($value as $key => $data) {
@@ -102,9 +103,9 @@ class ArrayToXml
     /**
      * Add node.
      *
-     * @param \DOMElement      $element
-     * @param string           $key
-     * @param string|string[]  $value
+     * @param \DOMElement     $element
+     * @param string          $key
+     * @param string|string[] $value
      */
     protected function addNode(DOMElement $element, $key, $value)
     {
@@ -120,15 +121,17 @@ class ArrayToXml
     /**
      * Add collection node.
      *
-     * @param \DOMElement      $element
-     * @param string           $key
-     * @param string|string[]  $value
+     * @param \DOMElement     $element
+     * @param string|string[] $value
+     *
+     * @internal param string $key
      */
     protected function addCollectionNode(DOMElement $element, $value)
     {
         if ($element->childNodes->length == 0) {
             $this->convertElement($element, $value);
-            return ;
+
+            return;
         }
 
         $child = $element->cloneNode();
@@ -139,15 +142,17 @@ class ArrayToXml
     /**
      * Add sequential node.
      *
-     * @param \DOMElement      $element
-     * @param string           $key
-     * @param string|string[]  $value
+     * @param \DOMElement     $element
+     * @param string|string[] $value
+     *
+     * @internal param string $key
      */
     protected function addSequentualNode(DOMElement $element, $value)
     {
         if (empty($element->nodeValue)) {
             $element->nodeValue = htmlspecialchars($value);
-            return ;
+
+            return;
         }
 
         $child = $element->cloneNode();
@@ -162,13 +167,13 @@ class ArrayToXml
      *
      * @return bool
      */
-    protected function isArrayAllKeySequentual($value)
+    protected function isArrayAllKeySequential($value)
     {
-        if(! is_array($value)) {
+        if (! is_array($value)) {
             return false;
         }
 
-        if(count($value) <= 0)  {
+        if (count($value) <= 0) {
             return true;
         }
 
