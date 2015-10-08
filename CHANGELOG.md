@@ -2,6 +2,9 @@
 
 All Notable changes to `array-to-xml` will be documented in this file
 
+## 2.0.0 - 2015-10-08
+- Add support to collection arrays and dynamically XML convertion when keys are numeric
+
 ## 1.0.3 - 2015-10-03
 - handle values with special characters
 
