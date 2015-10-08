@@ -78,7 +78,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('DOMException');
 
-        ArrayToXml::convert(['een', 'twee', 'drie'], '', false);
+        ArrayToXml::convert(['een', 'twee', 'drie']);
     }
 
     /**
@@ -104,9 +104,73 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_can_handle_values_as_basic_collection()
+    {
+        $array = ['user' => ['een', 'twee', 'drie']];
+
+        $expectedXml = '<?xml version="1.0"?>
+<root><user>een</user><user>twee</user><user>drie</user></root>'.PHP_EOL;
+
+        $result = ArrayToXml::convert($array);
+
+        $this->assertEquals($expectedXml, $result);
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_handle_values_as_collection()
+    {
+        $array = [
+            'user' => [
+                [
+                    'name' => 'een',
+                    'age' => 10,
+                ],
+                [
+                    'name' => 'twee',
+                    'age' => 12
+                ],
+            ]
+        ];
+
+        $expectedXml = '<?xml version="1.0"?>
+<root><user><name>een</name><age>10</age></user><user><name>twee</name><age>12</age></user></root>'.PHP_EOL;
+
+        $result = ArrayToXml::convert($array);
+
+        $this->assertEquals($expectedXml, $result);
+    }
+
+    /**
+     * @test
+     */
+    public function it_will_raise_an_exception_when_value_contains_mixed_sequential_array()
+    {
+        $this->setExpectedException('DOMException');
+
+        $array = [
+            'user' => [
+                [
+                    'name' => 'een',
+                    'age' => 10,
+                ],
+                'twee' => [
+                    'name' => 'twee',
+                    'age' => 12
+                ],
+            ]
+        ];
+
+        ArrayToXml::convert($array);
+    }
+
+    /**
+     * @test
+     */
     public function it_can_handle_values_with_special_characters()
     {
-        $array =  ['name' => 'this & that'];
+        $array = ['name' => 'this & that'];
 
         $expectedXml = '<?xml version="1.0"?>
 <root><name>this &amp; that</name></root>'.PHP_EOL;
