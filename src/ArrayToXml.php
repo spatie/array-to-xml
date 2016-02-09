@@ -93,6 +93,8 @@ class ArrayToXml
             if (! $sequential) {
                 if ($key ==='_attributes') {
                     $this->addAttribtues($element, $data);
+                } elseif ($key === '_value' && is_string($data)) {
+                    $element->nodeValue = $data;
                 } else {
                     $this->addNode($element, $key, $data);
                 }
