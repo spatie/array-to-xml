@@ -62,6 +62,40 @@ this behaviour you can set the third argument to false. We'll leave all keynames
 $result = ArrayToXml::convert($array, 'customrootname', false);
 ```
 
+You can use a key named `_attributes` to add attributes to a node.
+
+```php
+$array = [
+    'Good guy' => [
+        '_attributes' => ['attr1' => 'value']
+        'name' => 'Luke Skywalker',
+        'weapon' => 'Lightsaber'
+    ],
+    'Bad guy' => [
+        'name' => 'Sauron',
+        'weapon' => 'Evil Eye'
+    ]
+];
+
+$result = ArrayToXml::convert($array);
+```
+
+This code will result in:
+
+```xml
+<?xml version="1.0"?>
+<root>
+    <Good_guy attr1="value">
+        <name>Luke Skywalker</name>
+        <weapon>Lightsaber</weapon>
+    </Good_guy>
+    <Bad_guy>
+        <name>Sauron</name>
+        <weapon>Evil Eye</weapon>
+    </Bad_guy>
+</root>
+```
+
 If your input contains something that cannot be parsed a `DOMException` will be thrown.
 
 ## Testing

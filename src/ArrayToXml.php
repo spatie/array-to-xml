@@ -36,8 +36,8 @@ class ArrayToXml
         $this->document = new DOMDocument();
         $this->replaceSpacesByUnderScoresInKeyNames = $replaceSpacesByUnderScoresInKeyNames;
 
-        if ($this->isArrayAllKeySequential($array) && ! empty($array)) {
-            throw new DOMException("Invalid Character Error");
+        if ($this->isArrayAllKeySequential($array) && !empty($array)) {
+            throw new DOMException('Invalid Character Error');
         }
 
         $root = $this->document->createElement($rootElementName == '' ? 'root' : $rootElementName);
@@ -83,16 +83,16 @@ class ArrayToXml
     {
         $sequential = $this->isArrayAllKeySequential($value);
 
-        if (! is_array($value)) {
+        if (!is_array($value)) {
             $element->nodeValue = htmlspecialchars($value);
 
             return;
         }
 
         foreach ($value as $key => $data) {
-            if (! $sequential) {
-                if ($key ==='_attributes') {
-                    $this->addAttribtues($element, $data);
+            if (!$sequential) {
+                if ($key === '_attributes') {
+                    $this->addAttributes($element, $data);
                 } elseif ($key === '_value' && is_string($data)) {
                     $element->nodeValue = $data;
                 } else {
@@ -175,7 +175,7 @@ class ArrayToXml
      */
     protected function isArrayAllKeySequential($value)
     {
-        if (! is_array($value)) {
+        if (!is_array($value)) {
             return false;
         }
 
@@ -183,16 +183,16 @@ class ArrayToXml
             return true;
         }
 
-        return array_unique(array_map("is_int", array_keys($value))) === array(true);
+        return array_unique(array_map('is_int', array_keys($value))) === array(true);
     }
-    
+
     /**
-     * Add attributes
+     * Add attributes.
      *
-     * @param \DOMElement     $element
-     * @param string[] $data
+     * @param \DOMElement $element
+     * @param string[]    $data
      */
-    protected function addAttribtues($element, $data)
+    protected function addAttributes($element, $data)
     {
         foreach ($data as $attrKey => $attrVal) {
             $element->setAttribute($attrKey, $attrVal);
