@@ -91,7 +91,13 @@ class ArrayToXml
 
         foreach ($value as $key => $data) {
             if (! $sequential) {
-                $this->addNode($element, $key, $data);
+                if ($key ==='_attributes') {
+                    $this->addAttribtues($element, $data);
+                } elseif ($key === '_value' && is_string($data)) {
+                    $element->nodeValue = $data;
+                } else {
+                    $this->addNode($element, $key, $data);
+                }
             } elseif (is_array($data)) {
                 $this->addCollectionNode($element, $data);
             } else {
@@ -178,5 +184,18 @@ class ArrayToXml
         }
 
         return array_unique(array_map("is_int", array_keys($value))) === array(true);
+    }
+    
+    /**
+     * Add attributes
+     *
+     * @param \DOMElement     $element
+     * @param string[] $data
+     */
+    protected function addAttribtues($element, $data)
+    {
+        foreach ($data as $attrKey => $attrVal) {
+            $element->setAttribute($attrKey, $attrVal);
+        }
     }
 }

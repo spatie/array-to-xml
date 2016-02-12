@@ -194,4 +194,33 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($expectedXml, $result);
     }
+    /**
+     * @test
+     */
+    public function it_support_now_attribtues_to_xml()
+    {
+
+        $expectedXml = '<?xml version="1.0"?>
+<root><Good_guy nameType="1"><name>Luke Skywalker</name><weapon>Lightsaber</weapon></Good_guy><Bad_guy><name>Sauron</name><weapon>Evil Eye</weapon></Bad_guy></root>'.PHP_EOL;
+        $withAttributes = $this->testArray;
+        $withAttributes['Good guy']['_attributes']= ['nameType' => 1];
+        $result = ArrayToXml::convert($withAttributes);
+
+        $this->assertEquals($expectedXml, $result);
+    }
+
+    /**
+     * @test
+     */
+    public function it_support_now_attribtues_to_xml_with_value()
+    {
+
+        $expectedXml = '<?xml version="1.0"?>
+<root><Good_guy nameType="1"><name>Luke Skywalker</name><weapon>Lightsaber</weapon></Good_guy><Bad_guy><name>Sauron</name><weapon>Evil Eye</weapon></Bad_guy></root>'.PHP_EOL;
+        $withAttributes = $this->testArray;
+        $withAttributes['Good guy']['_attributes']= ['nameType' => 1];
+        $result = ArrayToXml::convert($withAttributes);
+
+        $this->assertEquals($expectedXml, $result);
+    }    
 }
