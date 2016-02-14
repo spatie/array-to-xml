@@ -16,13 +16,14 @@ You can install this package via composer.
 composer require spatie/array-to-xml
 ```
 
-## Usage
+## Usage 1
 
 ```php
 use Spatie\ArrayToXml\ArrayToXml;
 ...
 $array = [
     'Good guy' => [
+        '_attributes' => ['attr1' => 'value']
         'name' => 'Luke Skywalker',
         'weapon' => 'Lightsaber'
     ],
@@ -39,7 +40,7 @@ After running this piece of code `$result` will contain:
 ```xml
 <?xml version="1.0"?>
 <root>
-    <Good_guy>
+    <Good_guy attr1="value">
         <name>Luke Skywalker</name>
         <weapon>Lightsaber</weapon>
     </Good_guy>
@@ -49,6 +50,39 @@ After running this piece of code `$result` will contain:
     </Bad_guy>
 </root>
 ```
+## Usage 2
+
+```php
+use Spatie\ArrayToXml\ArrayToXml;
+...
+$array = [
+    'user' => 
+        [
+            'alpha', 
+            [
+                '_attributes'=> [
+                    'type'=>'admin'
+                ],
+                '_value'=>'beta'
+            ]
+            , 'gamma'
+        ]
+];
+
+$result = ArrayToXml::convert($array);
+```
+After running this piece of code `$result` will contain:
+
+```xml
+<?xml version="1.0"?>
+<root>
+  <user>alpha</user>
+  <user type="admin">beta</user>
+  <user>gamma</user>
+</root>
+
+```
+
 
 Optionally you can set the name of the rootElement by passing it as the second argument. If you don't specify
 this argument (or set it to an empty string) "root" will be used.
