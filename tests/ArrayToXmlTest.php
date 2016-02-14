@@ -77,7 +77,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
     public function it_throws_an_exception_when_converting_an_array_with_no_keys()
     {
         $this->setExpectedException('DOMException');
-
+a
         ArrayToXml::convert(['one', 'two', 'three']);
     }
 
@@ -194,4 +194,36 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($expectedXml, $result);
     }
+    
+        /**
+     * @test
+     */
+    public function it_support_now_attribtues_to_xml()
+    {
+
+        $expectedXml = '<?xml version="1.0"?>
+<root><Good_guy nameType="1"><name>Luke Skywalker</name><weapon price="55" stock="2">Lightsaber</weapon></Good_guy><Bad_guy><name>Sauron</name><weapon>Evil Eye</weapon></Bad_guy></root>'.PHP_EOL;
+        $withAttributes = $this->testArray;
+        $withAttributes['Good guy']['_attributes']= ['nameType' => 1];
+        $withAttributes['Good guy']['weapon'] = ['_attributes'=> ['price'=> '55','stock'=> 2],'_value'=> 'Lightsaber'];
+        $result = ArrayToXml::convert($withAttributes);
+
+        $this->assertEquals($expectedXml, $result);
+    }
+
+    /**
+     * @test
+     */
+    public function it_support_now_attribtues_to_xml_with_value()
+    {
+
+        $expectedXml = '<?xml version="1.0"?>
+<root><Good_guy nameType="1"><name>Luke Skywalker</name><weapon>Lightsaber</weapon></Good_guy><Bad_guy><name>Sauron</name><weapon>Evil Eye</weapon></Bad_guy></root>'.PHP_EOL;
+        $withAttributes = $this->testArray;
+        $withAttributes['Good guy']['_attributes']= ['nameType' => 1];
+        $result = ArrayToXml::convert($withAttributes);
+
+        $this->assertEquals($expectedXml, $result);
+    }
+
 }
