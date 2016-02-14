@@ -217,13 +217,16 @@ a
     public function it_support_now_attribtues_to_xml_with_value()
     {
 
+        $array = ['user' => ['een', ['_attributes'=>['type'=>'admin'],'_value'=>'twee'], 'drie']];
+
         $expectedXml = '<?xml version="1.0"?>
-<root><Good_guy nameType="1"><name>Luke Skywalker</name><weapon>Lightsaber</weapon></Good_guy><Bad_guy><name>Sauron</name><weapon>Evil Eye</weapon></Bad_guy></root>'.PHP_EOL;
-        $withAttributes = $this->testArray;
-        $withAttributes['Good guy']['_attributes']= ['nameType' => 1];
-        $result = ArrayToXml::convert($withAttributes);
+<root><user>een</user><user type="admin">twee</user><user>drie</user></root>'.PHP_EOL;
+
+
+        $result = ArrayToXml::convert($array);
 
         $this->assertEquals($expectedXml, $result);
     }
+
 
 }
