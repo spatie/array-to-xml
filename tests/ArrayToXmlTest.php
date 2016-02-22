@@ -31,7 +31,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
      */
     public function it_can_convert_an_array_to_xml()
     {
-        $expectedXml = '<?xml version="1.0"?>
+        $expectedXml = '<?xml version="1.0" encoding="UTF-8"?>
 <root><Good_guy><name>Luke Skywalker</name><weapon>Lightsaber</weapon></Good_guy><Bad_guy><name>Sauron</name><weapon>Evil Eye</weapon></Bad_guy></root>'.PHP_EOL;
 
         $result = ArrayToXml::convert($this->testArray);
@@ -46,7 +46,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
     {
         $array = [];
 
-        $expectedXml = '<?xml version="1.0"?>
+        $expectedXml = '<?xml version="1.0" encoding="UTF-8"?>
 <root/>'.PHP_EOL;
 
         $result = ArrayToXml::convert($array);
@@ -63,7 +63,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
 
         $array = [];
 
-        $expectedXml = '<?xml version="1.0"?>
+        $expectedXml = '<?xml version="1.0" encoding="UTF-8"?>
 <'.$rootElementName.'/>'.PHP_EOL;
 
         $result = ArrayToXml::convert($array, $rootElementName);
@@ -88,7 +88,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('DOMException');
 
-        echo ArrayToXml::convert(['tom & jerry' => 'cartoon characters'], '', false);
+        echo ArrayToXml::convert(['tom & jerry' => 'cartoon characters'], '', ['replaceSpacesByUnderScoresInKeyNames' => false]);
     }
 
     /**
@@ -98,7 +98,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('DOMException');
 
-        ArrayToXml::convert($this->testArray, '', false);
+        ArrayToXml::convert($this->testArray, '', ['replaceSpacesByUnderScoresInKeyNames' => false]);
     }
 
     /**
@@ -108,7 +108,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
     {
         $array = ['user' => ['een', 'twee', 'drie']];
 
-        $expectedXml = '<?xml version="1.0"?>
+        $expectedXml = '<?xml version="1.0" encoding="UTF-8"?>
 <root><user>een</user><user>twee</user><user>drie</user></root>'.PHP_EOL;
 
         $result = ArrayToXml::convert($array);
@@ -134,7 +134,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
             ],
         ];
 
-        $expectedXml = '<?xml version="1.0"?>
+        $expectedXml = '<?xml version="1.0" encoding="UTF-8"?>
 <root><user><name>een</name><age>10</age></user><user><name>twee</name><age>12</age></user></root>'.PHP_EOL;
 
         $result = ArrayToXml::convert($array);
@@ -172,7 +172,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
     {
         $array = ['name' => 'this & that'];
 
-        $expectedXml = '<?xml version="1.0"?>
+        $expectedXml = '<?xml version="1.0" encoding="UTF-8"?>
 <root><name>this &amp; that</name></root>'.PHP_EOL;
 
         $result = ArrayToXml::convert($array);
@@ -187,7 +187,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
     {
         $array = ['user' => ['foo', 'bar']];
 
-        $expectedXml = '<?xml version="1.0"?>
+        $expectedXml = '<?xml version="1.0" encoding="UTF-8"?>
 <root><user>foo</user><user>bar</user></root>'.PHP_EOL;
 
         $result = ArrayToXml::convert($array);
@@ -200,7 +200,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
      */
     public function it_can_convert_attributes_to_xml()
     {
-        $expectedXml = '<?xml version="1.0"?>
+        $expectedXml = '<?xml version="1.0" encoding="UTF-8"?>
 <root><Good_guy nameType="1"><name>Luke Skywalker</name><weapon>Lightsaber</weapon></Good_guy><Bad_guy><name>Sauron</name><weapon>Evil Eye</weapon></Bad_guy></root>'.PHP_EOL;
         $withAttributes = $this->testArray;
         $withAttributes['Good guy']['_attributes'] = ['nameType' => 1];
