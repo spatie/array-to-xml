@@ -2,6 +2,9 @@
 
 All Notable changes to `array-to-xml` will be documented in this file
 
+## 2.1.1 - 2016-02-23
+- Fixed typo in the name of the `addSequentialNode`-function
+
 ## 2.1.0 - 2015-10-08
 - Add ability to use attributes
 
