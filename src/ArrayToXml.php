@@ -101,7 +101,7 @@ class ArrayToXml
             } elseif (is_array($data)) {
                 $this->addCollectionNode($element, $data);
             } else {
-                $this->addSequentualNode($element, $data);
+                $this->addSequentialNode($element, $data);
             }
         }
     }
@@ -153,7 +153,7 @@ class ArrayToXml
      *
      * @internal param string $key
      */
-    protected function addSequentualNode(DOMElement $element, $value)
+    protected function addSequentialNode(DOMElement $element, $value)
     {
         if (empty($element->nodeValue)) {
             $element->nodeValue = htmlspecialchars($value);
