@@ -54,7 +54,7 @@ class ArrayToXml
      * @param string   $rootElementName
      * @param bool     $replaceSpacesByUnderScoresInKeyNames
      *
-     * @return type
+     * @return string
      */
     public static function convert(array $array, $rootElementName = '', $replaceSpacesByUnderScoresInKeyNames = true)
     {
@@ -71,6 +71,16 @@ class ArrayToXml
     public function toXml()
     {
         return $this->document->saveXML();
+    }
+
+    /**
+     * Return as DOM object.
+     *
+     * @return DOMDocument
+     */
+    public function toDom()
+    {
+        return $this->document;
     }
 
     /**
