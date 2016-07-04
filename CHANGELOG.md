@@ -2,6 +2,9 @@
 
 All Notable changes to `array-to-xml` will be documented in this file
 
+# 2.2.0 - 2016-06-04
+- added `toDom` method
+
 ## 2.1.1 - 2016-02-23
 - Fixed typo in the name of the `addSequentialNode`-function
 
