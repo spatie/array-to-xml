@@ -208,4 +208,34 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($expectedXml, $result);
     }
+
+    /**
+     * @test
+     */
+    public function it_can_handle_values_set_with_attributes_with_special_characters()
+    {
+        $expectedXml = '<?xml version="1.0"?>
+<root><movie><title category="SF">STAR WARS</title></movie><movie><title category="Children">tom &amp; jerry</title></movie></root>'.PHP_EOL;
+
+        $array = [
+            'movie' => [
+                [
+                    'title' => [
+                        '_attributes' => ['category' => 'SF'],
+                        '_value' => 'STAR WARS'
+                    ]
+                ],
+                [
+                    'title' => [
+                        '_attributes' => ['category' => 'Children'],
+                        '_value' => 'tom & jerry'
+                    ]
+                ]
+            ]
+        ];
+
+        $result = ArrayToXml::convert($array);
+
+        $this->assertEquals($expectedXml, $result);
+    }
 }
