@@ -2,7 +2,10 @@
 
 All Notable changes to `array-to-xml` will be documented in this file
 
-# 2.2.0 - 2016-06-04
+## 2.3.0 - 2016-12-08
+- fixed an error when there is a special character to the value set in _value
+
+## 2.2.0 - 2016-06-04
 - added `toDom` method
 
 ## 2.1.1 - 2016-02-23
