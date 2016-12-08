@@ -36,7 +36,7 @@ class ArrayToXml
         $this->document = new DOMDocument();
         $this->replaceSpacesByUnderScoresInKeyNames = $replaceSpacesByUnderScoresInKeyNames;
 
-        if ($this->isArrayAllKeySequential($array) && !empty($array)) {
+        if ($this->isArrayAllKeySequential($array) && ! empty($array)) {
             throw new DOMException('Invalid Character Error');
         }
 
@@ -93,14 +93,14 @@ class ArrayToXml
     {
         $sequential = $this->isArrayAllKeySequential($value);
 
-        if (!is_array($value)) {
+        if (! is_array($value)) {
             $element->nodeValue = htmlspecialchars($value);
 
             return;
         }
 
         foreach ($value as $key => $data) {
-            if (!$sequential) {
+            if (! $sequential) {
                 if ($key === '_attributes') {
                     $this->addAttributes($element, $data);
                 } elseif ($key === '_value' && is_string($data)) {
@@ -185,7 +185,7 @@ class ArrayToXml
      */
     protected function isArrayAllKeySequential($value)
     {
-        if (!is_array($value)) {
+        if (! is_array($value)) {
             return false;
         }
 
@@ -193,7 +193,7 @@ class ArrayToXml
             return true;
         }
 
-        return array_unique(array_map('is_int', array_keys($value))) === array(true);
+        return array_unique(array_map('is_int', array_keys($value))) === [true];
     }
 
     /**
