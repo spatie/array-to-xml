@@ -101,9 +101,9 @@ class ArrayToXml
 
         foreach ($value as $key => $data) {
             if (! $sequential) {
-                if ($key === '_attributes') {
+                if (($key === '_attributes') || ($key === '@attributes')) {
                     $this->addAttributes($element, $data);
-                } elseif ($key === '_value' && is_string($data)) {
+                } elseif ((($key === '_value') || ($key === '@value')) && is_string($data)) {
                     $element->nodeValue = htmlspecialchars($data);
                 } else {
                     $this->addNode($element, $key, $data);
