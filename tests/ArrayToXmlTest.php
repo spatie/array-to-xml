@@ -212,6 +212,20 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function and_attributes_also_can_be_set_in_simplexmlelement_style()
+    {
+        $expectedXml = '<?xml version="1.0"?>
+<root><Good_guy nameType="1"><name>Luke Skywalker</name><weapon>Lightsaber</weapon></Good_guy><Bad_guy><name>Sauron</name><weapon>Evil Eye</weapon></Bad_guy></root>'.PHP_EOL;
+        $withAttributes = $this->testArray;
+        $withAttributes['Good guy']['@attributes'] = ['nameType' => 1];
+        $result = ArrayToXml::convert($withAttributes);
+
+        $this->assertEquals($expectedXml, $result);
+    }
+
+    /**
+     * @test
+     */
     public function it_can_handle_values_set_with_attributes_with_special_characters()
     {
         $expectedXml = '<?xml version="1.0"?>
@@ -229,6 +243,36 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
                     'title' => [
                         '_attributes' => ['category' => 'Children'],
                         '_value' => 'tom & jerry',
+                    ],
+                ],
+            ],
+        ];
+
+        $result = ArrayToXml::convert($array);
+
+        $this->assertEquals($expectedXml, $result);
+    }
+
+    /**
+     * @test
+     */
+    public function and_value_also_can_be_set_in_simplexmlelement_style()
+    {
+        $expectedXml = '<?xml version="1.0"?>
+<root><movie><title category="SF">STAR WARS</title></movie><movie><title category="Children">tom &amp; jerry</title></movie></root>'.PHP_EOL;
+
+        $array = [
+            'movie' => [
+                [
+                    'title' => [
+                        '@attributes' => ['category' => 'SF'],
+                        '@value' => 'STAR WARS',
+                    ],
+                ],
+                [
+                    'title' => [
+                        '@attributes' => ['category' => 'Children'],
+                        '@value' => 'tom & jerry',
                     ],
                 ],
             ],
