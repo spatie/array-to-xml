@@ -31,10 +31,17 @@ class ArrayToXml
      *
      * @throws DOMException
      */
-    public function __construct(array $array, $rootElementName = '', $replaceSpacesByUnderScoresInKeyNames = true)
+    public function __construct(array $array, $rootElementName = '', $options = [])
     {
-        $this->document = new DOMDocument();
-        $this->replaceSpacesByUnderScoresInKeyNames = $replaceSpacesByUnderScoresInKeyNames;
+        $options = array_merge([
+            'replaceSpacesByUnderScoresInKeyNames' => true,
+            'version'   => '1.0',
+            'encoding'  => 'UTF-8'
+        ],
+        $options);
+
+        $this->document = new DOMDocument($options['version'], $options['encoding']);
+        $this->replaceSpacesByUnderScoresInKeyNames = $options['replaceSpacesByUnderScoresInKeyNames'];
 
         if ($this->isArrayAllKeySequential($array) && ! empty($array)) {
             throw new DOMException('Invalid Character Error');
@@ -56,9 +63,9 @@ class ArrayToXml
      *
      * @return string
      */
-    public static function convert(array $array, $rootElementName = '', $replaceSpacesByUnderScoresInKeyNames = true)
+    public static function convert(array $array, $rootElementName = '', $options = [])
     {
-        $converter = new static($array, $rootElementName, $replaceSpacesByUnderScoresInKeyNames);
+        $converter = new static($array, $rootElementName, $options);
 
         return $converter->toXml();
     }
