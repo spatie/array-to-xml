@@ -2,6 +2,12 @@
 
 All Notable changes to `array-to-xml` will be documented in this file
 
+## 2.5.0 - 2017-05-22
+- allow encoding and version to be set
+
+## 2.4.0 - 2017-02-18
+- attributes and value can be set in SimpleXMLElement style
+
 ## 2.3.0 - 2017-02-18
 - attributes and value can be set in SimpleXMLElement style
 
@@ -24,10 +30,8 @@ All Notable changes to `array-to-xml` will be documented in this file
 - handle values with special characters
 
 ## 1.0.1 - 2015-03-18
-
 - use DOMDocument for better validation
 - added an option to opt out of the automatic space replacement
 
 ## 1.0.0 - 2015-03-17
-
 - initial release
