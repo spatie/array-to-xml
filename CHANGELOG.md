@@ -1,6 +1,6 @@
 # Changelog
 
-All Notable changes to `array-to-xml` will be documented in this file
+All notable changes to `array-to-xml` will be documented in this file
 
 ## 2.5.0 - 2017-05-22
 - allow encoding and version to be set
