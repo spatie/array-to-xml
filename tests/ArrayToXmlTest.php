@@ -136,6 +136,23 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_can_handle_xml_version()
+    {
+        $xmlVersion= '1.1';
+
+        $array = ['user' => ['een', 'twee', 'drie']];
+
+        $expectedXml = '<?xml version="1.1"?>
+<root><user>een</user><user>twee</user><user>drie</user></root>'.PHP_EOL;
+
+        $result = ArrayToXml::convert($array, '', false, null, $xmlVersion);
+
+        $this->assertEquals($expectedXml, $result);
+    }
+
+    /**
+     * @test
+     */
     public function it_can_handle_values_as_collection()
     {
         $array = [
