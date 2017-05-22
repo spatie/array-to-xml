@@ -28,12 +28,14 @@ class ArrayToXml
      * @param string[] $array
      * @param string   $rootElementName
      * @param bool     $replaceSpacesByUnderScoresInKeyNames
+     * @param string   $xmlEncoding
+     * @param string   $xmlVersion
      *
      * @throws DOMException
      */
-    public function __construct(array $array, $rootElementName = '', $replaceSpacesByUnderScoresInKeyNames = true)
+    public function __construct(array $array, $rootElementName = '', $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0')
     {
-        $this->document = new DOMDocument();
+        $this->document = new DOMDocument($xmlVersion, $xmlEncoding);
         $this->replaceSpacesByUnderScoresInKeyNames = $replaceSpacesByUnderScoresInKeyNames;
 
         if ($this->isArrayAllKeySequential($array) && ! empty($array)) {
@@ -53,12 +55,14 @@ class ArrayToXml
      * @param string[] $array
      * @param string   $rootElementName
      * @param bool     $replaceSpacesByUnderScoresInKeyNames
+     * @param string   $xmlEncoding
+     * @param string   $xmlVersion
      *
      * @return string
      */
-    public static function convert(array $array, $rootElementName = '', $replaceSpacesByUnderScoresInKeyNames = true)
+    public static function convert(array $array, $rootElementName = '', $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0')
     {
-        $converter = new static($array, $rootElementName, $replaceSpacesByUnderScoresInKeyNames);
+        $converter = new static($array, $rootElementName, $replaceSpacesByUnderScoresInKeyNames, $xmlEncoding, $xmlVersion);
 
         return $converter->toXml();
     }
