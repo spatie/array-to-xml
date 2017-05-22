@@ -138,7 +138,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
      */
     public function it_can_handle_xml_version()
     {
-        $xmlVersion= '1.1';
+        $xmlVersion = '1.1';
 
         $array = ['user' => ['een', 'twee', 'drie']];
 
