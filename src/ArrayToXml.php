@@ -33,7 +33,7 @@ class ArrayToXml
      *
      * @throws DOMException
      */
-    public function __construct(array $array, $rootElementName = '', $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = 'UTF-8', $xmlVersion = '1.0')
+    public function __construct(array $array, $rootElementName = '', $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0')
     {
         $this->document = new DOMDocument($xmlVersion, $xmlEncoding);
         $this->replaceSpacesByUnderScoresInKeyNames = $replaceSpacesByUnderScoresInKeyNames;
@@ -55,12 +55,14 @@ class ArrayToXml
      * @param string[] $array
      * @param string   $rootElementName
      * @param bool     $replaceSpacesByUnderScoresInKeyNames
+     * @param string   $xmlEncoding
+     * @param string   $xmlVersion
      *
      * @return string
      */
-    public static function convert(array $array, $rootElementName = '', $replaceSpacesByUnderScoresInKeyNames = true)
+    public static function convert(array $array, $rootElementName = '', $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0')
     {
-        $converter = new static($array, $rootElementName, $replaceSpacesByUnderScoresInKeyNames);
+        $converter = new static($array, $rootElementName, $replaceSpacesByUnderScoresInKeyNames, $xmlEncoding, $xmlVersion);
 
         return $converter->toXml();
     }
