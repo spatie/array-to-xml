@@ -119,7 +119,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_can_handle_xml_encoding_type()
+    public function it_accepts_an_xml_encoding_type()
     {
         $xmlEncoding = 'UTF-8';
 
@@ -136,7 +136,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_can_handle_xml_version()
+    public function it_accepts_an_xml_version()
     {
         $xmlVersion= '1.1';
 
