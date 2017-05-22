@@ -1,9 +1,12 @@
 <?php
 
 use Spatie\ArrayToXml\ArrayToXml;
+use Spatie\Snapshots\MatchesSnapshots;
 
 class ArrayToXmlTest extends PHPUnit_Framework_TestCase
 {
+    use MatchesSnapshots;
+
     /**
      * @var array
      */
@@ -31,12 +34,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
      */
     public function it_can_convert_an_array_to_xml()
     {
-        $expectedXml = '<?xml version="1.0"?>
-<root><Good_guy><name>Luke Skywalker</name><weapon>Lightsaber</weapon></Good_guy><Bad_guy><name>Sauron</name><weapon>Evil Eye</weapon></Bad_guy></root>'.PHP_EOL;
-
-        $result = ArrayToXml::convert($this->testArray);
-
-        $this->assertEquals($expectedXml, $result);
+        $this->assertMatchesXmlSnapshot(ArrayToXml::convert($this->testArray));
     }
 
     /**
@@ -44,14 +42,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
      */
     public function it_can_handle_an_empty_array()
     {
-        $array = [];
-
-        $expectedXml = '<?xml version="1.0"?>
-<root/>'.PHP_EOL;
-
-        $result = ArrayToXml::convert($array);
-
-        $this->assertEquals($expectedXml, $result);
+        $this->assertMatchesXmlSnapshot(ArrayToXml::convert([]));
     }
 
     /**
@@ -59,16 +50,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
      */
     public function it_can_receive_name_for_the_root_element()
     {
-        $rootElementName = 'helloyouluckpeople';
-
-        $array = [];
-
-        $expectedXml = '<?xml version="1.0"?>
-<'.$rootElementName.'/>'.PHP_EOL;
-
-        $result = ArrayToXml::convert($array, $rootElementName);
-
-        $this->assertEquals($expectedXml, $result);
+        $this->assertMatchesXmlSnapshot(ArrayToXml::convert([], 'helloyouluckpeople'));
     }
 
     /**
@@ -106,14 +88,9 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
      */
     public function it_can_handle_values_as_basic_collection()
     {
-        $array = ['user' => ['een', 'twee', 'drie']];
-
-        $expectedXml = '<?xml version="1.0"?>
-<root><user>een</user><user>twee</user><user>drie</user></root>'.PHP_EOL;
-
-        $result = ArrayToXml::convert($array);
-
-        $this->assertEquals($expectedXml, $result);
+        $this->assertMatchesXmlSnapshot(ArrayToXml::convert([
+            'user' => ['one', 'two', 'three']
+        ]));
     }
 
     /**
@@ -121,16 +98,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
      */
     public function it_accepts_an_xml_encoding_type()
     {
-        $xmlEncoding = 'UTF-8';
-
-        $array = ['user' => ['een', 'twee', 'drie']];
-
-        $expectedXml = '<?xml version="1.0" encoding="UTF-8"?>
-<root><user>een</user><user>twee</user><user>drie</user></root>'.PHP_EOL;
-
-        $result = ArrayToXml::convert($array, '', false, $xmlEncoding);
-
-        $this->assertEquals($expectedXml, $result);
+        $this->assertMatchesXmlSnapshot(ArrayToXml::convert([], '', false, 'UTF-8'));
     }
 
     /**
@@ -138,16 +106,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
      */
     public function it_accepts_an_xml_version()
     {
-        $xmlVersion= '1.1';
-
-        $array = ['user' => ['een', 'twee', 'drie']];
-
-        $expectedXml = '<?xml version="1.1"?>
-<root><user>een</user><user>twee</user><user>drie</user></root>'.PHP_EOL;
-
-        $result = ArrayToXml::convert($array, '', false, null, $xmlVersion);
-
-        $this->assertEquals($expectedXml, $result);
+        $this->assertMatchesSnapshot(ArrayToXml::convert([], '', false, null, '1.1'));
     }
 
     /**
@@ -155,7 +114,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
      */
     public function it_can_handle_values_as_collection()
     {
-        $array = [
+        $this->assertMatchesXmlSnapshot(ArrayToXml::convert([
             'user' => [
                 [
                     'name' => 'een',
@@ -166,14 +125,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
                     'age' => 12,
                 ],
             ],
-        ];
-
-        $expectedXml = '<?xml version="1.0"?>
-<root><user><name>een</name><age>10</age></user><user><name>twee</name><age>12</age></user></root>'.PHP_EOL;
-
-        $result = ArrayToXml::convert($array);
-
-        $this->assertEquals($expectedXml, $result);
+        ]));
     }
 
     /**
@@ -183,7 +135,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
     {
         $this->setExpectedException('DOMException');
 
-        $array = [
+        ArrayToXml::convert([
             'user' => [
                 [
                     'name' => 'een',
@@ -194,9 +146,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
                     'age' => 12,
                 ],
             ],
-        ];
-
-        ArrayToXml::convert($array);
+        ]);
     }
 
     /**
@@ -204,14 +154,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
      */
     public function it_can_handle_values_with_special_characters()
     {
-        $array = ['name' => 'this & that'];
-
-        $expectedXml = '<?xml version="1.0"?>
-<root><name>this &amp; that</name></root>'.PHP_EOL;
-
-        $result = ArrayToXml::convert($array);
-
-        $this->assertEquals($expectedXml, $result);
+        $this->assertMatchesXmlSnapshot(ArrayToXml::convert( ['name' => 'this & that']));
     }
 
     /**
@@ -219,14 +162,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
      */
     public function it_can_group_by_values_when_values_are_in_a_numeric_array()
     {
-        $array = ['user' => ['foo', 'bar']];
-
-        $expectedXml = '<?xml version="1.0"?>
-<root><user>foo</user><user>bar</user></root>'.PHP_EOL;
-
-        $result = ArrayToXml::convert($array);
-
-        $this->assertEquals($expectedXml, $result);
+        $this->assertMatchesXmlSnapshot(ArrayToXml::convert(['user' => ['foo', 'bar']]));
     }
 
     /**
@@ -234,13 +170,11 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
      */
     public function it_can_convert_attributes_to_xml()
     {
-        $expectedXml = '<?xml version="1.0"?>
-<root><Good_guy nameType="1"><name>Luke Skywalker</name><weapon>Lightsaber</weapon></Good_guy><Bad_guy><name>Sauron</name><weapon>Evil Eye</weapon></Bad_guy></root>'.PHP_EOL;
         $withAttributes = $this->testArray;
-        $withAttributes['Good guy']['_attributes'] = ['nameType' => 1];
-        $result = ArrayToXml::convert($withAttributes);
 
-        $this->assertEquals($expectedXml, $result);
+        $withAttributes['Good guy']['_attributes'] = ['nameType' => 1];
+
+        $this->assertMatchesXmlSnapshot(ArrayToXml::convert($withAttributes));
     }
 
     /**
@@ -248,13 +182,11 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
      */
     public function and_attributes_also_can_be_set_in_simplexmlelement_style()
     {
-        $expectedXml = '<?xml version="1.0"?>
-<root><Good_guy nameType="1"><name>Luke Skywalker</name><weapon>Lightsaber</weapon></Good_guy><Bad_guy><name>Sauron</name><weapon>Evil Eye</weapon></Bad_guy></root>'.PHP_EOL;
         $withAttributes = $this->testArray;
-        $withAttributes['Good guy']['@attributes'] = ['nameType' => 1];
-        $result = ArrayToXml::convert($withAttributes);
 
-        $this->assertEquals($expectedXml, $result);
+        $withAttributes['Good guy']['@attributes'] = ['nameType' => 1];
+
+        $this->assertMatchesXmlSnapshot(ArrayToXml::convert($withAttributes));
     }
 
     /**
@@ -262,10 +194,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
      */
     public function it_can_handle_values_set_with_attributes_with_special_characters()
     {
-        $expectedXml = '<?xml version="1.0"?>
-<root><movie><title category="SF">STAR WARS</title></movie><movie><title category="Children">tom &amp; jerry</title></movie></root>'.PHP_EOL;
-
-        $array = [
+        $this->assertMatchesXmlSnapshot(ArrayToXml::convert([
             'movie' => [
                 [
                     'title' => [
@@ -280,11 +209,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
                     ],
                 ],
             ],
-        ];
-
-        $result = ArrayToXml::convert($array);
-
-        $this->assertEquals($expectedXml, $result);
+        ]));
     }
 
     /**
@@ -292,10 +217,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
      */
     public function and_value_also_can_be_set_in_simplexmlelement_style()
     {
-        $expectedXml = '<?xml version="1.0"?>
-<root><movie><title category="SF">STAR WARS</title></movie><movie><title category="Children">tom &amp; jerry</title></movie></root>'.PHP_EOL;
-
-        $array = [
+        $this->assertMatchesXmlSnapshot(ArrayToXml::convert([
             'movie' => [
                 [
                     'title' => [
@@ -310,10 +232,6 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
                     ],
                 ],
             ],
-        ];
-
-        $result = ArrayToXml::convert($array);
-
-        $this->assertEquals($expectedXml, $result);
+        ]));
     }
 }

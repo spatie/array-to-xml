@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<root>
+  <user>
+    <name>een</name>
+    <age>10</age>
+  </user>
+  <user>
+    <name>twee</name>
+    <age>12</age>
+  </user>
+</root>
