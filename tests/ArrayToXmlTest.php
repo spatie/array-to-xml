@@ -89,7 +89,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
     public function it_can_handle_values_as_basic_collection()
     {
         $this->assertMatchesXmlSnapshot(ArrayToXml::convert([
-            'user' => ['one', 'two', 'three']
+            'user' => ['one', 'two', 'three'],
         ]));
     }
 
@@ -154,7 +154,7 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
      */
     public function it_can_handle_values_with_special_characters()
     {
-        $this->assertMatchesXmlSnapshot(ArrayToXml::convert( ['name' => 'this & that']));
+        $this->assertMatchesXmlSnapshot(ArrayToXml::convert(['name' => 'this & that']));
     }
 
     /**
