@@ -2,6 +2,9 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 2.5.1 - 2017-05-30
+- PHP 7 is now required
+
 ## 2.5.0 - 2017-05-22
 - allow encoding and version to be set
 
