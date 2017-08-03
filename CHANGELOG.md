@@ -2,6 +2,9 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 2.5.2 - 2017-08-03
+- avoid pulling in the snapshot package on install
+
 ## 2.5.1 - 2017-05-30
 - PHP 7 is now required
 
