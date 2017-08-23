@@ -229,14 +229,11 @@ class ArrayToXml
 
         if (is_array($rootElement)) {
             foreach ($rootElement as $key => $value) {
-                switch ($key) {
-                    case '_attributes':
-                    case '@attributes':
-                        $this->addAttributes($element, $rootElement[$key]);
-                        break;
-                    default:
-                        break;
+                if ($key !== '_attributes' && $key !== '@attributes') {
+                    continue;
                 }
+
+                $this->addAttributes($element, $rootElement[$key]);
             }
         }
 
