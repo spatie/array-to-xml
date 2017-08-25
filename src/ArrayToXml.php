@@ -25,11 +25,11 @@ class ArrayToXml
     /**
      * Construct a new instance.
      *
-     * @param string[]     $array
+     * @param string[] $array
      * @param string|array $rootElement
-     * @param bool         $replaceSpacesByUnderScoresInKeyNames
-     * @param string       $xmlEncoding
-     * @param string       $xmlVersion
+     * @param bool $replaceSpacesByUnderScoresInKeyNames
+     * @param string $xmlEncoding
+     * @param string $xmlVersion
      *
      * @throws DOMException
      */
@@ -38,7 +38,7 @@ class ArrayToXml
         $this->document = new DOMDocument($xmlVersion, $xmlEncoding);
         $this->replaceSpacesByUnderScoresInKeyNames = $replaceSpacesByUnderScoresInKeyNames;
 
-        if ($this->isArrayAllKeySequential($array) && ! empty($array)) {
+        if ($this->isArrayAllKeySequential($array) && !empty($array)) {
             throw new DOMException('Invalid Character Error');
         }
 
@@ -53,10 +53,10 @@ class ArrayToXml
      * Convert the given array to an xml string.
      *
      * @param string[] $array
-     * @param string   $rootElementName
-     * @param bool     $replaceSpacesByUnderScoresInKeyNames
-     * @param string   $xmlEncoding
-     * @param string   $xmlVersion
+     * @param string $rootElementName
+     * @param bool $replaceSpacesByUnderScoresInKeyNames
+     * @param string $xmlEncoding
+     * @param string $xmlVersion
      *
      * @return string
      */
@@ -90,21 +90,21 @@ class ArrayToXml
     /**
      * Parse individual element.
      *
-     * @param \DOMElement     $element
+     * @param \DOMElement $element
      * @param string|string[] $value
      */
     private function convertElement(DOMElement $element, $value)
     {
         $sequential = $this->isArrayAllKeySequential($value);
 
-        if (! is_array($value)) {
+        if (!is_array($value)) {
             $element->nodeValue = htmlspecialchars($value);
 
             return;
         }
 
         foreach ($value as $key => $data) {
-            if (! $sequential) {
+            if (!$sequential) {
                 if (($key === '_attributes') || ($key === '@attributes')) {
                     $this->addAttributes($element, $data);
                 } elseif ((($key === '_value') || ($key === '@value')) && is_string($data)) {
@@ -123,8 +123,8 @@ class ArrayToXml
     /**
      * Add node.
      *
-     * @param \DOMElement     $element
-     * @param string          $key
+     * @param \DOMElement $element
+     * @param string $key
      * @param string|string[] $value
      */
     protected function addNode(DOMElement $element, $key, $value)
@@ -141,7 +141,7 @@ class ArrayToXml
     /**
      * Add collection node.
      *
-     * @param \DOMElement     $element
+     * @param \DOMElement $element
      * @param string|string[] $value
      *
      * @internal param string $key
@@ -162,7 +162,7 @@ class ArrayToXml
     /**
      * Add sequential node.
      *
-     * @param \DOMElement     $element
+     * @param \DOMElement $element
      * @param string|string[] $value
      *
      * @internal param string $key
@@ -189,7 +189,7 @@ class ArrayToXml
      */
     protected function isArrayAllKeySequential($value)
     {
-        if (! is_array($value)) {
+        if (!is_array($value)) {
             return false;
         }
 
@@ -204,7 +204,7 @@ class ArrayToXml
      * Add attributes.
      *
      * @param \DOMElement $element
-     * @param string[]    $data
+     * @param string[] $data
      */
     protected function addAttributes($element, $data)
     {
@@ -221,20 +221,22 @@ class ArrayToXml
      */
     protected function createRootElement($rootElement)
     {
-        $rootElementName = is_array($rootElement)
-            ? $rootElement['rootElementName'] ?? ''
-            : $rootElement;
+        if (is_string($rootElement)) {
+            $rootElementName = $rootElement ?: 'root';
 
-        $element = $this->document->createElement($rootElementName == '' ? 'root' : $rootElementName);
+            return $this->document->createElement($rootElementName);
+        }
 
-        if (is_array($rootElement)) {
-            foreach ($rootElement as $key => $value) {
-                if ($key !== '_attributes' && $key !== '@attributes') {
-                    continue;
-                }
+        $rootElementName = $rootElement['rootElementName'] ?? 'root';
 
-                $this->addAttributes($element, $rootElement[$key]);
+        $element = $this->document->createElement($rootElementName);
+
+        foreach ($rootElement as $key => $value) {
+            if ($key !== '_attributes' && $key !== '@attributes') {
+                continue;
             }
+
+            $this->addAttributes($element, $rootElement[$key]);
         }
 
         return $element;
