@@ -2,6 +2,9 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 2.6.0 - 2017-08-25
+- add support for naming a root element and adding properties to it
+
 ## 2.5.2 - 2017-08-03
 - avoid pulling in the snapshot package on install
 
