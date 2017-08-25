@@ -107,6 +107,18 @@ This code will result in:
 
 If your input contains something that cannot be parsed a `DOMException` will be thrown.
 
+To add attributes to the root element provide an array with an `_attributes` key as the second argument. 
+The root element name can then be set using the `rootElementName` key.
+
+```php
+$result = ArrayToXml::convert($array, [
+    'rootElementName' => 'helloyouluckpeople',
+    '_attributes' => [
+        'xmlns' => 'https://github.com/spatie/array-to-xml',
+    ],
+]);
+```
+
 ## Testing
 
 ```bash

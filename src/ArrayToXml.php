@@ -25,15 +25,15 @@ class ArrayToXml
     /**
      * Construct a new instance.
      *
-     * @param string[] $array
-     * @param string   $rootElementName
-     * @param bool     $replaceSpacesByUnderScoresInKeyNames
-     * @param string   $xmlEncoding
-     * @param string   $xmlVersion
+     * @param string[]     $array
+     * @param string|array $rootElement
+     * @param bool         $replaceSpacesByUnderScoresInKeyNames
+     * @param string       $xmlEncoding
+     * @param string       $xmlVersion
      *
      * @throws DOMException
      */
-    public function __construct(array $array, $rootElementName = '', $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0')
+    public function __construct(array $array, $rootElement = '', $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0')
     {
         $this->document = new DOMDocument($xmlVersion, $xmlEncoding);
         $this->replaceSpacesByUnderScoresInKeyNames = $replaceSpacesByUnderScoresInKeyNames;
@@ -42,7 +42,7 @@ class ArrayToXml
             throw new DOMException('Invalid Character Error');
         }
 
-        $root = $this->document->createElement($rootElementName == '' ? 'root' : $rootElementName);
+        $root = $this->createRootElement($rootElement);
 
         $this->document->appendChild($root);
 
@@ -211,5 +211,32 @@ class ArrayToXml
         foreach ($data as $attrKey => $attrVal) {
             $element->setAttribute($attrKey, $attrVal);
         }
+    }
+
+    /**
+     * Create the root element.
+     *
+     * @param  string|array $rootElement
+     * @return DOMElement
+     */
+    protected function createRootElement($rootElement)
+    {
+        $rootElementName = is_array($rootElement)
+            ? $rootElement['rootElementName'] ?? ''
+            : $rootElement;
+
+        $element = $this->document->createElement($rootElementName == '' ? 'root' : $rootElementName);
+
+        if (is_array($rootElement)) {
+            foreach ($rootElement as $key => $value) {
+                if ($key !== '_attributes' && $key !== '@attributes') {
+                    continue;
+                }
+
+                $this->addAttributes($element, $rootElement[$key]);
+            }
+        }
+
+        return $element;
     }
 }

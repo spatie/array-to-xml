@@ -56,6 +56,40 @@ class ArrayToXmlTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_can_receive_name_from_array_for_the_root_element()
+    {
+        $this->assertMatchesXmlSnapshot(ArrayToXml::convert([], [
+            'rootElementName' => 'helloyouluckpeople',
+        ]));
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_convert_attributes_to_xml_for_the_root_element()
+    {
+        $this->assertMatchesXmlSnapshot(ArrayToXml::convert([], [
+            '_attributes' => [
+                'xmlns' => 'https://github.com/spatie/array-to-xml',
+            ],
+        ]));
+    }
+
+    /**
+     * @test
+     */
+    public function and_root_element_attributes_can_also_be_set_in_simplexmlelement_style()
+    {
+        $this->assertMatchesXmlSnapshot(ArrayToXml::convert([], [
+            '@attributes' => [
+                'xmlns' => 'https://github.com/spatie/array-to-xml',
+            ],
+        ]));
+    }
+
+    /**
+     * @test
+     */
     public function it_throws_an_exception_when_converting_an_array_with_no_keys()
     {
         $this->setExpectedException('DOMException');
