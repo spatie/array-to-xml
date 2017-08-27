@@ -179,6 +179,27 @@ class ArrayToXmlTest extends TestCase
     }
 
     /** @test */
+    public function it_can_handle_attributes_as_collection()
+    {
+        $this->assertMatchesXmlSnapshot(ArrayToXml::convert([
+            'user' => [
+                [
+                    '_attributes' => [
+                        'name' => 'een',
+                        'age' => 10,
+                    ]
+                ],
+                [
+                    '_attributes' => [
+                        'name' => 'twee',
+                        'age' => 12,
+                    ]
+                ],
+            ],
+        ]));
+    }
+
+    /** @test */
     public function and_attributes_also_can_be_set_in_simplexmlelement_style()
     {
         $withAttributes = $this->testArray;
