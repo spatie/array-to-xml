@@ -148,7 +148,7 @@ class ArrayToXml
      */
     protected function addCollectionNode(DOMElement $element, $value)
     {
-        if ($element->childNodes->length == 0 && $element->attributes->length == 0) {
+        if ($element->childNodes->length === 0 && $element->attributes->length === 0) {
             $this->convertElement($element, $value);
 
             return;
