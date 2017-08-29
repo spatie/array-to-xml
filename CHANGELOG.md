@@ -2,6 +2,9 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 2.6.1- 2017-08-29
+- add fix for multiple empty/self-closing child elements
+
 ## 2.6.0 - 2017-08-25
 - add support for naming a root element and adding properties to it
 
