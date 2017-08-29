@@ -187,13 +187,13 @@ class ArrayToXmlTest extends TestCase
                     '_attributes' => [
                         'name' => 'een',
                         'age' => 10,
-                    ]
+                    ],
                 ],
                 [
                     '_attributes' => [
                         'name' => 'twee',
                         'age' => 12,
-                    ]
+                    ],
                 ],
             ],
         ]));
