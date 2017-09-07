@@ -11,7 +11,7 @@ class ArrayToXml
     /**
      * The root DOM Document.
      *
-     * @var \DOMDocument
+     * @var DOMDocument
      */
     protected $document;
 
@@ -90,7 +90,7 @@ class ArrayToXml
     /**
      * Parse individual element.
      *
-     * @param \DOMElement $element
+     * @param DOMElement $element
      * @param string|string[] $value
      */
     private function convertElement(DOMElement $element, $value)
@@ -109,6 +109,8 @@ class ArrayToXml
                     $this->addAttributes($element, $data);
                 } elseif ((($key === '_value') || ($key === '@value')) && is_string($data)) {
                     $element->nodeValue = htmlspecialchars($data);
+                } elseif ((($key === '_cdata') || ($key === '@cdata')) && is_string($data)) {
+                    $element->appendChild($this->document->createCDATASection($data));
                 } else {
                     $this->addNode($element, $key, $data);
                 }
@@ -123,7 +125,7 @@ class ArrayToXml
     /**
      * Add node.
      *
-     * @param \DOMElement $element
+     * @param DOMElement $element
      * @param string $key
      * @param string|string[] $value
      */
@@ -141,7 +143,7 @@ class ArrayToXml
     /**
      * Add collection node.
      *
-     * @param \DOMElement $element
+     * @param DOMElement $element
      * @param string|string[] $value
      *
      * @internal param string $key
@@ -162,7 +164,7 @@ class ArrayToXml
     /**
      * Add sequential node.
      *
-     * @param \DOMElement $element
+     * @param DOMElement $element
      * @param string|string[] $value
      *
      * @internal param string $key
@@ -203,7 +205,7 @@ class ArrayToXml
     /**
      * Add attributes.
      *
-     * @param \DOMElement $element
+     * @param DOMElement $element
      * @param string[] $data
      */
     protected function addAttributes($element, $data)

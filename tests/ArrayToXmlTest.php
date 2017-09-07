@@ -250,4 +250,46 @@ class ArrayToXmlTest extends TestCase
             ],
         ]));
     }
+
+    /** @test */
+    public function it_can_handle_values_set_as_cdata()
+    {
+        $this->assertMatchesSnapshot(ArrayToXml::convert([
+            'movie' => [
+                [
+                    'title' => [
+                        '_attributes' => ['category' => 'SF'],
+                        '_cdata' => '<p>STAR WARS</p>',
+                    ],
+                ],
+                [
+                    'title' => [
+                        '_attributes' => ['category' => 'Children'],
+                        '_cdata' => '<p>tom & jerry</p>',
+                    ],
+                ],
+            ],
+        ]));
+    }
+
+    /** @test */
+    public function and_cdata_values_can_also_be_set_in_simplexmlelement_style()
+    {
+        $this->assertMatchesSnapshot(ArrayToXml::convert([
+            'movie' => [
+                [
+                    'title' => [
+                        '@attributes' => ['category' => 'SF'],
+                        '@cdata' => '<p>STAR WARS</p>',
+                    ],
+                ],
+                [
+                    'title' => [
+                        '@attributes' => ['category' => 'Children'],
+                        '@cdata' => '<p>tom & jerry</p>',
+                    ],
+                ],
+            ],
+        ]));
+    }
 }
