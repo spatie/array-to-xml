@@ -105,6 +105,41 @@ This code will result in:
 </root>
 ```
 
+It is also possible to wrap the value of a node into a CDATA section. This allows you to use reserved characters.
+
+```php
+$array = [
+    'Good guy' => [
+        'name' => [
+            '_cdata' => '<h1>Luke Skywalker</h1>'
+        ],
+        'weapon' => 'Lightsaber'
+    ],
+    'Bad guy' => [
+        'name' => '<h1>Sauron</h1>',
+        'weapon' => 'Evil Eye'
+    ]
+];
+
+$result = ArrayToXml::convert($array);
+```
+
+This code will result in:
+
+```xml
+<?xml version="1.0"?>
+<root>
+    <Good_guy>
+        <name><![CDATA[<h1>Luke Skywalker</h1>]]></name>
+        <weapon>Lightsaber</weapon>
+    </Good_guy>
+    <Bad_guy>
+        <name>&lt;h1&gt;Sauron&lt;/h1&gt;</name>
+        <weapon>Evil Eye</weapon>
+    </Bad_guy>
+</root>
+```
+
 If your input contains something that cannot be parsed a `DOMException` will be thrown.
 
 To add attributes to the root element provide an array with an `_attributes` key as the second argument. 
