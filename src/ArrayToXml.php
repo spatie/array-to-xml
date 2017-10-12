@@ -105,11 +105,11 @@ class ArrayToXml
 
         foreach ($value as $key => $data) {
             if (! $sequential) {
-                if (($key === '_attributes') || ($key === '@attributes')) {
+                if (preg_match("/^[@_]attributes$/", $key)) {
                     $this->addAttributes($element, $data);
-                } elseif ((($key === '_value') || ($key === '@value')) && is_string($data)) {
+                } elseif (preg_match("/^[@_]value$/", $key) && is_string($data)) {
                     $element->nodeValue = htmlspecialchars($data);
-                } elseif ((($key === '_cdata') || ($key === '@cdata')) && is_string($data)) {
+                } elseif (preg_match("/^[@_]cdata$/", $key) && is_string($data)) {
                     $element->appendChild($this->document->createCDATASection($data));
                 } else {
                     $this->addNode($element, $key, $data);
