@@ -68,7 +68,7 @@ You can use a key named `_attributes` to add attributes to a node.
 ```php
 $array = [
     'Good guy' => [
-        '_attributes' => ['attr1' => 'value']
+        '_attributes' => ['attr1' => 'value'],
         'name' => 'Luke Skywalker',
         'weapon' => 'Lightsaber'
     ],
