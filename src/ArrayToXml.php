@@ -229,7 +229,7 @@ class ArrayToXml
             return $this->document->createElement($rootElementName);
         }
 
-        $rootElementName = $rootElement['rootElementName'] ?? 'root';
+        $rootElementName = $rootElement['rootElementName'] ?: 'root';
 
         $element = $this->document->createElement($rootElementName);
 
