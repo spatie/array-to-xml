@@ -139,7 +139,7 @@ The root element name can then be set using the `rootElementName` key.
 
 ```php
 $result = ArrayToXml::convert($array, [
-    'rootElementName' => 'helloyouluckpeople',
+    'rootElementName' => 'helloyouluckypeople',
     '_attributes' => [
         'xmlns' => 'https://github.com/spatie/array-to-xml',
     ],
