@@ -292,4 +292,18 @@ class ArrayToXmlTest extends TestCase
             ],
         ]));
     }
+
+    /** @test */
+    public function it_doesnt_pollute_attributes_in_collection_and_sequential_nodes()
+    {
+        $this->assertMatchesSnapshot(ArrayToXml::convert([
+            'books' => [
+                'book' => [
+                    ['name' => 'A', '@attributes' => ['z' => 1]],
+                    ['name' => 'B'],
+                    ['name' => 'C'],
+                ]
+            ]
+        ]));
+    }
 }

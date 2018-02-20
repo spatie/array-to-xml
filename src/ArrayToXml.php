@@ -156,7 +156,7 @@ class ArrayToXml
             return;
         }
 
-        $child = $element->cloneNode();
+        $child = new DOMElement($element->tagName);
         $element->parentNode->appendChild($child);
         $this->convertElement($child, $value);
     }
@@ -177,7 +177,7 @@ class ArrayToXml
             return;
         }
 
-        $child = $element->cloneNode();
+        $child = new DOMElement($element->tagName);
         $child->nodeValue = htmlspecialchars($value);
         $element->parentNode->appendChild($child);
     }
