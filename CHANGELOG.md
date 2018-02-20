@@ -2,6 +2,9 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 2.7.1 - 2018-02-02
+- fix setting attributes
+
 ## 2.7.0 - 2017-09-07
 - allow wrapping data in a CDATA section
 
