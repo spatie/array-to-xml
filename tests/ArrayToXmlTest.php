@@ -302,8 +302,8 @@ class ArrayToXmlTest extends TestCase
                     ['name' => 'A', '@attributes' => ['z' => 1]],
                     ['name' => 'B'],
                     ['name' => 'C'],
-                ]
-            ]
+                ],
+            ],
         ]));
     }
 }
