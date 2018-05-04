@@ -306,4 +306,15 @@ class ArrayToXmlTest extends TestCase
             ],
         ]));
     }
+
+    /** @test */
+    public function it_can_convert_array_to_dom()
+    {
+        $resultDom = (new ArrayToXml($this->testArray))->toDom();
+
+        $this->assertSame('Luke Skywalker', $resultDom->getElementsByTagName('name')->item(0)->nodeValue);
+        $this->assertSame('Sauron', $resultDom->getElementsByTagName('name')->item(1)->nodeValue);
+        $this->assertSame('Lightsaber', $resultDom->getElementsByTagName('weapon')->item(0)->nodeValue);
+        $this->assertSame('Evil Eye', $resultDom->getElementsByTagName('weapon')->item(1)->nodeValue);
+    }
 }
