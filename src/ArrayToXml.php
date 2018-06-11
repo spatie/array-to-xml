@@ -44,10 +44,10 @@ class ArrayToXml
             throw new DOMException('Invalid Character Error');
         }
         
-		if (!empty($docTypeArray)) {
-			$docType = $this->createDocType($docTypeArray);
-			$this->document->appendChild($docType);
-		}
+        if (!empty($docTypeArray)) {
+            $docType = $this->createDocType($docTypeArray);
+            $this->document->appendChild($docType);
+        }
         
         $root = $this->createRootElement($rootElement);
 
