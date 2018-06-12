@@ -5,6 +5,7 @@ namespace Spatie\ArrayToXml;
 use DOMElement;
 use DOMDocument;
 use DOMException;
+use DOMImplementation;
 
 class ArrayToXml
 {
@@ -30,16 +31,22 @@ class ArrayToXml
      * @param bool $replaceSpacesByUnderScoresInKeyNames
      * @param string $xmlEncoding
      * @param string $xmlVersion
+     * @param array $docTypeArray
      *
      * @throws DOMException
      */
-    public function __construct(array $array, $rootElement = '', $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0')
+    public function __construct(array $array, $rootElement = '', $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0', $docTypeArray = [])
     {
         $this->document = new DOMDocument($xmlVersion, $xmlEncoding);
         $this->replaceSpacesByUnderScoresInKeyNames = $replaceSpacesByUnderScoresInKeyNames;
 
         if ($this->isArrayAllKeySequential($array) && ! empty($array)) {
             throw new DOMException('Invalid Character Error');
+        }
+
+        if (! empty($docTypeArray)) {
+            $docType = $this->createDocType($docTypeArray);
+            $this->document->appendChild($docType);
         }
 
         $root = $this->createRootElement($rootElement);
@@ -57,12 +64,13 @@ class ArrayToXml
      * @param bool $replaceSpacesByUnderScoresInKeyNames
      * @param string $xmlEncoding
      * @param string $xmlVersion
+     * @param array $docTypeArray
      *
      * @return string
      */
-    public static function convert(array $array, $rootElementName = '', $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0')
+    public static function convert(array $array, $rootElementName = '', $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0', $docTypeArray = [])
     {
-        $converter = new static($array, $rootElementName, $replaceSpacesByUnderScoresInKeyNames, $xmlEncoding, $xmlVersion);
+        $converter = new static($array, $rootElementName, $replaceSpacesByUnderScoresInKeyNames, $xmlEncoding, $xmlVersion, $docTypeArray);
 
         return $converter->toXml();
     }
@@ -242,5 +250,18 @@ class ArrayToXml
         }
 
         return $element;
+    }
+
+    /**
+     * Pass in an array of elements to set the doctype of the XML.
+     * @param $docTypeArray
+     *
+     * @return \DOMDocumentType
+     */
+    protected function createDocType($docTypeArray)
+    {
+        $implementation = new DOMImplementation();
+
+        return $implementation->createDocumentType($docTypeArray[0], $docTypeArray[1], $docTypeArray[2]);
     }
 }
