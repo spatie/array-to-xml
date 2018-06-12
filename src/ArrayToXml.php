@@ -253,7 +253,7 @@ class ArrayToXml
     }
 
     /**
-     * Pass in an array of elements to set the doctype of the XML
+     * Pass in an array of elements to set the doctype of the XML.
      * @param $docTypeArray
      *
      * @return \DOMDocumentType
