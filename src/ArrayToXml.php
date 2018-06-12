@@ -43,12 +43,12 @@ class ArrayToXml
         if ($this->isArrayAllKeySequential($array) && ! empty($array)) {
             throw new DOMException('Invalid Character Error');
         }
-        
-        if (!empty($docTypeArray)) {
+
+        if (! empty($docTypeArray)) {
             $docType = $this->createDocType($docTypeArray);
             $this->document->appendChild($docType);
         }
-        
+
         $root = $this->createRootElement($rootElement);
 
         $this->document->appendChild($root);
@@ -251,16 +251,17 @@ class ArrayToXml
 
         return $element;
     }
-    
+
     /**
      * Pass in an array of elements to set the doctype of the XML
-	 * @param $docTypeArray
-	 *
-	 * @return \DOMDocumentType
-	 */
+     * @param $docTypeArray
+     *
+     * @return \DOMDocumentType
+     */
     protected function createDocType($docTypeArray)
-	{
-		$implementation = new DOMImplementation();
-		return $implementation->createDocumentType($docTypeArray[0], $docTypeArray[1], $docTypeArray[2]);
-	}
+    {
+        $implementation = new DOMImplementation();
+
+        return $implementation->createDocumentType($docTypeArray[0], $docTypeArray[1], $docTypeArray[2]);
+    }
 }
