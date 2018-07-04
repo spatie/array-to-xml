@@ -104,6 +104,7 @@ class ArrayToXml
         }
 
         foreach ($value as $key => $data) {
+            $key = $this->getRealKey($key);
             if (! $sequential) {
                 if (($key === '_attributes') || ($key === '@attributes')) {
                     $this->addAttributes($element, $data);
@@ -120,6 +121,22 @@ class ArrayToXml
                 $this->addSequentialNode($element, $data);
             }
         }
+    }
+
+    /**
+     * Get Real key by $.
+     *
+     * @param string $key
+     * @return string $key
+     */
+    private function getRealKey($key)
+    {
+        $pos = strpos($key, '$');
+        if ($pos > 0) {
+            $key = substr($key, 0, $pos);
+        }
+
+        return $key;
     }
 
     /**
