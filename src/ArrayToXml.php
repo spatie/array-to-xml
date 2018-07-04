@@ -127,7 +127,7 @@ class ArrayToXml
      * Get Real key by $.
      *
      * @param string $key
-     * @param string $key
+     * @return string $key
      */
     private function getRealKey($key)
     {
