@@ -122,7 +122,7 @@ class ArrayToXml
             }
         }
     }
-    
+
     /**
      * Get Real key by $.
      *
