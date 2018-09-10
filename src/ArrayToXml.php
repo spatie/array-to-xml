@@ -98,7 +98,12 @@ class ArrayToXml
         $sequential = $this->isArrayAllKeySequential($value);
 
         if (! is_array($value)) {
-            $element->nodeValue = htmlspecialchars($value);
+            $value = htmlspecialchars($value);
+
+            // @see https://stackoverflow.com/a/1497928 Remove control characters
+            $value = preg_replace('/[\x00-\x09\x0B\x0C\x0E-\x1F\x7F]/', '', $value);
+
+            $element->nodeValue = $value;
 
             return;
         }
