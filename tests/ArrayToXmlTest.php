@@ -160,6 +160,12 @@ class ArrayToXmlTest extends TestCase
         $this->assertMatchesXmlSnapshot(ArrayToXml::convert(['name' => 'this & that']));
     }
 
+    /** @test */
+    public function it_can_handle_values_with_special_control_characters()
+    {
+        $this->assertMatchesXmlSnapshot(ArrayToXml::convert(['name' => "i want tothis and \x03 that"]));
+    }
+
     /**
      * @test
      */
