@@ -100,8 +100,7 @@ class ArrayToXml
         if (! is_array($value)) {
             $value = htmlspecialchars($value);
 
-            // @see https://stackoverflow.com/a/1497928 Remove control characters
-            $value = preg_replace('/[\x00-\x09\x0B\x0C\x0E-\x1F\x7F]/', '', $value);
+            $value = $this->removeControlCharacters($value);
 
             $element->nodeValue = $value;
 
@@ -247,5 +246,14 @@ class ArrayToXml
         }
 
         return $element;
+    }
+
+    /**
+     * @param $valuet
+     * @return string
+     */
+    protected function removeControlCharacters($value)
+    {
+        return preg_replace('/[\x00-\x09\x0B\x0C\x0E-\x1F\x7F]/', '', $value);
     }
 }
