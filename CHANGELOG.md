@@ -2,6 +2,9 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 2.7.2 - 2018-09-17
+- remove control characters
+
 ## 2.7.1 - 2018-02-02
 - fix setting attributes
 
