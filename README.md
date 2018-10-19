@@ -142,7 +142,6 @@ $result = ArrayToXml::convert($array, [
     'rootElementName' => 'helloyouluckypeople',
     '_attributes' => [
         'xmlns' => 'https://github.com/spatie/array-to-xml',
-        'encoding' => 'UTF-8',
     ],
 ]);
 ```
