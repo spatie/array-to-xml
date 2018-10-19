@@ -143,7 +143,7 @@ $result = ArrayToXml::convert($array, [
     '_attributes' => [
         'xmlns' => 'https://github.com/spatie/array-to-xml',
     ],
-]);
+], true, 'UTF-8');
 ```
 
 Use a multi-dimensional array to create a collection of elements.
@@ -166,7 +166,7 @@ $array = [
 
 This will result in:
 ```xml
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <helloyouluckypeople xmlns="https://github.com/spatie/array-to-xml">
     <Good_guys>
         <Guy>
