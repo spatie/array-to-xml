@@ -142,6 +142,7 @@ $result = ArrayToXml::convert($array, [
     'rootElementName' => 'helloyouluckypeople',
     '_attributes' => [
         'xmlns' => 'https://github.com/spatie/array-to-xml',
+        'encoding' => 'UTF-8',
     ],
 ]);
 ```
@@ -166,8 +167,8 @@ $array = [
 
 This will result in:
 ```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<root>
+<?xml version="1.0"?>
+<helloyouluckypeople xmlns="https://github.com/spatie/array-to-xml">
     <Good_guys>
         <Guy>
             <name>Luke Skywalker</name>
@@ -188,7 +189,7 @@ This will result in:
             <weapon>Lightsaber</weapon>
         </Guy>
     </Bad_guys>
-</root>
+</helloyouluckypeople>
 ```
 
 ## Testing
