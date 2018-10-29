@@ -2,6 +2,9 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 2.7.3 - 2018-10-30
+- fix for `DomExeception`s being thrown
+
 ## 2.7.2 - 2018-09-17
 - remove control characters
 
