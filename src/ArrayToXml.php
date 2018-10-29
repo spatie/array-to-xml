@@ -160,7 +160,7 @@ class ArrayToXml
             return;
         }
 
-        $child = new DOMElement($element->tagName);
+        $child = $this->document->createElement($element->tagName);
         $element->parentNode->appendChild($child);
         $this->convertElement($child, $value);
     }
