@@ -33,9 +33,16 @@ class ArrayToXml
      *
      * @throws DOMException
      */
-    public function __construct(array $array, $rootElement = '', $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0')
+    public function __construct(array $array, $rootElement = '', $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0',$beautiful=false)
     {
         $this->document = new DOMDocument($xmlVersion, $xmlEncoding);
+        if($beautiful){
+            
+        //To have a beautifully output
+        $this->document->preserveWhiteSpace=false;
+        $this->document->formatOutput=true;
+        }
+        
         $this->replaceSpacesByUnderScoresInKeyNames = $replaceSpacesByUnderScoresInKeyNames;
 
         if ($this->isArrayAllKeySequential($array) && ! empty($array)) {
@@ -60,9 +67,9 @@ class ArrayToXml
      *
      * @return string
      */
-    public static function convert(array $array, $rootElementName = '', $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0')
+    public static function convert(array $array, $rootElementName = '', $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0', $beautiful=false)
     {
-        $converter = new static($array, $rootElementName, $replaceSpacesByUnderScoresInKeyNames, $xmlEncoding, $xmlVersion);
+        $converter = new static($array, $rootElementName, $replaceSpacesByUnderScoresInKeyNames, $xmlEncoding, $xmlVersion,$beautiful);
 
         return $converter->toXml();
     }
