@@ -30,17 +30,16 @@ class ArrayToXml
      * @param bool $replaceSpacesByUnderScoresInKeyNames
      * @param string $xmlEncoding
      * @param string $xmlVersion
+     * @param bool $beautiful  
      *
      * @throws DOMException
      */
-    public function __construct(array $array, $rootElement = '', $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0',$beautiful=false)
+    public function __construct(array $array, $rootElement = '', $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0', $beautiful = false)
     {
         $this->document = new DOMDocument($xmlVersion, $xmlEncoding);
-        if($beautiful){
-            
-        //To have a beautifully output
-        $this->document->preserveWhiteSpace=false;
-        $this->document->formatOutput=true;
+        if ($beautiful){
+           $this->document->preserveWhiteSpace=false;
+           $this->document->formatOutput=true;
         }
         
         $this->replaceSpacesByUnderScoresInKeyNames = $replaceSpacesByUnderScoresInKeyNames;
@@ -67,9 +66,9 @@ class ArrayToXml
      *
      * @return string
      */
-    public static function convert(array $array, $rootElementName = '', $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0', $beautiful=false)
+    public static function convert(array $array, $rootElementName = '', $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0', $beautiful = false)
     {
-        $converter = new static($array, $rootElementName, $replaceSpacesByUnderScoresInKeyNames, $xmlEncoding, $xmlVersion,$beautiful);
+        $converter = new static($array, $rootElementName, $replaceSpacesByUnderScoresInKeyNames, $xmlEncoding, $xmlVersion, $beautiful);
 
         return $converter->toXml();
     }
