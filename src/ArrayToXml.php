@@ -38,8 +38,8 @@ class ArrayToXml
     {
         $this->document = new DOMDocument($xmlVersion, $xmlEncoding);
         if ($beautiful){
-           $this->document->preserveWhiteSpace=false;
-           $this->document->formatOutput=true;
+           $this->document->preserveWhiteSpace = false;
+           $this->document->formatOutput = true;
         }
         
         $this->replaceSpacesByUnderScoresInKeyNames = $replaceSpacesByUnderScoresInKeyNames;
