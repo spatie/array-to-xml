@@ -323,4 +323,47 @@ class ArrayToXmlTest extends TestCase
         $this->assertSame('Lightsaber', $resultDom->getElementsByTagName('weapon')->item(0)->nodeValue);
         $this->assertSame('Evil Eye', $resultDom->getElementsByTagName('weapon')->item(1)->nodeValue);
     }
+
+
+    /** @test */
+    public function it_can_handle_values_set_as_mixed()
+    {
+        $this->assertMatchesSnapshot(ArrayToXml::convert([
+            'movie' => [
+                [
+                    'title' => [
+                        '@attributes' => ['category' => 'SF'],
+                        '_mixed' => 'STAR WARS <xref ref-type="fig" rid="f1">Figure 1</xref>',
+                    ],
+                ],
+                [
+                    'title' => [
+                        '@attributes' => ['category' => 'Action'],
+                        '_mixed' => 'ROBOCOP <xref ref-type="fig" rid="f2">Figure 2</xref>',
+                    ],
+                ],
+            ],
+        ]));
+    }
+
+    /** @test */
+    public function and_mixed_values_can_also_be_set_in_simplexmlelement_style()
+    {
+        $this->assertMatchesSnapshot(ArrayToXml::convert([
+            'movie' => [
+                [
+                    'title' => [
+                        '@attributes' => ['category' => 'SF'],
+                        '@mixed' => 'STAR WARS <xref ref-type="fig" rid="f1">Figure 1</xref>',
+                    ],
+                ],
+                [
+                    'title' => [
+                        '@attributes' => ['category' => 'Action'],
+                        '@mixed' => 'ROBOCOP <xref ref-type="fig" rid="f2">Figure 2</xref>',
+                    ],
+                ],
+            ],
+        ]));
+    }
 }
