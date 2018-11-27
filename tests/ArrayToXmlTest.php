@@ -324,7 +324,6 @@ class ArrayToXmlTest extends TestCase
         $this->assertSame('Evil Eye', $resultDom->getElementsByTagName('weapon')->item(1)->nodeValue);
     }
 
-
     /** @test */
     public function it_can_handle_values_set_as_mixed()
     {
