@@ -2,6 +2,10 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 2.8.0 - 2018-11-29
+
+- added support for mixed content 
+
 ## 2.7.3 - 2018-10-30
 - fix for `DomExeception`s being thrown
 
