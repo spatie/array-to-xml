@@ -115,6 +115,10 @@ class ArrayToXml
                     $element->nodeValue = htmlspecialchars($data);
                 } elseif ((($key === '_cdata') || ($key === '@cdata')) && is_string($data)) {
                     $element->appendChild($this->document->createCDATASection($data));
+                } elseif ((($key === '_mixed') || ($key === '@mixed')) && is_string($data)) {
+                    $fragment = $this->document->createDocumentFragment();
+                    $fragment->appendXML($data);
+                    $element->appendChild($fragment);
                 } else {
                     $this->addNode($element, $key, $data);
                 }
