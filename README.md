@@ -63,7 +63,7 @@ this behaviour you can set the third argument to false. We'll leave all keynames
 $result = ArrayToXml::convert($array, 'customrootname', false);
 ```
 
-You can use a key named `_attributes` to add attributes to a node.
+You can use a key named `_attributes` to add attributes to a node, and `_value` to specify the value.
 
 ```php
 $array = [
@@ -75,6 +75,10 @@ $array = [
     'Bad guy' => [
         'name' => 'Sauron',
         'weapon' => 'Evil Eye'
+    ]
+    'The survivor' => [
+        '_attributes' => ['house'=>'Hogwarts'],
+        '_value' => 'Harry Potter'
     ]
 ];
 
@@ -94,6 +98,9 @@ This code will result in:
         <name>Sauron</name>
         <weapon>Evil Eye</weapon>
     </Bad_guy>
+    <The_survivor house="Hogwarts">
+        Harry Potter
+    </The_survivor>
 </root>
 ```
 
