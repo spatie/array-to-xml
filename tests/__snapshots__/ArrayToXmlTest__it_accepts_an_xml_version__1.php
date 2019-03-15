@@ -1,5 +1,3 @@
-<?php
-
-return '<?xml version="1.1"?>
+<?php return '<?xml version="1.1"?>
 <root/>
 ';

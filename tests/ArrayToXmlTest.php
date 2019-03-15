@@ -11,7 +11,7 @@ class ArrayToXmlTest extends TestCase
     /** @test array */
     protected $testArray = [];
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->testArray = [
             'Good guy' => [

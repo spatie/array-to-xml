@@ -2,6 +2,7 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+
 ## 2.8.0 - 2018-11-29
 
 - added support for mixed content 
