@@ -233,7 +233,7 @@ class ArrayToXml
         if (count($value) <= 0) {
             return true;
         }
-        
+
         if (\key($value) === '__numeric') {
             return false;
         }
