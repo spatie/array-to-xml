@@ -211,6 +211,8 @@ $array = [
         'nickname' => 'estacet',
     ],
 ];
+
+$result = ArrayToXml::convert(['__numeric' => $array]);
 ```
 
 This will result in:

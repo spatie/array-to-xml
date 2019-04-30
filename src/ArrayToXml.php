@@ -45,7 +45,7 @@ class ArrayToXml
         $this->document = new DOMDocument($xmlVersion, $xmlEncoding);
         $this->replaceSpacesByUnderScoresInKeyNames = $replaceSpacesByUnderScoresInKeyNames;
 
-        if ($t = $this->isArrayAllKeySequential($array) && ! empty($array)) {
+        if ($this->isArrayAllKeySequential($array) && ! empty($array)) {
             throw new DOMException('Invalid Character Error');
         }
 
@@ -131,8 +131,8 @@ class ArrayToXml
                     $fragment = $this->document->createDocumentFragment();
                     $fragment->appendXML($data);
                     $element->appendChild($fragment);
-                } elseif (is_int($key)) {
-                    $this->addNode($element, $this->numericTagNamePrefix . $key, $data);
+                } elseif ($key === '__numeric') {
+                    $this->addNumericNode($element, $data);
                 } else {
                     $this->addNode($element, $key, $data);
                 }
@@ -141,6 +141,19 @@ class ArrayToXml
             } else {
                 $this->addSequentialNode($element, $data);
             }
+        }
+    }
+
+    /**
+     * Add node with numeric keys.
+     *
+     * @param DOMElement $element
+     * @param string|string[] $value
+     */
+    protected function addNumericNode(DOMElement $element, $value)
+    {
+        foreach ($value as $key => $item) {
+            $this->convertElement($element, [$this->numericTagNamePrefix.$key => $value]);
         }
     }
 
@@ -220,8 +233,12 @@ class ArrayToXml
         if (count($value) <= 0) {
             return true;
         }
+        
+        if (\key($value) === '__numeric') {
+            return false;
+        }
 
-        return ! array_unique(array_map('is_int', array_keys($value))) === [true];
+        return array_unique(array_map('is_int', array_keys($value))) === [true];
     }
 
     /**
