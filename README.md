@@ -198,6 +198,38 @@ This will result in:
 </helloyouluckypeople>
 ```
 
+Library also can handle numeric keys:
+
+```php
+$array = [
+    100 => [
+        'name' => 'Vladimir',
+        'nickname' => 'greeflas',
+    ],
+    200 => [
+        'name' => 'Marina',
+        'nickname' => 'estacet',
+    ],
+];
+```
+
+This will result in:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <num_100>
+        <name>Vladimir</name>
+        <nickname>greeflas</nickname>
+    </num_100>
+    <num_200>
+        <name>Marina</name>
+        <nickname>estacet</nickname>
+    </num_200>
+</root>
+```
+
+you can change key prefix with setter method called `setNumericTagNamePrefix()`.
+
 ## Testing
 
 ```bash

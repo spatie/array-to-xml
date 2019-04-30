@@ -23,6 +23,13 @@ class ArrayToXml
     protected $replaceSpacesByUnderScoresInKeyNames = true;
 
     /**
+     * Prefix for the tags with numeric names.
+     *
+     * @var string
+     */
+    protected $numericTagNamePrefix = 'num_';
+
+    /**
      * Construct a new instance.
      *
      * @param string[] $array
@@ -38,7 +45,7 @@ class ArrayToXml
         $this->document = new DOMDocument($xmlVersion, $xmlEncoding);
         $this->replaceSpacesByUnderScoresInKeyNames = $replaceSpacesByUnderScoresInKeyNames;
 
-        if ($this->isArrayAllKeySequential($array) && ! empty($array)) {
+        if ($t = $this->isArrayAllKeySequential($array) && ! empty($array)) {
             throw new DOMException('Invalid Character Error');
         }
 
@@ -47,6 +54,11 @@ class ArrayToXml
         $this->document->appendChild($root);
 
         $this->convertElement($root, $array);
+    }
+
+    public function setNumericTagNamePrefix(string $prefix)
+    {
+        $this->numericTagNamePrefix = $prefix;
     }
 
     /**
@@ -119,6 +131,8 @@ class ArrayToXml
                     $fragment = $this->document->createDocumentFragment();
                     $fragment->appendXML($data);
                     $element->appendChild($fragment);
+                } elseif (is_int($key)) {
+                    $this->addNode($element, $this->numericTagNamePrefix . $key, $data);
                 } else {
                     $this->addNode($element, $key, $data);
                 }
@@ -207,7 +221,7 @@ class ArrayToXml
             return true;
         }
 
-        return array_unique(array_map('is_int', array_keys($value))) === [true];
+        return ! array_unique(array_map('is_int', array_keys($value))) === [true];
     }
 
     /**

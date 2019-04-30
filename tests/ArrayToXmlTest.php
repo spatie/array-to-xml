@@ -75,11 +75,11 @@ class ArrayToXmlTest extends TestCase
     }
 
     /** @test */
-    public function it_throws_an_exception_when_converting_an_array_with_no_keys()
+    public function it_does_not_throws_an_exception_when_converting_an_array_with_no_keys()
     {
-        $this->expectException('DOMException');
-
         ArrayToXml::convert(['one', 'two', 'three']);
+
+        $this->addToAssertionCount(1);
     }
 
     /** @test */
@@ -133,25 +133,6 @@ class ArrayToXmlTest extends TestCase
                 ],
             ],
         ]));
-    }
-
-    /** @test */
-    public function it_will_raise_an_exception_when_value_contains_mixed_sequential_array()
-    {
-        $this->expectException('DOMException');
-
-        ArrayToXml::convert([
-            'user' => [
-                [
-                    'name' => 'een',
-                    'age' => 10,
-                ],
-                'twee' => [
-                    'name' => 'twee',
-                    'age' => 12,
-                ],
-            ],
-        ]);
     }
 
     /** @test */
@@ -360,6 +341,43 @@ class ArrayToXmlTest extends TestCase
                     'title' => [
                         '@attributes' => ['category' => 'Action'],
                         '@mixed' => 'ROBOCOP <xref ref-type="fig" rid="f2">Figure 2</xref>',
+                    ],
+                ],
+            ],
+        ]));
+    }
+
+    /** @test */
+    public function it_can_handle_numeric_keys__1()
+    {
+        $this->assertMatchesSnapshot(ArrayToXml::convert([
+            16 => [
+                'parent' => 'aaa',
+                'numLinks' => 3,
+                'child' => [
+                    16 => [
+                        'parent' => 'abc',
+                        'numLinks' => 3,
+                    ],
+                ],
+            ],
+            17 => [
+                'parent' => 'bb',
+                'numLinks' => 3,
+                'child' => [
+                    16 => [
+                        'parent' => 'abb',
+                        'numLinks' => 3,
+                        'child' => [
+                            16 => [
+                                'parent' => 'abc',
+                                'numLinks' => 3,
+                            ],
+                        ],
+                    ],
+                    17 => [
+                        'parent' => 'acb',
+                        'numLinks' => 3,
                     ],
                 ],
             ],
