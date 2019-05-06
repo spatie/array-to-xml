@@ -136,25 +136,6 @@ class ArrayToXmlTest extends TestCase
     }
 
     /** @test */
-    public function it_will_raise_an_exception_when_value_contains_mixed_sequential_array()
-    {
-        $this->expectException('DOMException');
-
-        ArrayToXml::convert([
-            'user' => [
-                [
-                    'name' => 'een',
-                    'age' => 10,
-                ],
-                'twee' => [
-                    'name' => 'twee',
-                    'age' => 12,
-                ],
-            ],
-        ]);
-    }
-
-    /** @test */
     public function it_can_handle_values_with_special_characters()
     {
         $this->assertMatchesXmlSnapshot(ArrayToXml::convert(['name' => 'this & that']));
@@ -360,6 +341,45 @@ class ArrayToXmlTest extends TestCase
                     'title' => [
                         '@attributes' => ['category' => 'Action'],
                         '@mixed' => 'ROBOCOP <xref ref-type="fig" rid="f2">Figure 2</xref>',
+                    ],
+                ],
+            ],
+        ]));
+    }
+
+    /** @test */
+    public function it_can_handle_numeric_keys__1()
+    {
+        $this->assertMatchesSnapshot(ArrayToXml::convert([
+            '__numeric' => [
+                16 => [
+                    'parent' => 'aaa',
+                    'numLinks' => 3,
+                    'child' => [
+                        16 => [
+                            'parent' => 'abc',
+                            'numLinks' => 3,
+                        ],
+                    ],
+                ],
+                17 => [
+                    'parent' => 'bb',
+                    'numLinks' => 3,
+                    'child' => [
+                        16 => [
+                            'parent' => 'abb',
+                            'numLinks' => 3,
+                            'child' => [
+                                16 => [
+                                    'parent' => 'abc',
+                                    'numLinks' => 3,
+                                ],
+                            ],
+                        ],
+                        17 => [
+                            'parent' => 'acb',
+                            'numLinks' => 3,
+                        ],
                     ],
                 ],
             ],
