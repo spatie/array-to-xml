@@ -348,7 +348,7 @@ class ArrayToXmlTest extends TestCase
     }
 
     /** @test */
-    public function it_can_handle_numeric_keys__1()
+    public function it_can_handle_numeric_keys()
     {
         $this->assertMatchesSnapshot(ArrayToXml::convert([
             '__numeric' => [
