@@ -27,7 +27,7 @@ class ArrayToXml
      *
      * @var string
      */
-    protected $numericTagNamePrefix = 'num_';
+    protected $numericTagNamePrefix = 'numeric_';
 
     /**
      * Construct a new instance.
