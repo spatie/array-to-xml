@@ -233,14 +233,14 @@ This will result in:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-    <num_100>
+    <numeric_100>
         <name>Vladimir</name>
         <nickname>greeflas</nickname>
-    </num_100>
-    <num_200>
+    </numeric_100>
+    <numeric_200>
         <name>Marina</name>
         <nickname>estacet</nickname>
-    </num_200>
+    </numeric_200>
 </root>
 ```
 
