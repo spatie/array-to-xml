@@ -45,7 +45,7 @@ class ArrayToXml
     {
         $this->document = new DOMDocument($xmlVersion, $xmlEncoding);
 
-        if (!empty($domProperties)) {
+        if (! empty($domProperties)) {
             $this->setDomProperties($domProperties);
         }
 
@@ -108,15 +108,16 @@ class ArrayToXml
     }
 
     /**
-     * Sets dom properties on $this->document
+     * Sets dom properties on $this->document.
      *
      * @param $domProperties
      * @throws \Exception
      */
-    public function setDomProperties($domProperties) {
+    public function setDomProperties($domProperties)
+    {
         foreach ($domProperties as $key => $value) {
-            if (!property_exists($this->document, $key)) {
-                throw new \Exception($key . ' is not a valid property of DOMDocument', 1561114534);
+            if (! property_exists($this->document, $key)) {
+                throw new \Exception($key.' is not a valid property of DOMDocument', 1561114534);
             }
             $this->document->{$key} = $value;
         }

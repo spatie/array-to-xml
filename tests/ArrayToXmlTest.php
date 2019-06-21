@@ -403,7 +403,7 @@ class ArrayToXmlTest extends TestCase
         $xml2Array = new ArrayToXml($this->testArray);
         $xml2Array->setDomProperties([
             'formatOutput' => true,
-            'version' => '1234567'
+            'version' => '1234567',
         ]);
 
         $dom = $xml2Array->toDom();
@@ -414,7 +414,7 @@ class ArrayToXmlTest extends TestCase
     /** @test */
     public function constructor_calls_set_dom_properties_if_dom_properties_are_not_empty()
     {
-        $domProperties =  ['formatOutput' => true];
+        $domProperties = ['formatOutput' => true];
         $mock = $this->getMockBuilder(ArrayToXml::class)
             ->disableOriginalConstructor()
             ->setMethods(['setDomProperties'])
@@ -440,5 +440,4 @@ class ArrayToXmlTest extends TestCase
 
         $mock->__construct($this->testArray);
     }
-
 }
