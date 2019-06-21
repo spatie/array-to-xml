@@ -388,11 +388,12 @@ class ArrayToXmlTest extends TestCase
 
     /**
      * @test
-     * @expectedException Exception
      */
     public function set_dom_properties_throws_exception_for_invalid_dom_document_properties()
     {
+        $this->expectException(\Exception::class);
         $xml2Array = new ArrayToXml($this->testArray);
+
         $xml2Array->setDomProperties(['foo' => 'bar']);
     }
 
