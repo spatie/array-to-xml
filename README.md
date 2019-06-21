@@ -246,6 +246,32 @@ This will result in:
 
 You can change key prefix with setter method called `setNumericTagNamePrefix()`.
 
+### Setting DOMDocument properties
+
+To set properties of the internal DOMDocument object just pass an array consisting of keys and values.
+For a full list of valid properties consult https://www.php.net/manual/en/class.domdocument.php.
+An Exception is thrown for invalid Properties.
+
+__Note:__ Since xmlVersion and xmlEncoding are actually properties of the DOMDocument. Either use the dedicated 
+function parameters or $domProperties.
+
+Static sample:
+
+```php
+$result = ArrayToXml::convert($array, $rootElement, $replaceSpacesByUnderScoresInKeyNames, $xmlEncoding, $xmlVersion, [
+    'formatOutput' => true
+    ....
+]);
+
+```
+OOP sample:
+
+```php
+$arrayToXml = new ArrayToXml($array);
+$arrayToXml->setDomProperties(['formatOutput' => true]);
+$result = $arrayToXml->toXml()
+```
+
 ## Testing
 
 ```bash
