@@ -109,17 +109,29 @@ class ArrayToXml
     }
 
     /**
-     * Sets dom properties on $this->document.
+     * Ensure valid dom properties
      *
-     * @param $domProperties
-     * @throws \Exception
+     * @param array $domProperties
+     * @throws Exception
      */
-    public function setDomProperties($domProperties)
-    {
+    protected function ensureValidDomProperties($domProperties) {
         foreach ($domProperties as $key => $value) {
             if (! property_exists($this->document, $key)) {
                 throw new Exception($key.' is not a valid property of DOMDocument');
             }
+        }
+    }
+
+    /**
+     * Sets dom properties on $this->document.
+     *
+     * @param array $domProperties
+     * @throws Exception
+     */
+    public function setDomProperties($domProperties)
+    {
+        $this->ensureValidDomProperties($domProperties);
+        foreach ($domProperties as $key => $value) {
             $this->document->{$key} = $value;
         }
     }
