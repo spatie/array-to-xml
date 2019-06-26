@@ -2,10 +2,10 @@
 
 namespace Spatie\ArrayToXml;
 
+use Exception;
 use DOMElement;
 use DOMDocument;
 use DOMException;
-use Exception;
 
 class ArrayToXml
 {
@@ -109,12 +109,13 @@ class ArrayToXml
     }
 
     /**
-     * Ensure valid dom properties
+     * Ensure valid dom properties.
      *
      * @param array $domProperties
      * @throws Exception
      */
-    protected function ensureValidDomProperties($domProperties) {
+    protected function ensureValidDomProperties($domProperties)
+    {
         foreach ($domProperties as $key => $value) {
             if (! property_exists($this->document, $key)) {
                 throw new Exception($key.' is not a valid property of DOMDocument');
