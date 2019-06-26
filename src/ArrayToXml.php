@@ -9,41 +9,20 @@ use Exception;
 
 class ArrayToXml
 {
-    /**
-     * The root DOM Document.
-     *
-     * @var DOMDocument
-     */
     protected $document;
 
-    /**
-     * Set to enable replacing space with underscore.
-     *
-     * @var bool
-     */
     protected $replaceSpacesByUnderScoresInKeyNames = true;
 
-    /**
-     * Prefix for the tags with numeric names.
-     *
-     * @var string
-     */
     protected $numericTagNamePrefix = 'numeric_';
 
-    /**
-     * Construct a new instance.
-     *
-     * @param string[] $array
-     * @param string|array $rootElement
-     * @param bool $replaceSpacesByUnderScoresInKeyNames
-     * @param string $xmlEncoding
-     * @param string $xmlVersion
-     * @param array $domProperties
-     *
-     * @throws DOMException
-     */
-    public function __construct(array $array, $rootElement = '', $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0', $domProperties = [])
-    {
+    public function __construct(
+        array $array,
+        $rootElement = '',
+        $replaceSpacesByUnderScoresInKeyNames = true,
+        $xmlEncoding = null,
+        $xmlVersion = '1.0',
+        $domProperties = []
+    ) {
         $this->document = new DOMDocument($xmlVersion, $xmlEncoding);
 
         if (! empty($domProperties)) {
@@ -68,53 +47,37 @@ class ArrayToXml
         $this->numericTagNamePrefix = $prefix;
     }
 
-    /**
-     * Convert the given array to an xml string.
-     *
-     * @param array $array
-     * @param string $rootElement
-     * @param bool $replaceSpacesByUnderScoresInKeyNames
-     * @param null $xmlEncoding
-     * @param string $xmlVersion
-     * @param array $domProperties
-     * @return string
-     *
-     * @throws DOMException
-     */
-    public static function convert(array $array, $rootElement = '', $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0', $domProperties = [])
-    {
-        $converter = new static($array, $rootElement, $replaceSpacesByUnderScoresInKeyNames, $xmlEncoding, $xmlVersion, $domProperties);
+    public static function convert(
+        array $array,
+        $rootElement = '',
+        bool $replaceSpacesByUnderScoresInKeyNames = true,
+        string $xmlEncoding = null,
+        string $xmlVersion = '1.0',
+        array $domProperties = []
+    ) {
+        $converter = new static(
+            $array,
+            $rootElement,
+            $replaceSpacesByUnderScoresInKeyNames,
+            $xmlEncoding,
+            $xmlVersion,
+            $domProperties
+        );
 
         return $converter->toXml();
     }
 
-    /**
-     * Return as XML.
-     *
-     * @return string
-     */
-    public function toXml()
+    public function toXml(): string
     {
         return $this->document->saveXML();
     }
 
-    /**
-     * Return as DOM object.
-     *
-     * @return DOMDocument
-     */
-    public function toDom()
+    public function toDom(): DOMDocument
     {
         return $this->document;
     }
 
-    /**
-     * Ensure valid dom properties
-     *
-     * @param array $domProperties
-     * @throws Exception
-     */
-    protected function ensureValidDomProperties($domProperties) {
+    protected function ensureValidDomProperties(array $domProperties) {
         foreach ($domProperties as $key => $value) {
             if (! property_exists($this->document, $key)) {
                 throw new Exception($key.' is not a valid property of DOMDocument');
@@ -122,26 +85,17 @@ class ArrayToXml
         }
     }
 
-    /**
-     * Sets dom properties on $this->document.
-     *
-     * @param array $domProperties
-     * @throws Exception
-     */
-    public function setDomProperties($domProperties)
+    public function setDomProperties(array $domProperties)
     {
         $this->ensureValidDomProperties($domProperties);
+
         foreach ($domProperties as $key => $value) {
             $this->document->{$key} = $value;
         }
+
+        return $this;
     }
 
-    /**
-     * Parse individual element.
-     *
-     * @param DOMElement $element
-     * @param string|string[] $value
-     */
     private function convertElement(DOMElement $element, $value)
     {
         $sequential = $this->isArrayAllKeySequential($value);
@@ -181,12 +135,6 @@ class ArrayToXml
         }
     }
 
-    /**
-     * Add node with numeric keys.
-     *
-     * @param DOMElement $element
-     * @param string|string[] $value
-     */
     protected function addNumericNode(DOMElement $element, $value)
     {
         foreach ($value as $key => $item) {
@@ -194,13 +142,6 @@ class ArrayToXml
         }
     }
 
-    /**
-     * Add node.
-     *
-     * @param DOMElement $element
-     * @param string $key
-     * @param string|string[] $value
-     */
     protected function addNode(DOMElement $element, $key, $value)
     {
         if ($this->replaceSpacesByUnderScoresInKeyNames) {
@@ -212,14 +153,6 @@ class ArrayToXml
         $this->convertElement($child, $value);
     }
 
-    /**
-     * Add collection node.
-     *
-     * @param DOMElement $element
-     * @param string|string[] $value
-     *
-     * @internal param string $key
-     */
     protected function addCollectionNode(DOMElement $element, $value)
     {
         if ($element->childNodes->length === 0 && $element->attributes->length === 0) {
@@ -233,14 +166,6 @@ class ArrayToXml
         $this->convertElement($child, $value);
     }
 
-    /**
-     * Add sequential node.
-     *
-     * @param DOMElement $element
-     * @param string|string[] $value
-     *
-     * @internal param string $key
-     */
     protected function addSequentialNode(DOMElement $element, $value)
     {
         if (empty($element->nodeValue)) {
@@ -254,13 +179,6 @@ class ArrayToXml
         $element->parentNode->appendChild($child);
     }
 
-    /**
-     * Check if array are all sequential.
-     *
-     * @param array|string $value
-     *
-     * @return bool
-     */
     protected function isArrayAllKeySequential($value)
     {
         if (! is_array($value)) {
@@ -278,26 +196,14 @@ class ArrayToXml
         return array_unique(array_map('is_int', array_keys($value))) === [true];
     }
 
-    /**
-     * Add attributes.
-     *
-     * @param DOMElement $element
-     * @param string[] $data
-     */
-    protected function addAttributes($element, $data)
+    protected function addAttributes(DOMElement $element, array $data)
     {
         foreach ($data as $attrKey => $attrVal) {
             $element->setAttribute($attrKey, $attrVal);
         }
     }
 
-    /**
-     * Create the root element.
-     *
-     * @param  string|array $rootElement
-     * @return DOMElement
-     */
-    protected function createRootElement($rootElement)
+    protected function createRootElement($rootElement): DOMElement
     {
         if (is_string($rootElement)) {
             $rootElementName = $rootElement ?: 'root';
@@ -320,11 +226,7 @@ class ArrayToXml
         return $element;
     }
 
-    /**
-     * @param $valuet
-     * @return string
-     */
-    protected function removeControlCharacters($value)
+    protected function removeControlCharacters(string $value): string
     {
         return preg_replace('/[\x00-\x09\x0B\x0C\x0E-\x1F\x7F]/', '', $value);
     }
