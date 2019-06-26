@@ -2,6 +2,10 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 2.10.0 - 2019-09-26
+
+- add `setDomProperties`
+
 ## 2.9.0 - 2019-05-06
 
 - add support for numeric keys
