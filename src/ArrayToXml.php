@@ -5,6 +5,7 @@ namespace Spatie\ArrayToXml;
 use DOMElement;
 use DOMDocument;
 use DOMException;
+use Exception;
 
 class ArrayToXml
 {
@@ -37,12 +38,18 @@ class ArrayToXml
      * @param bool $replaceSpacesByUnderScoresInKeyNames
      * @param string $xmlEncoding
      * @param string $xmlVersion
+     * @param array $domProperties
      *
      * @throws DOMException
      */
-    public function __construct(array $array, $rootElement = '', $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0')
+    public function __construct(array $array, $rootElement = '', $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0', $domProperties = [])
     {
         $this->document = new DOMDocument($xmlVersion, $xmlEncoding);
+
+        if (! empty($domProperties)) {
+            $this->setDomProperties($domProperties);
+        }
+
         $this->replaceSpacesByUnderScoresInKeyNames = $replaceSpacesByUnderScoresInKeyNames;
 
         if ($this->isArrayAllKeySequential($array) && ! empty($array)) {
@@ -64,17 +71,19 @@ class ArrayToXml
     /**
      * Convert the given array to an xml string.
      *
-     * @param string[] $array
-     * @param string|array $rootElement
+     * @param array $array
+     * @param string $rootElement
      * @param bool $replaceSpacesByUnderScoresInKeyNames
-     * @param string $xmlEncoding
+     * @param null $xmlEncoding
      * @param string $xmlVersion
-     *
+     * @param array $domProperties
      * @return string
+     *
+     * @throws DOMException
      */
-    public static function convert(array $array, $rootElement = '', $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0')
+    public static function convert(array $array, $rootElement = '', $replaceSpacesByUnderScoresInKeyNames = true, $xmlEncoding = null, $xmlVersion = '1.0', $domProperties = [])
     {
-        $converter = new static($array, $rootElement, $replaceSpacesByUnderScoresInKeyNames, $xmlEncoding, $xmlVersion);
+        $converter = new static($array, $rootElement, $replaceSpacesByUnderScoresInKeyNames, $xmlEncoding, $xmlVersion, $domProperties);
 
         return $converter->toXml();
     }
@@ -97,6 +106,34 @@ class ArrayToXml
     public function toDom()
     {
         return $this->document;
+    }
+
+    /**
+     * Ensure valid dom properties
+     *
+     * @param array $domProperties
+     * @throws Exception
+     */
+    protected function ensureValidDomProperties($domProperties) {
+        foreach ($domProperties as $key => $value) {
+            if (! property_exists($this->document, $key)) {
+                throw new Exception($key.' is not a valid property of DOMDocument');
+            }
+        }
+    }
+
+    /**
+     * Sets dom properties on $this->document.
+     *
+     * @param array $domProperties
+     * @throws Exception
+     */
+    public function setDomProperties($domProperties)
+    {
+        $this->ensureValidDomProperties($domProperties);
+        foreach ($domProperties as $key => $value) {
+            $this->document->{$key} = $value;
+        }
     }
 
     /**

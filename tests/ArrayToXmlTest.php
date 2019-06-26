@@ -385,4 +385,59 @@ class ArrayToXmlTest extends TestCase
             ],
         ]));
     }
+
+    /**
+     * @test
+     */
+    public function set_dom_properties_throws_exception_for_invalid_dom_document_properties()
+    {
+        $this->expectException(\Exception::class);
+        $xml2Array = new ArrayToXml($this->testArray);
+
+        $xml2Array->setDomProperties(['foo' => 'bar']);
+    }
+
+    /** @test */
+    public function set_dom_properties_sets_dom_properties()
+    {
+        $xml2Array = new ArrayToXml($this->testArray);
+        $xml2Array->setDomProperties([
+            'formatOutput' => true,
+            'version' => '1234567',
+        ]);
+
+        $dom = $xml2Array->toDom();
+        $this->assertTrue($dom->formatOutput);
+        $this->assertEquals('1234567', $dom->version);
+    }
+
+    /** @test */
+    public function constructor_calls_set_dom_properties_if_dom_properties_are_not_empty()
+    {
+        $domProperties = ['formatOutput' => true];
+        $mock = $this->getMockBuilder(ArrayToXml::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['setDomProperties'])
+            ->getMock();
+
+        $mock->expects($this->once())
+            ->method('setDomProperties')
+            ->with($domProperties);
+
+        $mock->__construct($this->testArray, '', true, null, '1.0', $domProperties);
+    }
+
+    /** @test */
+    public function constructor_does_not_call_set_dom_properties_if_dom_properties_is_empty()
+    {
+        $mock = $this->getMockBuilder(ArrayToXml::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['setDomProperties'])
+            ->getMock();
+
+        $mock->expects($this->never())
+            ->method('setDomProperties');
+
+        $mock->__construct($this->testArray);
+    }
 }
