@@ -99,6 +99,10 @@ class ArrayToXml
     private function convertElement(DOMElement $element, $value)
     {
         $sequential = $this->isArrayAllKeySequential($value);
+        
+        if ($value === null) {
+            return;
+        }
 
         if (! is_array($value)) {
             $value = htmlspecialchars($value);
