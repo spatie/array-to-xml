@@ -107,6 +107,14 @@ class ArrayToXmlTest extends TestCase
     }
 
     /** @test */
+    public function it_can_handle_zero_values_in_beginning_of_basic_collection()
+    {
+        $this->assertMatchesXmlSnapshot(ArrayToXml::convert([
+            'user' => ['0', '1', '0'],
+        ]));
+    }
+
+    /** @test */
     public function it_accepts_an_xml_encoding_type()
     {
         $this->assertMatchesXmlSnapshot(ArrayToXml::convert([], '', false, 'UTF-8'));

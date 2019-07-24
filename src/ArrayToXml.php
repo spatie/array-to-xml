@@ -168,7 +168,7 @@ class ArrayToXml
 
     protected function addSequentialNode(DOMElement $element, $value)
     {
-        if (empty($element->nodeValue)) {
+        if (empty($element->nodeValue) && ! is_numeric($element->nodeValue)) {
             $element->nodeValue = htmlspecialchars($value);
 
             return;
