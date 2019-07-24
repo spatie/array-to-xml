@@ -2,6 +2,10 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 2.11.1 - 2019-07-25
+
+- do not interpret "0" as a non-empty value
+
 ## 2.11.0 - 2019-09-26
 
 - drop support for PHP 7.1
