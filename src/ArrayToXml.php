@@ -139,7 +139,7 @@ class ArrayToXml
     protected function addNumericNode(DOMElement $element, $value)
     {
         foreach ($value as $key => $item) {
-            $this->convertElement($element, [$this->numericTagNamePrefix.$key => $value]);
+            $this->convertElement($element, [$this->numericTagNamePrefix.$key => $item]);
         }
     }
 
