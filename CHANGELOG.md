@@ -2,6 +2,10 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 2.11.2 - 2019-08-21
+
+- fix XML structure when using numeric keys
+
 ## 2.11.1 - 2019-07-25
 
 - do not interpret "0" as a non-empty value
