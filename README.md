@@ -81,7 +81,7 @@ $array = [
     'Bad guy' => [
         'name' => 'Sauron',
         'weapon' => 'Evil Eye'
-    ]
+    ],
     'The survivor' => [
         '_attributes' => ['house'=>'Hogwarts'],
         '_value' => 'Harry Potter'
