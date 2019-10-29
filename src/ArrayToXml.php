@@ -2,11 +2,11 @@
 
 namespace Spatie\ArrayToXml;
 
-use DOMDocumentType;
 use Exception;
 use DOMElement;
 use DOMDocument;
 use DOMException;
+use DOMDocumentType;
 use DOMImplementation;
 
 class ArrayToXml
@@ -252,11 +252,11 @@ class ArrayToXml
 
     protected function ensureValidDocTypeProperties($docDefinition)
     {
-        if (!isset($docDefinition[0])) {
+        if (! isset($docDefinition[0])) {
             throw new Exception('Your doctype must include a DOMDocumentType name');
         }
 
-        if (!isset($docDefinition[1])) {
+        if (! isset($docDefinition[1])) {
             throw new Exception('Your doctype must include a DOMDocumentType systemId');
         }
     }
