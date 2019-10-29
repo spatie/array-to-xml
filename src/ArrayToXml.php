@@ -2,10 +2,12 @@
 
 namespace Spatie\ArrayToXml;
 
+use DOMDocumentType;
 use Exception;
 use DOMElement;
 use DOMDocument;
 use DOMException;
+use DOMImplementation;
 
 class ArrayToXml
 {
@@ -21,9 +23,14 @@ class ArrayToXml
         $replaceSpacesByUnderScoresInKeyNames = true,
         $xmlEncoding = null,
         $xmlVersion = '1.0',
-        $domProperties = []
+        $domProperties = [],
+        $docDefinition = []
     ) {
         $this->document = new DOMDocument($xmlVersion, $xmlEncoding);
+
+        if (! empty($docDefinition)) {
+            $this->document->appendChild($this->createDocType($docDefinition));
+        }
 
         if (! empty($domProperties)) {
             $this->setDomProperties($domProperties);
@@ -53,7 +60,8 @@ class ArrayToXml
         bool $replaceSpacesByUnderScoresInKeyNames = true,
         string $xmlEncoding = null,
         string $xmlVersion = '1.0',
-        array $domProperties = []
+        array $domProperties = [],
+        array $docDefinition = []
     ) {
         $converter = new static(
             $array,
@@ -61,7 +69,8 @@ class ArrayToXml
             $replaceSpacesByUnderScoresInKeyNames,
             $xmlEncoding,
             $xmlVersion,
-            $domProperties
+            $domProperties,
+            $docDefinition
         );
 
         return $converter->toXml();
@@ -92,6 +101,20 @@ class ArrayToXml
 
         foreach ($domProperties as $key => $value) {
             $this->document->{$key} = $value;
+        }
+
+        return $this;
+    }
+
+    public function setDocType(array $docDefinition): self
+    {
+        $firstChild = $this->document->firstChild;
+        $docType = $this->createDocType($docDefinition);
+
+        if ($firstChild instanceof DOMDocumentType) {
+            $this->document->replaceChild($docType, $firstChild);
+        } else {
+            $this->document->insertBefore($docType, $firstChild);
         }
 
         return $this;
@@ -225,6 +248,26 @@ class ArrayToXml
         }
 
         return $element;
+    }
+
+    protected function ensureValidDocTypeProperties($docDefinition)
+    {
+        if (!isset($docDefinition[0])) {
+            throw new Exception('Your doctype must include a DOMDocumentType name');
+        }
+
+        if (!isset($docDefinition[1])) {
+            throw new Exception('Your doctype must include a DOMDocumentType systemId');
+        }
+    }
+
+    protected function createDocType(array $docDefinition): DOMDocumentType
+    {
+        $this->ensureValidDocTypeProperties($docDefinition);
+
+        $domImplementation = new DOMImplementation();
+
+        return $domImplementation->createDocumentType($docDefinition[0], '', $docDefinition[1]);
     }
 
     protected function removeControlCharacters(string $value): string

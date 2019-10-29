@@ -416,4 +416,29 @@ class ArrayToXmlTest extends TestCase
         $this->assertTrue($dom->formatOutput);
         $this->assertEquals('1234567', $dom->version);
     }
+
+    /** @test */
+    public function it_can_accept_a_doctype()
+    {
+        $xml = ArrayToXml::convert(
+            $this->testArray,
+            'root',
+            true,
+            'UTF-8',
+            '1.0',
+            [],
+            ['animal', 'dog.dtd']
+        );
+
+        $this->assertMatchesXmlSnapshot($xml);
+    }
+
+    /** @test */
+    public function it_can_set_a_doctype()
+    {
+        $xml2Array = new ArrayToXml($this->testArray);
+        $xml2Array->setDocType(['greeting', 'hello.dtd']);
+
+        $this->assertMatchesXmlSnapshot($xml2Array->toXml());
+    }
 }

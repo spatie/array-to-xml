@@ -273,6 +273,32 @@ $arrayToXml = new ArrayToXml($array);
 $arrayToXml->setDomProperties(['formatOutput' => true]);
 $result = $arrayToXml->toXml();
 ```
+### Setting a DOCTYPE
+
+To set a document type declaration, you may pass an array containing the [name](https://www.php.net/manual/en/class.domdocumenttype.php#domdocumenttype.props.name)
+ and the [systemId](https://www.php.net/manual/en/class.domdocumenttype.php#domdocumenttype.props.systemid) of the DocumentType.
+
+You can use the constructor to set the Document Type.
+
+```php
+$result = ArrayToXml::convert(
+   $array, 
+   $rootElement, 
+   $replaceSpacesByUnderScoresInKeyNames, 
+   $xmlEncoding, 
+   $xmlVersion,
+   $domProperties,
+   ['animal', 'dog.dtd']
+);
+```
+
+Alternatively you can use  `setDocType`
+
+```php
+$arrayToXml = new ArrayToXml($array);
+$arrayToXml->setDocType(['animal', 'dog.dtd']);
+$result = $arrayToXml->toXml();
+```
 
 ## Testing
 
