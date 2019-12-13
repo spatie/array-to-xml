@@ -240,7 +240,7 @@ class ArrayToXml
 
     protected function createDocTypeElement($docTypeStr)
     {
-        if (!empty($docTypeStr)) {
+        if (! empty($docTypeStr)) {
             //Added for DOCType
             $implementation = new DOMImplementation();
             $this->document->appendChild($implementation->createDocumentType($docTypeStr));
