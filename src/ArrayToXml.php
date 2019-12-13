@@ -2,6 +2,7 @@
 
 namespace Spatie\ArrayToXml;
 
+use DOMImplementation;
 use Exception;
 use DOMElement;
 use DOMDocument;
@@ -18,6 +19,7 @@ class ArrayToXml
     public function __construct(
         array $array,
         $rootElement = '',
+        $docType = '',
         $replaceSpacesByUnderScoresInKeyNames = true,
         $xmlEncoding = null,
         $xmlVersion = '1.0',
@@ -35,6 +37,8 @@ class ArrayToXml
             throw new DOMException('Invalid Character Error');
         }
 
+        $this->createDocTypeElement($docType);
+
         $root = $this->createRootElement($rootElement);
 
         $this->document->appendChild($root);
@@ -50,6 +54,7 @@ class ArrayToXml
     public static function convert(
         array $array,
         $rootElement = '',
+        $docType = '',
         bool $replaceSpacesByUnderScoresInKeyNames = true,
         string $xmlEncoding = null,
         string $xmlVersion = '1.0',
@@ -58,6 +63,7 @@ class ArrayToXml
         $converter = new static(
             $array,
             $rootElement,
+            $docType,
             $replaceSpacesByUnderScoresInKeyNames,
             $xmlEncoding,
             $xmlVersion,
@@ -230,5 +236,14 @@ class ArrayToXml
     protected function removeControlCharacters(string $value): string
     {
         return preg_replace('/[\x00-\x09\x0B\x0C\x0E-\x1F\x7F]/', '', $value);
+    }
+
+    protected function createDocTypeElement($docTypeStr)
+    {
+        if (!empty($docTypeStr)) {
+            //Added for DOCType
+            $implementation = new DOMImplementation();
+            $this->document->appendChild($implementation->createDocumentType($docTypeStr));
+        }
     }
 }
