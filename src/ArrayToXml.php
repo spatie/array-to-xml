@@ -2,10 +2,10 @@
 
 namespace Spatie\ArrayToXml;
 
-use Exception;
-use DOMElement;
 use DOMDocument;
+use DOMElement;
 use DOMException;
+use Exception;
 
 class ArrayToXml
 {
