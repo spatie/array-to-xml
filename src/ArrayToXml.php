@@ -73,6 +73,7 @@ class ArrayToXml
             $this->document->preserveWhiteSpace = false;
             $this->document->formatOutput = true;
         }
+
         return $this->document->saveXML();
     }
 
@@ -236,4 +237,3 @@ class ArrayToXml
         return preg_replace('/[\x00-\x09\x0B\x0C\x0E-\x1F\x7F]/', '', $value);
     }
 }
-
