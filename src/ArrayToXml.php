@@ -67,13 +67,8 @@ class ArrayToXml
         return $converter->toXml();
     }
 
-    public function toXml(bool $isPretty = false): string
+    public function toXml(): string
     {
-        if ($isPretty) {
-            $this->document->preserveWhiteSpace = false;
-            $this->document->formatOutput = true;
-        }
-
         return $this->document->saveXML();
     }
 
@@ -98,6 +93,14 @@ class ArrayToXml
         foreach ($domProperties as $key => $value) {
             $this->document->{$key} = $value;
         }
+
+        return $this;
+    }
+
+    public function prettify()
+    {
+        $this->document->preserveWhiteSpace = false;
+        $this->document->formatOutput = true;
 
         return $this;
     }
