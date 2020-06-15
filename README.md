@@ -286,14 +286,28 @@ $result = $arrayToXml->toXml();
 
 ### XML Prettification 
 
-When calling `$arrayToXml->toXml()` use `true` as a parameter of the method to get XML string in pretty form.
+Call `$arrayToXml->prettify()` method on ArrayToXml to set XML in pretty form.
 
 Example:
+
+```php
+$array = [
+    'Good guy' => [
+        'name' => 'Luke Skywalker',
+        'weapon' => 'Lightsaber'
+    ],
+    'Bad guy' => [
+        'name' => 'Sauron',
+        'weapon' => 'Evil Eye'
+    ]
+];
+$arrayToXml = new ArrayToXml($array);
+```
 
 With prettification:
 
 ```php
-$arrayToXml->toXml(true);
+$arrayToXml->prettify();
 ```
 
 will resolve in:
@@ -314,16 +328,7 @@ will resolve in:
 
 Without prettification:
 
-```php
-$arrayToXml->toXml();
-or
-$arrayToXml->toXml(false);
-```
-
-will resolve in:
-
 ```xml
-
 <?xml version="1.0"?>
 <root><Good_guy><name>Luke Skywalker</name><weapon>Lightsaber</weapon></Good_guy><Bad_guy><name>Sauron</name><weapon>Evil Eye</weapon></Bad_guy></root>
 ```
