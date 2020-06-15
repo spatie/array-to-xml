@@ -308,6 +308,7 @@ With prettification:
 
 ```php
 $arrayToXml->prettify();
+$arrayToXml->toXml();
 ```
 
 will resolve in:
@@ -327,6 +328,12 @@ will resolve in:
 ```
 
 Without prettification:
+
+```php
+$arrayToXml->toXml();
+```
+
+will resolve in:
 
 ```xml
 <?xml version="1.0"?>
