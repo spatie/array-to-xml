@@ -307,11 +307,10 @@ $arrayToXml = new ArrayToXml($array);
 With prettification:
 
 ```php
-$arrayToXml->prettify();
-$arrayToXml->toXml();
+$arrayToXml->prettify()->toXml();
 ```
 
-will resolve in:
+will result in:
 
 ```xml
 <?xml version="1.0"?>
@@ -333,7 +332,7 @@ Without prettification:
 $arrayToXml->toXml();
 ```
 
-will resolve in:
+will result in:
 
 ```xml
 <?xml version="1.0"?>
