@@ -97,6 +97,14 @@ class ArrayToXml
         return $this;
     }
 
+    public function prettify()
+    {
+        $this->document->preserveWhiteSpace = false;
+        $this->document->formatOutput = true;
+
+        return $this;
+    }
+
     private function convertElement(DOMElement $element, $value)
     {
         $sequential = $this->isArrayAllKeySequential($value);

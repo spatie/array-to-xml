@@ -284,6 +284,61 @@ $arrayToXml->setDomProperties(['formatOutput' => true]);
 $result = $arrayToXml->toXml();
 ```
 
+### XML Prettification 
+
+Call `$arrayToXml->prettify()` method on ArrayToXml to set XML in pretty form.
+
+Example:
+
+```php
+$array = [
+    'Good guy' => [
+        'name' => 'Luke Skywalker',
+        'weapon' => 'Lightsaber'
+    ],
+    'Bad guy' => [
+        'name' => 'Sauron',
+        'weapon' => 'Evil Eye'
+    ]
+];
+$arrayToXml = new ArrayToXml($array);
+```
+
+With prettification:
+
+```php
+$arrayToXml->prettify()->toXml();
+```
+
+will result in:
+
+```xml
+<?xml version="1.0"?>
+<root>
+    <Good_guy>
+        <name>Luke Skywalker</name>
+        <weapon>Lightsaber</weapon>
+    </Good_guy>
+    <Bad_guy>
+        <name>Sauron</name>
+        <weapon>Evil Eye</weapon>
+    </Bad_guy>
+</root>
+```
+
+Without prettification:
+
+```php
+$arrayToXml->toXml();
+```
+
+will result in:
+
+```xml
+<?xml version="1.0"?>
+<root><Good_guy><name>Luke Skywalker</name><weapon>Lightsaber</weapon></Good_guy><Bad_guy><name>Sauron</name><weapon>Evil Eye</weapon></Bad_guy></root>
+```
+
 ## Testing
 
 ```bash
