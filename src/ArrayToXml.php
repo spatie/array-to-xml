@@ -31,9 +31,13 @@ class ArrayToXml
 
         $this->replaceSpacesByUnderScoresInKeyNames = $replaceSpacesByUnderScoresInKeyNames;
 
-        if ($this->isArrayAllKeySequential($array) && ! empty($array)) {
-            throw new DOMException('Invalid Character Error');
-        }
+        /**
+         * Commented this out to allow collections within the root node.
+         *
+         * if ($this->isArrayAllKeySequential($array) && ! empty($array)) {
+         *     throw new DOMException('Invalid Character Error');
+         * }
+         */
 
         $root = $this->createRootElement($rootElement);
 
