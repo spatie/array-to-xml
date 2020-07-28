@@ -120,6 +120,9 @@ This code will result in:
 </root>
 ```
 
+*Note, that the value of the `_value` field must be a string. [(More)](https://github.com/spatie/array-to-xml/issues/75#issuecomment-413726065)* 
+
+
 ### Using reserved characters
 
 It is also possible to wrap the value of a node into a CDATA section. This allows you to use reserved characters.
