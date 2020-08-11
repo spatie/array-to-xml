@@ -261,6 +261,58 @@ This will result in:
 
 You can change key prefix with setter method called `setNumericTagNamePrefix()`.
 
+### Using custom keys
+
+The package can also can handle custom keys:
+
+```php
+$array = [
+    '__custom:custom-key:1' => [
+        'name' => 'Vladimir',
+        'nickname' => 'greeflas',
+    ],
+    '__custom:custom-key:2' => [
+        'name' => 'Marina',
+        'nickname' => 'estacet',
+        'tags' => [
+            '__custom:tag:1' => 'first-tag',
+            '__custom:tag:2' => 'second-tag',
+        ]
+    ],
+];
+
+$result = ArrayToXml::convert($array);
+```
+
+This will result in:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <custom-key>
+        <name>Vladimir</name>
+        <nickname>greeflas</nickname>
+    </custom-key>
+    <custom-key>
+        <name>Marina</name>
+        <nickname>estacet</nickname>
+        <tags>
+            <tag>first-tag</tag>
+            <tag>second-tag</tag>
+        </tags>
+    </custom-key>
+</root>
+```
+
+A custom key contains three, colon-separated parts: "__custom:[custom-tag]:[unique-string]".
+
+- "__custom"
+  - The key always starts with "__custom".
+- [custom-tag]
+  - The string to be rendered as the XML tag.
+- [unique-string]
+  - A unique string that avoids overwriting of duplicate keys in PHP arrays.
+
 ### Setting DOMDocument properties
 
 To set properties of the internal DOMDocument object just pass an array consisting of keys and values. For a full list of valid properties consult https://www.php.net/manual/en/class.domdocument.php.
