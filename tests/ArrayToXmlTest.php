@@ -429,7 +429,7 @@ class ArrayToXmlTest extends TestCase
                 ],
             ],
         ]));
-    } 
+    }
 
     /** @test */
     public function setting_invalid_properties_will_result_in_an_exception()
