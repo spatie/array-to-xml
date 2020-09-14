@@ -13,6 +13,8 @@ class ArrayToXml
 
     protected $replaceSpacesByUnderScoresInKeyNames = true;
 
+    protected $addXmlDeclaration = true;
+
     protected $numericTagNamePrefix = 'numeric_';
 
     public function __construct(
@@ -69,6 +71,10 @@ class ArrayToXml
 
     public function toXml(): string
     {
+        if ($this->addXmlDeclaration === false) {
+            return $this->document->saveXml($this->document->documentElement);
+        }
+
         return $this->document->saveXML();
     }
 
@@ -101,6 +107,13 @@ class ArrayToXml
     {
         $this->document->preserveWhiteSpace = false;
         $this->document->formatOutput = true;
+
+        return $this;
+    }
+
+    public function dropXmlDeclaration()
+    {
+        $this->addXmlDeclaration = false;
 
         return $this;
     }
