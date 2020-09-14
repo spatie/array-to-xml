@@ -394,6 +394,36 @@ will result in:
 <root><Good_guy><name>Luke Skywalker</name><weapon>Lightsaber</weapon></Good_guy><Bad_guy><name>Sauron</name><weapon>Evil Eye</weapon></Bad_guy></root>
 ```
 
+### Dropping XML declaration
+
+Call `$arrayToXml->dropXmlDeclaration()` method on ArrayToXml object to omit default XML declaration on top of the generated XML.
+
+Example:
+
+```php
+$root = [
+    'rootElementName' => 'soap:Envelope',
+    '_attributes' => [
+        'xmlns:soap' => 'http://www.w3.org/2003/05/soap-envelope/',
+    ],
+];
+$array = [
+    'soap:Header' => [],
+    'soap:Body' => [
+        'soap:key' => 'soap:value',
+    ],
+];
+$arrayToXml = new ArrayToXml($array, $root);
+
+$result = $arrayToXml->dropXmlDeclaration()->toXml();
+```
+
+This will result in:
+
+```xml
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope/"><soap:Header/><soap:Body><soap:key>soap:value</soap:key></soap:Body></soap:Envelope>
+```
+
 ## Testing
 
 ```bash

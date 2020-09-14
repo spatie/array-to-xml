@@ -457,19 +457,19 @@ class ArrayToXmlTest extends TestCase
     /** @test */
     public function it_can_drop_xml_declaration()
     {
-        $body = [
+        $root = [
+            'rootElementName' => 'soap:Envelope',
+            '_attributes' => [
+                'xmlns:soap' => 'http://www.w3.org/2003/05/soap-envelope/',
+            ],
+        ];
+        $array = [
             'soap:Header' => [],
             'soap:Body' => [
                 'soap:key' => 'soap:value',
             ],
         ];
-
-        $arrayToXml = new ArrayToXml($body, [
-            'rootElement' => 'soap:Envelope',
-            '_attributes' => [
-                'xmlns:soap' => 'http://www.w3.org/2003/05/soap-envelope/',
-            ],
-        ]);
+        $arrayToXml = new ArrayToXml($array, $root);
 
         $this->assertMatchesSnapshot($arrayToXml->dropXmlDeclaration()->toXml());
     }
