@@ -2,6 +2,10 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 2.14.0 - 2020-09-14
+
+- add support for dropping XML declaration (#145)
+
 ## 2.13.0 - 2020-08-24
 
 - add support for custom keys (#140)
