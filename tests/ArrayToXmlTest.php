@@ -461,14 +461,14 @@ class ArrayToXmlTest extends TestCase
             'soap:Header' => [],
             'soap:Body' => [
                 'soap:key' => 'soap:value',
-            ]
+            ],
         ];
 
         $arrayToXml = new ArrayToXml($body, [
             'rootElement' => 'soap:Envelope',
             '_attributes' => [
                 'xmlns:soap' => 'http://www.w3.org/2003/05/soap-envelope/',
-            ]
+            ],
         ]);
 
         $this->assertMatchesSnapshot($arrayToXml->dropXmlDeclaration()->toXml());
