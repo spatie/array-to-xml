@@ -453,4 +453,24 @@ class ArrayToXmlTest extends TestCase
         $this->assertTrue($dom->formatOutput);
         $this->assertEquals('1234567', $dom->version);
     }
+
+    /** @test */
+    public function it_can_drop_xml_declaration()
+    {
+        $body = [
+            'soap:Header' => [],
+            'soap:Body' => [
+                'soap:key' => 'soap:value',
+            ]
+        ];
+
+        $arrayToXml = new ArrayToXml($body, [
+            'rootElement' => 'soap:Envelope',
+            '_attributes' => [
+                'xmlns:soap' => 'http://www.w3.org/2003/05/soap-envelope/',
+            ]
+        ]);
+
+        $this->assertMatchesSnapshot($arrayToXml->dropXmlDeclaration()->toXml());
+    }
 }
