@@ -169,7 +169,7 @@ You could specify specific values in for:
  - standalone as sixth argument (boolean)
 
 ```php
-$result = ArrayToXml::convert($array, [], true, 'UTF-8', '1.1', [], false);
+$result = ArrayToXml::convert($array, [], true, 'UTF-8', '1.1', [], true);
 ```
 
 This will result in:
