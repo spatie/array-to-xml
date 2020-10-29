@@ -127,6 +127,12 @@ class ArrayToXmlTest extends TestCase
     }
 
     /** @test */
+    public function it_accepts_an_xml_standalone_value()
+    {
+        $this->assertMatchesSnapshot(ArrayToXml::convert([], '', false, null, '1.0', [], false));
+    }
+
+    /** @test */
     public function it_can_handle_values_as_collection()
     {
         $this->assertMatchesXmlSnapshot(ArrayToXml::convert([

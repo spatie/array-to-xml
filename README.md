@@ -59,6 +59,7 @@ After running this piece of code `$result` will contain:
 </root>
 ```
 
+
 ### Setting the name of the root element
 
 Optionally you can set the name of the rootElement by passing it as the second argument. If you don't specify
@@ -158,6 +159,25 @@ This code will result in:
 ```
 
 If your input contains something that cannot be parsed a `DOMException` will be thrown.
+
+
+### Customize the XML declaration
+
+You could specify specific values in for:
+ - encoding as the fourth argument (string)
+ - version as the fifth argument (string)
+ - standalone as sixth argument (boolean)
+
+```php
+$result = ArrayToXml::convert($array, [], true, 'UTF-8', '1.1', [], true);
+```
+
+This will result in:
+
+```xml
+<?xml version="1.1" encoding="UTF-8" standalone="yes"?>
+```
+
 
 ### Adding attributes to the root element
 
