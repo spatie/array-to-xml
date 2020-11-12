@@ -16,12 +16,12 @@ class ArrayToXmlTest extends TestCase
         $this->testArray = [
             'Good guy' => [
 
-                'name' => 'Luke Skywalker',
+                'name'   => 'Luke Skywalker',
                 'weapon' => 'Lightsaber',
 
             ],
             'Bad guy' => [
-                'name' => 'Sauron',
+                'name'   => 'Sauron',
                 'weapon' => 'Evil Eye',
 
             ],
@@ -139,11 +139,11 @@ class ArrayToXmlTest extends TestCase
             'user' => [
                 [
                     'name' => 'een',
-                    'age' => 10,
+                    'age'  => 10,
                 ],
                 [
                     'name' => 'twee',
-                    'age' => 12,
+                    'age'  => 12,
                 ],
             ],
         ]));
@@ -187,13 +187,13 @@ class ArrayToXmlTest extends TestCase
                 [
                     '_attributes' => [
                         'name' => 'een',
-                        'age' => 10,
+                        'age'  => 10,
                     ],
                 ],
                 [
                     '_attributes' => [
                         'name' => 'twee',
-                        'age' => 12,
+                        'age'  => 12,
                     ],
                 ],
             ],
@@ -218,13 +218,13 @@ class ArrayToXmlTest extends TestCase
                 [
                     'title' => [
                         '_attributes' => ['category' => 'SF'],
-                        '_value' => 'STAR WARS',
+                        '_value'      => 'STAR WARS',
                     ],
                 ],
                 [
                     'title' => [
                         '_attributes' => ['category' => 'Children'],
-                        '_value' => 'tom & jerry',
+                        '_value'      => 'tom & jerry',
                     ],
                 ],
             ],
@@ -239,13 +239,13 @@ class ArrayToXmlTest extends TestCase
                 [
                     'title' => [
                         '@attributes' => ['category' => 'SF'],
-                        '@value' => 'STAR WARS',
+                        '@value'      => 'STAR WARS',
                     ],
                 ],
                 [
                     'title' => [
                         '@attributes' => ['category' => 'Children'],
-                        '@value' => 'tom & jerry',
+                        '@value'      => 'tom & jerry',
                     ],
                 ],
             ],
@@ -260,13 +260,13 @@ class ArrayToXmlTest extends TestCase
                 [
                     'title' => [
                         '_attributes' => ['category' => 'SF'],
-                        '_cdata' => '<p>STAR WARS</p>',
+                        '_cdata'      => '<p>STAR WARS</p>',
                     ],
                 ],
                 [
                     'title' => [
                         '_attributes' => ['category' => 'Children'],
-                        '_cdata' => '<p>tom & jerry</p>',
+                        '_cdata'      => '<p>tom & jerry</p>',
                     ],
                 ],
             ],
@@ -281,13 +281,13 @@ class ArrayToXmlTest extends TestCase
                 [
                     'title' => [
                         '@attributes' => ['category' => 'SF'],
-                        '@cdata' => '<p>STAR WARS</p>',
+                        '@cdata'      => '<p>STAR WARS</p>',
                     ],
                 ],
                 [
                     'title' => [
                         '@attributes' => ['category' => 'Children'],
-                        '@cdata' => '<p>tom & jerry</p>',
+                        '@cdata'      => '<p>tom & jerry</p>',
                     ],
                 ],
             ],
@@ -327,13 +327,13 @@ class ArrayToXmlTest extends TestCase
                 [
                     'title' => [
                         '@attributes' => ['category' => 'SF'],
-                        '_mixed' => 'STAR WARS <xref ref-type="fig" rid="f1">Figure 1</xref>',
+                        '_mixed'      => 'STAR WARS <xref ref-type="fig" rid="f1">Figure 1</xref>',
                     ],
                 ],
                 [
                     'title' => [
                         '@attributes' => ['category' => 'Action'],
-                        '_mixed' => 'ROBOCOP <xref ref-type="fig" rid="f2">Figure 2</xref>',
+                        '_mixed'      => 'ROBOCOP <xref ref-type="fig" rid="f2">Figure 2</xref>',
                     ],
                 ],
             ],
@@ -348,13 +348,13 @@ class ArrayToXmlTest extends TestCase
                 [
                     'title' => [
                         '@attributes' => ['category' => 'SF'],
-                        '@mixed' => 'STAR WARS <xref ref-type="fig" rid="f1">Figure 1</xref>',
+                        '@mixed'      => 'STAR WARS <xref ref-type="fig" rid="f1">Figure 1</xref>',
                     ],
                 ],
                 [
                     'title' => [
                         '@attributes' => ['category' => 'Action'],
-                        '@mixed' => 'ROBOCOP <xref ref-type="fig" rid="f2">Figure 2</xref>',
+                        '@mixed'      => 'ROBOCOP <xref ref-type="fig" rid="f2">Figure 2</xref>',
                     ],
                 ],
             ],
@@ -367,31 +367,31 @@ class ArrayToXmlTest extends TestCase
         $this->assertMatchesSnapshot(ArrayToXml::convert([
             '__numeric' => [
                 16 => [
-                    'parent' => 'aaa',
+                    'parent'   => 'aaa',
                     'numLinks' => 3,
-                    'child' => [
+                    'child'    => [
                         16 => [
-                            'parent' => 'abc',
+                            'parent'   => 'abc',
                             'numLinks' => 3,
                         ],
                     ],
                 ],
                 17 => [
-                    'parent' => 'bb',
+                    'parent'   => 'bb',
                     'numLinks' => 3,
-                    'child' => [
+                    'child'    => [
                         16 => [
-                            'parent' => 'abb',
+                            'parent'   => 'abb',
                             'numLinks' => 3,
-                            'child' => [
+                            'child'    => [
                                 16 => [
-                                    'parent' => 'abc',
+                                    'parent'   => 'abc',
                                     'numLinks' => 3,
                                 ],
                             ],
                         ],
                         17 => [
-                            'parent' => 'acb',
+                            'parent'   => 'acb',
                             'numLinks' => 3,
                         ],
                     ],
@@ -405,31 +405,31 @@ class ArrayToXmlTest extends TestCase
     {
         $this->assertMatchesSnapshot(ArrayToXml::convert([
             '__custom:custom-key:01' => [
-                'parent' => 'aaa',
+                'parent'   => 'aaa',
                 'numLinks' => 3,
-                'child' => [
+                'child'    => [
                     16 => [
-                        'parent' => 'abc',
+                        'parent'   => 'abc',
                         'numLinks' => 3,
                     ],
                 ],
             ],
             '__custom:custom-key:02' => [
-                'parent' => 'bb',
+                'parent'   => 'bb',
                 'numLinks' => 3,
-                'child' => [
+                'child'    => [
                     '__custom:custom-subkey:01' => [
-                        'parent' => 'abb',
+                        'parent'   => 'abb',
                         'numLinks' => 3,
-                        'child' => [
+                        'child'    => [
                             '__custom:custom-subsubkey:01' => [
-                                'parent' => 'abc',
+                                'parent'   => 'abc',
                                 'numLinks' => 3,
                             ],
                         ],
                     ],
                     '__custom:custom-subkey:02' => [
-                        'parent' => 'acb',
+                        'parent'   => 'acb',
                         'numLinks' => 3,
                     ],
                 ],
@@ -452,7 +452,7 @@ class ArrayToXmlTest extends TestCase
         $xml2Array = new ArrayToXml($this->testArray);
         $xml2Array->setDomProperties([
             'formatOutput' => true,
-            'version' => '1234567',
+            'version'      => '1234567',
         ]);
 
         $dom = $xml2Array->toDom();
@@ -465,13 +465,13 @@ class ArrayToXmlTest extends TestCase
     {
         $root = [
             'rootElementName' => 'soap:Envelope',
-            '_attributes' => [
+            '_attributes'     => [
                 'xmlns:soap' => 'http://www.w3.org/2003/05/soap-envelope/',
             ],
         ];
         $array = [
             'soap:Header' => [],
-            'soap:Body' => [
+            'soap:Body'   => [
                 'soap:key' => 'soap:value',
             ],
         ];

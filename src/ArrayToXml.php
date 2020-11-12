@@ -28,17 +28,17 @@ class ArrayToXml
     ) {
         $this->document = new DOMDocument($xmlVersion, $xmlEncoding);
 
-        if (! is_null($xmlStandalone)) {
+        if (!is_null($xmlStandalone)) {
             $this->document->xmlStandalone = $xmlStandalone;
         }
 
-        if (! empty($domProperties)) {
+        if (!empty($domProperties)) {
             $this->setDomProperties($domProperties);
         }
 
         $this->replaceSpacesByUnderScoresInKeyNames = $replaceSpacesByUnderScoresInKeyNames;
 
-        if ($this->isArrayAllKeySequential($array) && ! empty($array)) {
+        if ($this->isArrayAllKeySequential($array) && !empty($array)) {
             throw new DOMException('Invalid Character Error');
         }
 
@@ -93,7 +93,7 @@ class ArrayToXml
     protected function ensureValidDomProperties(array $domProperties)
     {
         foreach ($domProperties as $key => $value) {
-            if (! property_exists($this->document, $key)) {
+            if (!property_exists($this->document, $key)) {
                 throw new Exception($key.' is not a valid property of DOMDocument');
             }
         }
@@ -129,7 +129,7 @@ class ArrayToXml
     {
         $sequential = $this->isArrayAllKeySequential($value);
 
-        if (! is_array($value)) {
+        if (!is_array($value)) {
             $value = htmlspecialchars($value);
 
             $value = $this->removeControlCharacters($value);
@@ -140,7 +140,7 @@ class ArrayToXml
         }
 
         foreach ($value as $key => $data) {
-            if (! $sequential) {
+            if (!$sequential) {
                 if (($key === '_attributes') || ($key === '@attributes')) {
                     $this->addAttributes($element, $data);
                 } elseif ((($key === '_value') || ($key === '@value')) && is_string($data)) {
@@ -199,7 +199,7 @@ class ArrayToXml
 
     protected function addSequentialNode(DOMElement $element, $value)
     {
-        if (empty($element->nodeValue) && ! is_numeric($element->nodeValue)) {
+        if (empty($element->nodeValue) && !is_numeric($element->nodeValue)) {
             $element->nodeValue = htmlspecialchars($value);
 
             return;
@@ -212,7 +212,7 @@ class ArrayToXml
 
     protected function isArrayAllKeySequential($value)
     {
-        if (! is_array($value)) {
+        if (!is_array($value)) {
             return false;
         }
 
