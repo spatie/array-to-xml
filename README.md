@@ -328,6 +328,44 @@ A custom key contains three, colon-separated parts: "__custom:[custom-tag]:[uniq
 - [unique-string]
   - A unique string that avoids overwriting of duplicate keys in PHP arrays.
 
+a colon character can be included within the custom-tag portion by escaping it with a backslash:
+
+```php
+$array = [
+    '__custom:ns\\:custom-key:1' => [
+        'name' => 'Vladimir',
+        'nickname' => 'greeflas',
+    ],
+    '__custom:ns\\:custom-key:2' => [
+        'name' => 'Marina',
+        'nickname' => 'estacet',
+        'tags' => [
+            '__custom:ns\\:tag:1' => 'first-tag',
+            '__custom:ns\\:tag:2' => 'second-tag',
+        ]
+    ],
+];
+```
+This will result in:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <ns:custom-key>
+        <name>Vladimir</name>
+        <nickname>greeflas</nickname>
+    </ns:custom-key>
+    <ns:custom-key>
+        <name>Marina</name>
+        <nickname>estacet</nickname>
+        <tags>
+            <ns:tag>first-tag</ns:tag>
+            <tns:ag>second-tag</tns:ag>
+        </tags>
+    </ns:custom-key>
+</root>
+```
+
 ### Setting DOMDocument properties
 
 To set properties of the internal DOMDocument object just pass an array consisting of keys and values. For a full list of valid properties consult https://www.php.net/manual/en/class.domdocument.php.

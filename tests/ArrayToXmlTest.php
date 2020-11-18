@@ -438,6 +438,43 @@ class ArrayToXmlTest extends TestCase
     }
 
     /** @test */
+    public function it_can_handle_custom_keys_containing_colon_character()
+    {
+        $this->assertMatchesSnapshot(ArrayToXml::convert([
+            '__custom:custom\:key:01' => [
+                'parent' => 'aaa',
+                'numLinks' => 3,
+                'child' => [
+                    16 => [
+                        'parent' => 'abc',
+                        'numLinks' => 3,
+                    ],
+                ],
+            ],
+            '__custom:custom\:key:02' => [
+                'parent' => 'bb',
+                'numLinks' => 3,
+                'child' => [
+                    '__custom:custom\:subkey:01' => [
+                        'parent' => 'abb',
+                        'numLinks' => 3,
+                        'child' => [
+                            '__custom:custom\:subsubkey:01' => [
+                                'parent' => 'abc',
+                                'numLinks' => 3,
+                            ],
+                        ],
+                    ],
+                    '__custom:custom\:subkey:02' => [
+                        'parent' => 'acb',
+                        'numLinks' => 3,
+                    ],
+                ],
+            ],
+        ]));
+    }
+
+    /** @test */
     public function setting_invalid_properties_will_result_in_an_exception()
     {
         $this->expectException(\Exception::class);
