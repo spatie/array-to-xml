@@ -17,9 +17,9 @@ class ArrayToXml
 
     protected $numericTagNamePrefix = 'numeric_';
 
-	/**
-	 * @param mixed[] $array
-	 */
+    /**
+     * @param mixed[] $array
+     */
     public function __construct(
         array $array,
         $rootElement = '',
@@ -57,9 +57,9 @@ class ArrayToXml
         $this->numericTagNamePrefix = $prefix;
     }
 
-	/**
-	 * @param mixed[] $array
-	 */
+    /**
+     * @param mixed[] $array
+     */
     public static function convert(
         array $array,
         $rootElement = '',
@@ -131,9 +131,9 @@ class ArrayToXml
         return $this;
     }
 
-	/**
-	 * @param mixed[]|mixed $value
-	 */
+    /**
+     * @param mixed[]|mixed $value
+     */
     private function convertElement(DOMElement $element, $value): void
     {
         $sequential = $this->isArrayAllKeySequential($value);
@@ -219,10 +219,10 @@ class ArrayToXml
         $element->parentNode->appendChild($child);
     }
 
-	/**
-	 * @param mixed[] $value
-	 * @return bool|mixed[]
-	 */
+    /**
+     * @param mixed[] $value
+     * @return bool|mixed[]
+     */
     protected function isArrayAllKeySequential($value)
     {
         if (! is_array($value)) {
