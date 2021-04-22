@@ -2,6 +2,12 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 3.0.0 - unreleased
+
+- require PHP 8+
+- drop support for PHP 7.x
+- convert syntax to PHP 8
+
 ## 2.16.0 - 2020-11-18
 
 - add escapable colons in custom keys (#151)
