@@ -8,8 +8,7 @@ class ArrayToXmlTest extends TestCase
 {
     use MatchesSnapshots;
 
-    /** @test array */
-    protected $testArray = [];
+    protected array $testArray = [];
 
     public function setUp(): void
     {
@@ -274,7 +273,7 @@ class ArrayToXmlTest extends TestCase
     }
 
     /** @test */
-    public function and_cdata_values_can_also_be_set_in_simplexmlelement_style()
+    public function and_cdata_values_can_also_be_set_in_simplexml_element_style()
     {
         $this->assertMatchesSnapshot(ArrayToXml::convert([
             'movie' => [
@@ -341,7 +340,7 @@ class ArrayToXmlTest extends TestCase
     }
 
     /** @test */
-    public function and_mixed_values_can_also_be_set_in_simplexmlelement_style()
+    public function and_mixed_values_can_also_be_set_in_simplexml_element_style()
     {
         $this->assertMatchesSnapshot(ArrayToXml::convert([
             'movie' => [

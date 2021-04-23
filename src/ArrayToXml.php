@@ -78,11 +78,9 @@ class ArrayToXml
 
     public function toXml(): string
     {
-        if ($this->addXmlDeclaration === false) {
-            return $this->document->saveXml($this->document->documentElement);
-        }
-
-        return $this->document->saveXML();
+        return $this->addXmlDeclaration
+            ? $this->document->saveXML()
+            : $this->document->saveXml($this->document->documentElement);
     }
 
     public function toDom(): DOMDocument
@@ -94,7 +92,7 @@ class ArrayToXml
     {
         foreach ($domProperties as $key => $value) {
             if (! property_exists($this->document, $key)) {
-                throw new Exception($key.' is not a valid property of DOMDocument');
+                throw new Exception("{$key} is not a valid property of DOMDocument");
             }
         }
     }
@@ -125,10 +123,7 @@ class ArrayToXml
         return $this;
     }
 
-    /**
-     * @param mixed[]|mixed $value
-     */
-    private function convertElement(DOMElement $element, $value): void
+    protected function convertElement(DOMElement $element, mixed $value): void
     {
         $sequential = $this->isArrayAllKeySequential($value);
 
@@ -213,10 +208,7 @@ class ArrayToXml
         $element->parentNode->appendChild($child);
     }
 
-    /**
-     * @return bool|mixed[]
-     */
-    protected function isArrayAllKeySequential(array | string $value): mixed
+    protected function isArrayAllKeySequential(array | string $value): bool
     {
         if (! is_array($value)) {
             return false;
