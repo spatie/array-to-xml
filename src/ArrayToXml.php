@@ -9,25 +9,22 @@ use Exception;
 
 class ArrayToXml
 {
-    protected $document;
+    protected DOMDocument $document;
 
-    protected $replaceSpacesByUnderScoresInKeyNames = true;
+    protected bool $replaceSpacesByUnderScoresInKeyNames = true;
 
-    protected $addXmlDeclaration = true;
+    protected bool $addXmlDeclaration = true;
 
-    protected $numericTagNamePrefix = 'numeric_';
+    protected string $numericTagNamePrefix = 'numeric_';
 
-    /**
-     * @param mixed[] $array
-     */
     public function __construct(
         array $array,
-        $rootElement = '',
-        $replaceSpacesByUnderScoresInKeyNames = true,
-        $xmlEncoding = null,
-        $xmlVersion = '1.0',
-        $domProperties = [],
-        $xmlStandalone = null
+        string | array $rootElement = '',
+        bool $replaceSpacesByUnderScoresInKeyNames = true,
+        ?string $xmlEncoding = null,
+        string $xmlVersion = '1.0',
+        array $domProperties = [],
+        ?bool $xmlStandalone = null
     ) {
         $this->document = new DOMDocument($xmlVersion, $xmlEncoding);
 
@@ -57,9 +54,6 @@ class ArrayToXml
         $this->numericTagNamePrefix = $prefix;
     }
 
-    /**
-     * @param mixed[] $array
-     */
     public static function convert(
         array $array,
         $rootElement = '',
@@ -162,7 +156,7 @@ class ArrayToXml
                     $element->appendChild($fragment);
                 } elseif ($key === '__numeric') {
                     $this->addNumericNode($element, $data);
-                } elseif (substr($key, 0, 9) === '__custom:') {
+                } elseif (str_starts_with($key, '__custom:')) {
                     $this->addNode($element, str_replace('\:', ':', preg_split('/(?<!\\\):/', $key)[1]), $data);
                 } else {
                     $this->addNode($element, $key, $data);
@@ -206,7 +200,7 @@ class ArrayToXml
         $this->convertElement($child, $value);
     }
 
-    protected function addSequentialNode(DOMElement $element, $value)
+    protected function addSequentialNode(DOMElement $element, $value): void
     {
         if (empty($element->nodeValue) && ! is_numeric($element->nodeValue)) {
             $element->nodeValue = htmlspecialchars($value);
@@ -220,10 +214,9 @@ class ArrayToXml
     }
 
     /**
-     * @param mixed[] $value
      * @return bool|mixed[]
      */
-    protected function isArrayAllKeySequential($value)
+    protected function isArrayAllKeySequential(array | string $value): mixed
     {
         if (! is_array($value)) {
             return false;
