@@ -477,6 +477,27 @@ This will result in:
 <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope/"><soap:Header/><soap:Body><soap:key>soap:value</soap:key></soap:Body></soap:Envelope>
 ```
 
+### Adding Processing Instructions
+
+Call `$arrayToXml->addProcessingInstruction($target, $data)` method on ArrayToXml object to prepend a processing instruction before the root element.
+
+Example:
+
+```php
+
+$arrayToXml = new ArrayToXml($array);
+$arrayToXml->addProcessingInstruction('xml-stylesheet', 'type="text/xsl" href="base.xsl"');
+$result = $arrayToXml->toXml();
+```
+
+This will result in:
+
+```xml
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="base.xsl"?>
+<root><Good_guy><name>Luke Skywalker</name><weapon>Lightsaber</weapon></Good_guy><Bad_guy><name>Sauron</name><weapon>Evil Eye</weapon></Bad_guy></root>
+```
+
 ## Testing
 
 ```bash
