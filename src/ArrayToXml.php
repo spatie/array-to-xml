@@ -123,6 +123,17 @@ class ArrayToXml
         return $this;
     }
 
+    public function addProcessingInstruction($target, $data)
+    {
+        $elements = $this->document->getElementsByTagName('*');
+
+        $rootElement = $elements->count() > 0 ? $elements->item(0) : null;
+
+        $this->document->insertBefore($this->document->createProcessingInstruction($target, $data), $rootElement);
+
+        return $this;
+    }
+
     protected function convertElement(DOMElement $element, mixed $value): void
     {
         $sequential = $this->isArrayAllKeySequential($value);

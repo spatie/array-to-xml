@@ -515,4 +515,14 @@ class ArrayToXmlTest extends TestCase
 
         $this->assertMatchesSnapshot($arrayToXml->dropXmlDeclaration()->toXml());
     }
+
+    /** @test */
+    public function it_can_add_processing_instructions()
+    {
+        $arrayToXml = new ArrayToXml($this->testArray);
+
+        $arrayToXml->addProcessingInstruction('xml-stylesheet', 'type="text/xsl" href="base.xsl"');
+
+        $this->assertMatchesSnapshot($arrayToXml->toXml());
+    }
 }
