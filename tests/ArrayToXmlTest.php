@@ -515,4 +515,14 @@ class ArrayToXmlTest extends TestCase
 
         $this->assertMatchesSnapshot($arrayToXml->dropXmlDeclaration()->toXml());
     }
+
+    /** @test */
+    public function it_can_convert_an_array_with_null_value_to_xml()
+    {
+        $arr = [
+            'test' => null,
+        ];
+
+        $this->assertMatchesXmlSnapshot(ArrayToXml::convert($arr));
+    }
 }
