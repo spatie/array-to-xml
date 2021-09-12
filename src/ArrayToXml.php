@@ -123,13 +123,15 @@ class ArrayToXml
         return $this;
     }
 
-    public function addProcessingInstruction($target, $data)
+    public function addProcessingInstruction(string $target, string $data): self
     {
         $elements = $this->document->getElementsByTagName('*');
 
         $rootElement = $elements->count() > 0 ? $elements->item(0) : null;
 
-        $this->document->insertBefore($this->document->createProcessingInstruction($target, $data), $rootElement);
+        $processingInstruction = $this->document->createProcessingInstruction($target, $data);
+
+        $this->document->insertBefore($processingInstruction, $rootElement);
 
         return $this;
     }
