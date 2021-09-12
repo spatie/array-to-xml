@@ -219,7 +219,7 @@ class ArrayToXml
         $element->parentNode->appendChild($child);
     }
 
-    protected function isArrayAllKeySequential(array | string $value): bool
+    protected function isArrayAllKeySequential(array | string | null $value): bool
     {
         if (! is_array($value)) {
             return false;
