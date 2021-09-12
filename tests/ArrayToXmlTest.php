@@ -515,7 +515,7 @@ class ArrayToXmlTest extends TestCase
 
         $this->assertMatchesSnapshot($arrayToXml->dropXmlDeclaration()->toXml());
     }
-
+    
     /** @test */
     public function it_can_convert_an_array_with_null_value_to_xml()
     {
@@ -524,5 +524,15 @@ class ArrayToXmlTest extends TestCase
         ];
 
         $this->assertMatchesXmlSnapshot(ArrayToXml::convert($arr));
+    }
+  
+    /** @test */
+    public function it_can_add_processing_instructions()
+    {
+        $arrayToXml = new ArrayToXml($this->testArray);
+
+        $arrayToXml->addProcessingInstruction('xml-stylesheet', 'type="text/xsl" href="base.xsl"');
+
+        $this->assertMatchesSnapshot($arrayToXml->toXml());
     }
 }
