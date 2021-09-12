@@ -2,6 +2,10 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 3.1.0 - 2021-09-12
+
+- add support for processing instructions
+
 ## 3.0.1 - 2021-09-05
 
 - allow null inside array to be converted to xml (#170)
