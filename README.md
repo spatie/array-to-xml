@@ -360,7 +360,7 @@ This will result in:
         <nickname>estacet</nickname>
         <tags>
             <ns:tag>first-tag</ns:tag>
-            <tns:ag>second-tag</tns:ag>
+            <ns:tag>second-tag</ns:tag>
         </tags>
     </ns:custom-key>
 </root>
