@@ -42,7 +42,7 @@ class ArrayToXmlTest extends TestCase
     /** @test */
     public function it_can_receive_name_for_the_root_element()
     {
-        $this->assertMatchesXmlSnapshot(ArrayToXml::convert([], 'helloyouluckpeople'));
+        $this->assertMatchesXmlSnapshot(ArrayToXml::convert([], 'helloyouluckpeople xmlns="http://www.w3.org/1999/xhtml"'));
     }
 
     /** @test */
