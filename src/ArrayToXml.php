@@ -21,7 +21,7 @@ class ArrayToXml
         array $array,
         string | array $rootElement = '',
         bool $replaceSpacesByUnderScoresInKeyNames = true,
-        ?string $xmlEncoding = null,
+        string $xmlEncoding = '',
         string $xmlVersion = '1.0',
         array $domProperties = [],
         ?bool $xmlStandalone = null
@@ -56,9 +56,9 @@ class ArrayToXml
 
     public static function convert(
         array $array,
-        $rootElement = '',
+              $rootElement = '',
         bool $replaceSpacesByUnderScoresInKeyNames = true,
-        string $xmlEncoding = null,
+        string $xmlEncoding = '',
         string $xmlVersion = '1.0',
         array $domProperties = [],
         bool $xmlStandalone = null
@@ -141,9 +141,10 @@ class ArrayToXml
         $sequential = $this->isArrayAllKeySequential($value);
 
         if (! is_array($value)) {
-            $value = htmlspecialchars($value);
-
-            $value = $this->removeControlCharacters($value);
+            if (! is_null($value)) {
+                $value = htmlspecialchars($value);
+                $value = $this->removeControlCharacters($value);
+            }
 
             $element->nodeValue = $value;
 

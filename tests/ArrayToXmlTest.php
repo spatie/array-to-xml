@@ -122,13 +122,13 @@ class ArrayToXmlTest extends TestCase
     /** @test */
     public function it_accepts_an_xml_version()
     {
-        $this->assertMatchesSnapshot(ArrayToXml::convert([], '', false, null, '1.1'));
+        $this->assertMatchesSnapshot(ArrayToXml::convert([], '', false, '', '1.1'));
     }
 
     /** @test */
     public function it_accepts_an_xml_standalone_value()
     {
-        $this->assertMatchesSnapshot(ArrayToXml::convert([], '', false, null, '1.0', [], false));
+        $this->assertMatchesSnapshot(ArrayToXml::convert([], '', false, '', '1.0', [], false));
     }
 
     /** @test */
@@ -515,7 +515,7 @@ class ArrayToXmlTest extends TestCase
 
         $this->assertMatchesSnapshot($arrayToXml->dropXmlDeclaration()->toXml());
     }
-    
+
     /** @test */
     public function it_can_convert_an_array_with_null_value_to_xml()
     {
@@ -525,7 +525,7 @@ class ArrayToXmlTest extends TestCase
 
         $this->assertMatchesXmlSnapshot(ArrayToXml::convert($arr));
     }
-  
+
     /** @test */
     public function it_can_add_processing_instructions()
     {
