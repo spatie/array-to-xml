@@ -216,7 +216,7 @@ class ArrayToXml
             return;
         }
 
-        $child = new DOMElement($element->tagName);
+        $child = $this->document->createElement($element->tagName);
         $child->nodeValue = htmlspecialchars($value);
         $element->parentNode->appendChild($child);
     }
