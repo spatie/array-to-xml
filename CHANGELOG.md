@@ -2,6 +2,18 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 3.1.2 - 2022-03-03
+
+## What's Changed
+
+- Fix basic collection with namespace by @vaclavvanik in https://github.com/spatie/array-to-xml/pull/182
+
+## New Contributors
+
+- @vaclavvanik made their first contribution in https://github.com/spatie/array-to-xml/pull/182
+
+**Full Changelog**: https://github.com/spatie/array-to-xml/compare/3.1.1...3.1.2
+
 ## 3.1.1 - 2022-02-11
 
 ## What's Changed
