@@ -114,6 +114,21 @@ class ArrayToXmlTest extends TestCase
     }
 
     /** @test */
+    public function it_can_handle_values_with_namespace_as_basic_collection()
+    {
+        $root = [
+            'rootElementName' => 'root',
+            '_attributes' => [
+                'xmlns:ns1' => 'https://github.com/spatie/array-to-xml',
+            ],
+        ];
+
+        $this->assertMatchesXmlSnapshot(ArrayToXml::convert([
+            'ns1:user' => ['one', 'two', 'three'],
+        ], $root));
+    }
+
+    /** @test */
     public function it_accepts_an_xml_encoding_type()
     {
         $this->assertMatchesXmlSnapshot(ArrayToXml::convert([], '', false, 'UTF-8'));
@@ -515,7 +530,7 @@ class ArrayToXmlTest extends TestCase
 
         $this->assertMatchesSnapshot($arrayToXml->dropXmlDeclaration()->toXml());
     }
-    
+
     /** @test */
     public function it_can_convert_an_array_with_null_value_to_xml()
     {
@@ -525,7 +540,7 @@ class ArrayToXmlTest extends TestCase
 
         $this->assertMatchesXmlSnapshot(ArrayToXml::convert($arr));
     }
-  
+
     /** @test */
     public function it_can_add_processing_instructions()
     {
