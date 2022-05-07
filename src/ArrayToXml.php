@@ -21,12 +21,12 @@ class ArrayToXml
         array $array,
         string | array $rootElement = '',
         bool $replaceSpacesByUnderScoresInKeyNames = true,
-        ?string $xmlEncoding = null,
+        ?string $xmlEncoding = null ?? '',
         string $xmlVersion = '1.0',
         array $domProperties = [],
         ?bool $xmlStandalone = null
     ) {
-        $this->document = new DOMDocument($xmlVersion, $xmlEncoding);
+        $this->document = new DOMDocument($xmlVersion, $xmlEncoding ?? '');
 
         if (! is_null($xmlStandalone)) {
             $this->document->xmlStandalone = $xmlStandalone;
