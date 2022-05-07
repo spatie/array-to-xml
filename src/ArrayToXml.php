@@ -141,7 +141,7 @@ class ArrayToXml
         $sequential = $this->isArrayAllKeySequential($value);
 
         if (! is_array($value)) {
-            $value = htmlspecialchars($value);
+            $value = htmlspecialchars($value ?? '');
 
             $value = $this->removeControlCharacters($value);
 
