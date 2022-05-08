@@ -26,7 +26,7 @@ class ArrayToXml
         array $domProperties = [],
         ?bool $xmlStandalone = null
     ) {
-        $this->document = new DOMDocument($xmlVersion, $xmlEncoding);
+        $this->document = new DOMDocument($xmlVersion, $xmlEncoding ?? '');
 
         if (! is_null($xmlStandalone)) {
             $this->document->xmlStandalone = $xmlStandalone;
@@ -141,7 +141,7 @@ class ArrayToXml
         $sequential = $this->isArrayAllKeySequential($value);
 
         if (! is_array($value)) {
-            $value = htmlspecialchars($value);
+            $value = htmlspecialchars($value ?? '');
 
             $value = $this->removeControlCharacters($value);
 
