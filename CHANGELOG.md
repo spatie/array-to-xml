@@ -2,6 +2,20 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 3.1.3 - 2022-05-08
+
+## What's Changed
+
+- Rewrite phpunit tests to pest by @otsch in https://github.com/spatie/array-to-xml/pull/183
+- PHP 8.1 fix deprecated null parameters by @gigerIT in https://github.com/spatie/array-to-xml/pull/187
+
+## New Contributors
+
+- @otsch made their first contribution in https://github.com/spatie/array-to-xml/pull/183
+- @gigerIT made their first contribution in https://github.com/spatie/array-to-xml/pull/187
+
+**Full Changelog**: https://github.com/spatie/array-to-xml/compare/3.1.2...3.1.3
+
 ## 3.1.2 - 2022-03-03
 
 ## What's Changed
