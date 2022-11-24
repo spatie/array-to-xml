@@ -21,10 +21,10 @@ class ArrayToXml
         array $array,
         string | array $rootElement = '',
         bool $replaceSpacesByUnderScoresInKeyNames = true,
-        ?string $xmlEncoding = null,
+        string | null $xmlEncoding = null,
         string $xmlVersion = '1.0',
         array $domProperties = [],
-        ?bool $xmlStandalone = null
+        bool | null $xmlStandalone = null
     ) {
         $this->document = new DOMDocument($xmlVersion, $xmlEncoding ?? '');
 
@@ -38,7 +38,7 @@ class ArrayToXml
 
         $this->replaceSpacesByUnderScoresInKeyNames = $replaceSpacesByUnderScoresInKeyNames;
 
-        if ($this->isArrayAllKeySequential($array) && ! empty($array)) {
+        if (! empty($array) && $this->isArrayAllKeySequential($array)) {
             throw new DOMException('Invalid Character Error');
         }
 
@@ -177,14 +177,14 @@ class ArrayToXml
         }
     }
 
-    protected function addNumericNode(DOMElement $element, $value): void
+    protected function addNumericNode(DOMElement $element, mixed $value): void
     {
         foreach ($value as $key => $item) {
             $this->convertElement($element, [$this->numericTagNamePrefix.$key => $item]);
         }
     }
 
-    protected function addNode(DOMElement $element, $key, $value): void
+    protected function addNode(DOMElement $element, string $key, mixed $value): void
     {
         if ($this->replaceSpacesByUnderScoresInKeyNames) {
             $key = str_replace(' ', '_', $key);
@@ -195,7 +195,7 @@ class ArrayToXml
         $this->convertElement($child, $value);
     }
 
-    protected function addCollectionNode(DOMElement $element, $value): void
+    protected function addCollectionNode(DOMElement $element, mixed $value): void
     {
         if ($element->childNodes->length === 0 && $element->attributes->length === 0) {
             $this->convertElement($element, $value);
@@ -208,7 +208,7 @@ class ArrayToXml
         $this->convertElement($child, $value);
     }
 
-    protected function addSequentialNode(DOMElement $element, $value): void
+    protected function addSequentialNode(DOMElement $element, mixed $value): void
     {
         if (empty($element->nodeValue) && ! is_numeric($element->nodeValue)) {
             $element->nodeValue = htmlspecialchars($value);
@@ -245,7 +245,7 @@ class ArrayToXml
         }
     }
 
-    protected function createRootElement($rootElement): DOMElement
+    protected function createRootElement(string|array $rootElement): DOMElement
     {
         if (is_string($rootElement)) {
             $rootElementName = $rootElement ?: 'root';
