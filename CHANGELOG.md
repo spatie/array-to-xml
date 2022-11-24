@@ -2,6 +2,19 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 3.1.4 - 2022-11-24
+
+### What's Changed
+
+- PHP 8.2 support by @SuperDJ in https://github.com/spatie/array-to-xml/pull/194
+- Added more types by @SuperDJ in https://github.com/spatie/array-to-xml/pull/195
+
+### New Contributors
+
+- @SuperDJ made their first contribution in https://github.com/spatie/array-to-xml/pull/194
+
+**Full Changelog**: https://github.com/spatie/array-to-xml/compare/3.1.3...3.1.4
+
 ## 3.1.3 - 2022-05-08
 
 ## What's Changed
