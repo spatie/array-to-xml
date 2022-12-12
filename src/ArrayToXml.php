@@ -17,9 +17,6 @@ class ArrayToXml
 
     protected $numericTagNamePrefix = 'numeric_';
 
-    /**
-     * @param mixed[] $array
-     */
     public function __construct(
         array $array,
         $rootElement = '',
@@ -52,14 +49,11 @@ class ArrayToXml
         $this->convertElement($root, $array);
     }
 
-    public function setNumericTagNamePrefix(string $prefix): void
+    public function setNumericTagNamePrefix(string $prefix)
     {
         $this->numericTagNamePrefix = $prefix;
     }
 
-    /**
-     * @param mixed[] $array
-     */
     public static function convert(
         array $array,
         $rootElement = '',
@@ -68,7 +62,7 @@ class ArrayToXml
         string $xmlVersion = '1.0',
         array $domProperties = [],
         bool $xmlStandalone = null
-    ): string {
+    ) {
         $converter = new static(
             $array,
             $rootElement,
@@ -96,7 +90,7 @@ class ArrayToXml
         return $this->document;
     }
 
-    protected function ensureValidDomProperties(array $domProperties): void
+    protected function ensureValidDomProperties(array $domProperties)
     {
         foreach ($domProperties as $key => $value) {
             if (! property_exists($this->document, $key)) {
@@ -105,7 +99,7 @@ class ArrayToXml
         }
     }
 
-    public function setDomProperties(array $domProperties): self
+    public function setDomProperties(array $domProperties)
     {
         $this->ensureValidDomProperties($domProperties);
 
@@ -116,7 +110,7 @@ class ArrayToXml
         return $this;
     }
 
-    public function prettify(): self
+    public function prettify()
     {
         $this->document->preserveWhiteSpace = false;
         $this->document->formatOutput = true;
@@ -124,17 +118,14 @@ class ArrayToXml
         return $this;
     }
 
-    public function dropXmlDeclaration(): self
+    public function dropXmlDeclaration()
     {
         $this->addXmlDeclaration = false;
 
         return $this;
     }
 
-    /**
-     * @param mixed[]|mixed $value
-     */
-    private function convertElement(DOMElement $element, $value): void
+    private function convertElement(DOMElement $element, $value)
     {
         $sequential = $this->isArrayAllKeySequential($value);
 
@@ -175,14 +166,14 @@ class ArrayToXml
         }
     }
 
-    protected function addNumericNode(DOMElement $element, $value): void
+    protected function addNumericNode(DOMElement $element, $value)
     {
         foreach ($value as $key => $item) {
             $this->convertElement($element, [$this->numericTagNamePrefix.$key => $item]);
         }
     }
 
-    protected function addNode(DOMElement $element, $key, $value): void
+    protected function addNode(DOMElement $element, $key, $value)
     {
         if ($this->replaceSpacesByUnderScoresInKeyNames) {
             $key = str_replace(' ', '_', $key);
@@ -193,7 +184,7 @@ class ArrayToXml
         $this->convertElement($child, $value);
     }
 
-    protected function addCollectionNode(DOMElement $element, $value): void
+    protected function addCollectionNode(DOMElement $element, $value)
     {
         if ($element->childNodes->length === 0 && $element->attributes->length === 0) {
             $this->convertElement($element, $value);
@@ -219,10 +210,6 @@ class ArrayToXml
         $element->parentNode->appendChild($child);
     }
 
-    /**
-     * @param mixed[] $value
-     * @return bool|mixed[]
-     */
     protected function isArrayAllKeySequential($value)
     {
         if (! is_array($value)) {
@@ -240,7 +227,7 @@ class ArrayToXml
         return array_unique(array_map('is_int', array_keys($value))) === [true];
     }
 
-    protected function addAttributes(DOMElement $element, array $data): void
+    protected function addAttributes(DOMElement $element, array $data)
     {
         foreach ($data as $attrKey => $attrVal) {
             $element->setAttribute($attrKey, $attrVal);
