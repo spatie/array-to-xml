@@ -442,3 +442,10 @@ it('can convert an array with null value to xml', function () {
 
     assertMatchesXmlSnapshot(ArrayToXml::convert($arr));
 });
+
+it('can add processing instructions', function () {
+    $arrayToXml = new ArrayToXml($this->testArray);
+    $arrayToXml->addProcessingInstruction('xml-stylesheet', 'type="text/xsl" href="base.xsl"');
+
+    assertMatchesSnapshot($arrayToXml->toXml());
+});
