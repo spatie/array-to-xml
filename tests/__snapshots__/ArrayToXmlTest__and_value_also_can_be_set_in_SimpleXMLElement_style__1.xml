@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<root>
+  <movie>
+    <title category="SF">STAR WARS</title>
+  </movie>
+  <movie>
+    <title category="Children">tom &amp; jerry</title>
+  </movie>
+</root>

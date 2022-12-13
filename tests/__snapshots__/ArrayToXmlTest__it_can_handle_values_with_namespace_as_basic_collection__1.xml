@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<root xmlns:ns1="https://github.com/spatie/array-to-xml">
+    <ns1:user>one</ns1:user>
+    <ns1:user>two</ns1:user>
+    <ns1:user>three</ns1:user>
+</root>
