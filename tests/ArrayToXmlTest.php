@@ -85,6 +85,18 @@ it('can handle zero values in beginning of basic collection', function () {
     ]));
 });
 
+it('can handle values with namespace as basic collection', function () {
+    $root = [
+        'rootElementName' => 'root',
+        '_attributes' => [
+            'xmlns:ns1' => 'https://github.com/spatie/array-to-xml',
+        ],
+    ];
+
+    assertMatchesXmlSnapshot(ArrayToXml::convert([
+        'ns1:user' => ['one', 'two', 'three'],
+    ], $root));
+});
 
 it('accepts an xml encoding type', function () {
     assertMatchesXmlSnapshot(ArrayToXml::convert([], '', false, 'UTF-8'));
