@@ -34,5 +34,8 @@
         "psr-4": {
             "Spatie\\ArrayToXml\\Test\\": "tests"
         }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
     }
 }
