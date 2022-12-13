@@ -38,7 +38,7 @@ class ArrayToXml
 
         $this->replaceSpacesByUnderScoresInKeyNames = $replaceSpacesByUnderScoresInKeyNames;
 
-        if ($this->isArrayAllKeySequential($array) && ! empty($array)) {
+        if (! empty($array) && $this->isArrayAllKeySequential($array)) {
             throw new DOMException('Invalid Character Error');
         }
 
