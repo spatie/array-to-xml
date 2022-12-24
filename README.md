@@ -44,7 +44,7 @@ $result = ArrayToXml::convert($array);
 After running this piece of code `$result` will contain:
 
 ```xml
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <root>
     <Good_guy>
         <name>Luke Skywalker</name>
@@ -62,7 +62,8 @@ After running this piece of code `$result` will contain:
 
 Optionally you can set the name of the rootElement by passing it as the second argument. If you don't specify
 this argument (or set it to an empty string) "root" will be used.
-```
+
+```php
 $result = ArrayToXml::convert($array, 'customrootname');
 ```
 
@@ -70,7 +71,8 @@ $result = ArrayToXml::convert($array, 'customrootname');
 
 By default all spaces in the key names of your array will be converted to underscores. If you want to opt out of
 this behaviour you can set the third argument to false. We'll leave all keynames alone.
-```
+
+```php
 $result = ArrayToXml::convert($array, 'customrootname', false);
 ```
 
@@ -101,7 +103,7 @@ $result = ArrayToXml::convert($array);
 This code will result in:
 
 ```xml
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <root>
     <Good_guy attr1="value">
         <name>Luke Skywalker</name>
@@ -143,7 +145,7 @@ $result = ArrayToXml::convert($array);
 This code will result in:
 
 ```xml
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <root>
     <Good_guy>
         <name><![CDATA[<h1>Luke Skywalker</h1>]]></name>
@@ -194,6 +196,7 @@ $result = ArrayToXml::convert($array, [
 ### Using a multi-dimensional array
 
 Use a multi-dimensional array to create a collection of elements.
+
 ```php
 $array = [
     'Good guys' => [
@@ -421,7 +424,7 @@ $arrayToXml->prettify()->toXml();
 will result in:
 
 ```xml
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <root>
     <Good_guy>
         <name>Luke Skywalker</name>
@@ -443,8 +446,17 @@ $arrayToXml->toXml();
 will result in:
 
 ```xml
-<?xml version="1.0"?>
-<root><Good_guy><name>Luke Skywalker</name><weapon>Lightsaber</weapon></Good_guy><Bad_guy><name>Sauron</name><weapon>Evil Eye</weapon></Bad_guy></root>
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+   <Good_guy>
+      <name>Luke Skywalker</name>
+      <weapon>Lightsaber</weapon>
+   </Good_guy>
+   <Bad_guy>
+      <name>Sauron</name>
+      <weapon>Evil Eye</weapon>
+   </Bad_guy>
+</root>
 ```
 
 ### Dropping XML declaration
@@ -474,7 +486,13 @@ $result = $arrayToXml->dropXmlDeclaration()->toXml();
 This will result in:
 
 ```xml
-<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope/"><soap:Header/><soap:Body><soap:key>soap:value</soap:key></soap:Body></soap:Envelope>
+<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope/">
+   <soap:Header />
+   <soap:Body>
+      <soap:key>soap:value</soap:key>
+   </soap:Body>
+</soap:Envelope>
 ```
 
 ### Adding processing instructions
@@ -492,9 +510,18 @@ $result = $arrayToXml->toXml();
 This will result in:
 
 ```xml
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="base.xsl"?>
-<root><Good_guy><name>Luke Skywalker</name><weapon>Lightsaber</weapon></Good_guy><Bad_guy><name>Sauron</name><weapon>Evil Eye</weapon></Bad_guy></root>
+<root>
+   <Good_guy>
+      <name>Luke Skywalker</name>
+      <weapon>Lightsaber</weapon>
+   </Good_guy>
+   <Bad_guy>
+      <name>Sauron</name>
+      <weapon>Evil Eye</weapon>
+   </Bad_guy>
+</root>
 ```
 
 ## Testing
