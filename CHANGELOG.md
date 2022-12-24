@@ -2,6 +2,23 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 3.1.5 - 2022-12-24
+
+### What's Changed
+
+- Add Dependabot Automation by @patinthehat in https://github.com/spatie/array-to-xml/pull/196
+- Bump actions/checkout from 2 to 3 by @dependabot in https://github.com/spatie/array-to-xml/pull/197
+- Fix PHP version by @parallels999 in https://github.com/spatie/array-to-xml/pull/198
+- fix deprecated `passing null as string type` by @trin4ik in https://github.com/spatie/array-to-xml/pull/204
+
+### New Contributors
+
+- @dependabot made their first contribution in https://github.com/spatie/array-to-xml/pull/197
+- @parallels999 made their first contribution in https://github.com/spatie/array-to-xml/pull/198
+- @trin4ik made their first contribution in https://github.com/spatie/array-to-xml/pull/204
+
+**Full Changelog**: https://github.com/spatie/array-to-xml/compare/3.1.4...3.1.5
+
 ## 3.1.4 - 2022-11-24
 
 ### What's Changed
