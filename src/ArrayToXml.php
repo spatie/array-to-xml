@@ -241,7 +241,7 @@ class ArrayToXml
     protected function addAttributes(DOMElement $element, array $data): void
     {
         foreach ($data as $attrKey => $attrVal) {
-            $element->setAttribute($attrKey, $attrVal);
+            $element->setAttribute($attrKey, $attrVal ?? '');
         }
     }
 
