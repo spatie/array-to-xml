@@ -80,7 +80,7 @@ class ArrayToXml
     {
         return $this->addXmlDeclaration
             ? $this->document->saveXML()
-            : $this->document->saveXml($this->document->documentElement);
+            : $this->document->saveXML($this->document->documentElement);
     }
 
     public function toDom(): DOMDocument
