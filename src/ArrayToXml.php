@@ -6,6 +6,7 @@ use DOMDocument;
 use DOMElement;
 use DOMException;
 use Exception;
+use \Closure;
 
 class ArrayToXml
 {
@@ -140,6 +141,10 @@ class ArrayToXml
     {
         $sequential = $this->isArrayAllKeySequential($value);
 
+        if ($value instanceof Closure) {
+            $value = $value();
+        }
+
         if (! is_array($value)) {
             $value = htmlspecialchars($value ?? '');
 
@@ -221,7 +226,7 @@ class ArrayToXml
         $element->parentNode->appendChild($child);
     }
 
-    protected function isArrayAllKeySequential(array | string | null $value): bool
+    protected function isArrayAllKeySequential(array | string | Closure | null $value): bool
     {
         if (! is_array($value)) {
             return false;
@@ -233,6 +238,10 @@ class ArrayToXml
 
         if (\key($value) === '__numeric') {
             return false;
+        }
+
+        if ($value instanceof Closure) {
+            return true;
         }
 
         return array_unique(array_map('is_int', array_keys($value))) === [true];
