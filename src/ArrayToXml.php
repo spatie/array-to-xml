@@ -2,11 +2,11 @@
 
 namespace Spatie\ArrayToXml;
 
+use \Closure;
 use DOMDocument;
 use DOMElement;
 use DOMException;
 use Exception;
-use \Closure;
 
 class ArrayToXml
 {
