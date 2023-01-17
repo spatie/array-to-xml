@@ -287,7 +287,7 @@ it('can handle values set as mixed', function () {
 });
 
 it('can handle closure values', function () {
-    $users = [ 
+    $users = [
         [
             'name' => 'een',
             'age' => 10,
@@ -299,7 +299,7 @@ it('can handle closure values', function () {
     ];
 
     assertMatchesXmlSnapshot(ArrayToXml::convert([
-        'user' => function () use($users) {
+        'user' => function () use ($users) {
             $new_users = [];
             foreach ($users as $user) {
                 $new_users[] = array_merge(
@@ -316,7 +316,7 @@ it('can handle closure values', function () {
 });
 
 it('can handle closure keys', function () {
-    $users = [ 
+    $users = [
         [
             'name' => 'een',
             'age' => 10,
@@ -328,7 +328,7 @@ it('can handle closure keys', function () {
     ];
 
     assertMatchesXmlSnapshot(ArrayToXml::convert([
-        function () use($users) {
+        function () use ($users) {
             $new_users = [];
             foreach ($users as $user) {
                 $new_users['user'][] = array_merge(

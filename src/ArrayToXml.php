@@ -238,8 +238,7 @@ class ArrayToXml
             return true;
         }
 
-        if(is_array($value) && count($value) === 1 && isset($value[0]) && $value[0] instanceof Closure)
-        {
+        if (is_array($value) && count($value) === 1 && isset($value[0]) && $value[0] instanceof Closure) {
             return false;
         }
 
