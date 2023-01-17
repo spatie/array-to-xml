@@ -286,6 +286,64 @@ it('can handle values set as mixed', function () {
     ]));
 });
 
+it('can handle closure values', function () {
+    $users = [ 
+        [
+            'name' => 'een',
+            'age' => 10,
+        ],
+        [
+            'name' => 'twee',
+            'age' => 12,
+        ],
+    ];
+
+    assertMatchesXmlSnapshot(ArrayToXml::convert([
+        'user' => function () use($users) {
+            $new_users = [];
+            foreach ($users as $user) {
+                $new_users[] = array_merge(
+                    $user,
+                    [
+                        'double_age' => $user['age'] * 2,
+                    ]
+                );
+            }
+
+            return $new_users;
+        },
+    ]));
+});
+
+it('can handle closure keys', function () {
+    $users = [ 
+        [
+            'name' => 'een',
+            'age' => 10,
+        ],
+        [
+            'name' => 'twee',
+            'age' => 12,
+        ],
+    ];
+
+    assertMatchesXmlSnapshot(ArrayToXml::convert([
+        function () use($users) {
+            $new_users = [];
+            foreach ($users as $user) {
+                $new_users['user'][] = array_merge(
+                    $user,
+                    [
+                        'double_age' => $user['age'] * 2,
+                    ]
+                );
+            }
+
+            return $new_users;
+        },
+    ]));
+});
+
 test('and mixed values can also be set in SimpleXMLElement style', function () {
     assertMatchesSnapshot(ArrayToXml::convert([
         'movie' => [

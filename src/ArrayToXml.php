@@ -139,11 +139,11 @@ class ArrayToXml
 
     protected function convertElement(DOMElement $element, mixed $value): void
     {
-        $sequential = $this->isArrayAllKeySequential($value);
-
         if ($value instanceof Closure) {
             $value = $value();
         }
+
+        $sequential = $this->isArrayAllKeySequential($value);
 
         if (! is_array($value)) {
             $value = htmlspecialchars($value ?? '');
@@ -167,6 +167,8 @@ class ArrayToXml
                     $fragment = $this->document->createDocumentFragment();
                     $fragment->appendXML($data);
                     $element->appendChild($fragment);
+                } elseif (is_int($key) && $data instanceof Closure) {
+                    $this->convertElement($element, $data);
                 } elseif ($key === '__numeric') {
                     $this->addNumericNode($element, $data);
                 } elseif (str_starts_with($key, '__custom:')) {
@@ -236,12 +238,13 @@ class ArrayToXml
             return true;
         }
 
-        if (\key($value) === '__numeric') {
+        if(is_array($value) && count($value) === 1 && isset($value[0]) && $value[0] instanceof Closure)
+        {
             return false;
         }
 
-        if ($value instanceof Closure) {
-            return true;
+        if (\key($value) === '__numeric') {
+            return false;
         }
 
         return array_unique(array_map('is_int', array_keys($value))) === [true];
