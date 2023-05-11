@@ -2,6 +2,21 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 3.1.6 - 2023-05-11
+
+### What's Changed
+
+- V3 - Code smell ('incorrect' method call) by @ExeQue in https://github.com/spatie/array-to-xml/pull/208
+- Bump dependabot/fetch-metadata from 1.3.5 to 1.3.6 by @dependabot in https://github.com/spatie/array-to-xml/pull/210
+- Bump dependabot/fetch-metadata from 1.3.6 to 1.4.0 by @dependabot in https://github.com/spatie/array-to-xml/pull/214
+- Add addXmlDeclaration parameter by @silnex in https://github.com/spatie/array-to-xml/pull/216
+
+### New Contributors
+
+- @silnex made their first contribution in https://github.com/spatie/array-to-xml/pull/216
+
+**Full Changelog**: https://github.com/spatie/array-to-xml/compare/3.1.5...3.1.6
+
 ## 3.1.5 - 2022-12-24
 
 ### What's Changed
