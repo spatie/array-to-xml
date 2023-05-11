@@ -110,6 +110,10 @@ it('accepts an xml standalone value', function () {
     assertMatchesXmlSnapshot(ArrayToXml::convert([], '', false, null, '1.0', [], false));
 });
 
+it('accepts an xml declaration value', function () {
+    assertMatchesXmlSnapshot(ArrayToXml::convert([], '', false, null, '1.0', [], null, false));
+});
+
 it('can handle values as collection', function () {
     assertMatchesXmlSnapshot(ArrayToXml::convert([
         'user' => [

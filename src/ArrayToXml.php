@@ -24,7 +24,8 @@ class ArrayToXml
         string | null $xmlEncoding = null,
         string $xmlVersion = '1.0',
         array $domProperties = [],
-        bool | null $xmlStandalone = null
+        bool | null $xmlStandalone = null,
+        bool $addXmlDeclaration = true
     ) {
         $this->document = new DOMDocument($xmlVersion, $xmlEncoding ?? '');
 
@@ -35,6 +36,8 @@ class ArrayToXml
         if (! empty($domProperties)) {
             $this->setDomProperties($domProperties);
         }
+
+        $this->addXmlDeclaration = $addXmlDeclaration;
 
         $this->replaceSpacesByUnderScoresInKeyNames = $replaceSpacesByUnderScoresInKeyNames;
 
@@ -61,7 +64,8 @@ class ArrayToXml
         string $xmlEncoding = null,
         string $xmlVersion = '1.0',
         array $domProperties = [],
-        bool $xmlStandalone = null
+        bool $xmlStandalone = null,
+        bool $addXmlDeclaration = true,
     ): string {
         $converter = new static(
             $array,
@@ -70,7 +74,8 @@ class ArrayToXml
             $xmlEncoding,
             $xmlVersion,
             $domProperties,
-            $xmlStandalone
+            $xmlStandalone,
+            $addXmlDeclaration
         );
 
         return $converter->toXml();
