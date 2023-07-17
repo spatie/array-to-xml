@@ -290,6 +290,35 @@ it('can handle values set as mixed', function () {
     ]));
 });
 
+it('can handle closure values', function () {
+    $users = [
+        [
+            'name' => 'one',
+            'age' => 10,
+        ],
+        [
+            'name' => 'two',
+            'age' => 12,
+        ],
+    ];
+
+    assertMatchesXmlSnapshot(ArrayToXml::convert([
+        'users' => function () use ($users) {
+            $new_users = [];
+            foreach ($users as $user) {
+                $new_users[] = array_merge(
+                    $user,
+                    [
+                        'double_age' => $user['age'] * 2,
+                    ]
+                );
+            }
+
+            return $new_users;
+        },
+    ]));
+});
+
 test('and mixed values can also be set in SimpleXMLElement style', function () {
     assertMatchesSnapshot(ArrayToXml::convert([
         'movie' => [
