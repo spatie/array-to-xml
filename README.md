@@ -239,6 +239,58 @@ This will result in:
 </helloyouluckypeople>
 ```
 
+### Using Closure values
+The package can use Closure values:
+
+```php
+$users = [
+    [
+        'name' => 'one',
+        'age' => 10,
+    ],
+    [
+        'name' => 'two',
+        'age' => 12,
+    ],
+];
+
+$array = [
+    'users' => function () use ($users) {
+        $new_users = [];
+        foreach ($users as $user) {
+            $new_users[] = array_merge(
+                $user,
+                [
+                    'double_age' => $user['age'] * 2,
+                ]
+            );
+        }
+
+        return $new_users;
+    },
+];
+
+ArrayToXml::convert($array)
+```
+
+This will result in:
+
+```xml
+<?xml version="1.0"?>
+<root>
+    <users>
+        <name>one</name>
+        <age>10</age>
+        <double_age>20</double_age>
+    </users>
+    <users>
+        <name>two</name>
+        <age>12</age>
+        <double_age>24</double_age>
+    </users>
+</root>
+```
+
 ### Handling numeric keys
 
 The package can also can handle numeric keys:
