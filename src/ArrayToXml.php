@@ -2,7 +2,7 @@
 
 namespace Spatie\ArrayToXml;
 
-use \Closure;
+use Closure;
 use DOMDocument;
 use DOMElement;
 use DOMException;
