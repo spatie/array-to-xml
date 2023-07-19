@@ -2,6 +2,7 @@
 
 namespace Spatie\ArrayToXml;
 
+use Closure;
 use DOMDocument;
 use DOMElement;
 use DOMException;
@@ -143,6 +144,10 @@ class ArrayToXml
 
     protected function convertElement(DOMElement $element, mixed $value): void
     {
+        if ($value instanceof Closure) {
+            $value = $value();
+        }
+
         $sequential = $this->isArrayAllKeySequential($value);
 
         if (! is_array($value)) {
