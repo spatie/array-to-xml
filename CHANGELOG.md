@@ -2,6 +2,16 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 3.2.0 - 2023-07-19
+
+### What's Changed
+
+- Bump dependabot/fetch-metadata from 1.4.0 to 1.5.1 by @dependabot in https://github.com/spatie/array-to-xml/pull/217
+- Bump dependabot/fetch-metadata from 1.5.1 to 1.6.0 by @dependabot in https://github.com/spatie/array-to-xml/pull/218
+- Added Closure value support by @SuperDJ in https://github.com/spatie/array-to-xml/pull/219
+
+**Full Changelog**: https://github.com/spatie/array-to-xml/compare/3.1.6...3.2.0
+
 ## 3.1.6 - 2023-05-11
 
 ### What's Changed
