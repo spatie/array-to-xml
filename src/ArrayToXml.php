@@ -11,6 +11,7 @@ use Exception;
 class ArrayToXml
 {
     protected DOMDocument $document;
+    protected DOMElement $rootNode;
 
     protected bool $replaceSpacesByUnderScoresInKeyNames = true;
 
@@ -46,11 +47,11 @@ class ArrayToXml
             throw new DOMException('Invalid Character Error');
         }
 
-        $root = $this->createRootElement($rootElement);
+        $this->rootNode = $this->createRootElement($rootElement);
 
-        $this->document->appendChild($root);
+        $this->document->appendChild($this->rootNode);
 
-        $this->convertElement($root, $array);
+        $this->convertElement($this->rootNode, $array);
     }
 
     public function setNumericTagNamePrefix(string $prefix): void
@@ -201,8 +202,22 @@ class ArrayToXml
         }
 
         $child = $this->document->createElement($key);
+
+        $this->addNodeTypeAttribute($child, $value);
+
         $element->appendChild($child);
         $this->convertElement($child, $value);
+    }
+
+    protected function addNodeTypeAttribute(DOMElement $element, mixed $value): void
+    {
+        if (is_null($value)) {
+            if (!$this->rootNode->hasAttribute('xmlns:xsi')) {
+                $this->rootNode->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
+            }
+
+            $element->setAttribute('xsi:nil', 'true');
+        }
     }
 
     protected function addCollectionNode(DOMElement $element, mixed $value): void
