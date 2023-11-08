@@ -2,6 +2,19 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 3.2.1 - 2023-11-08
+
+### What's Changed
+
+- Bump actions/checkout from 3 to 4 by @dependabot in https://github.com/spatie/array-to-xml/pull/222
+- Use proper NULL value when we wanna use with XSD by @radeno in https://github.com/spatie/array-to-xml/pull/225
+
+### New Contributors
+
+- @radeno made their first contribution in https://github.com/spatie/array-to-xml/pull/225
+
+**Full Changelog**: https://github.com/spatie/array-to-xml/compare/3.2.0...3.2.1
+
 ## 3.2.0 - 2023-07-19
 
 ### What's Changed
