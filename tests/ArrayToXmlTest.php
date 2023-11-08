@@ -480,9 +480,10 @@ it('can drop xml declaration', function () {
     assertMatchesSnapshot($arrayToXml->dropXmlDeclaration()->toXml());
 });
 
-it('can convert an array with null value to xml', function () {
+it('can convert an array with empty string and null value to xml', function () {
     $arr = [
-        'test' => null,
+        'testString' => '',
+        'testNull' => null,
     ];
 
     assertMatchesXmlSnapshot(ArrayToXml::convert($arr));
