@@ -73,6 +73,7 @@ class ArrayToXml
         array $domProperties = [],
         bool $xmlStandalone = null,
         bool $addXmlDeclaration = true,
+        array $options = ['convertNullToXsiNil' => false]
     ): string {
         $converter = new static(
             $array,
@@ -82,7 +83,8 @@ class ArrayToXml
             $xmlVersion,
             $domProperties,
             $xmlStandalone,
-            $addXmlDeclaration
+            $addXmlDeclaration,
+            $options
         );
 
         return $converter->toXml();
