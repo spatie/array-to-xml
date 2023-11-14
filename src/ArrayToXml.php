@@ -30,7 +30,7 @@ class ArrayToXml
         array $domProperties = [],
         bool | null $xmlStandalone = null,
         bool $addXmlDeclaration = true,
-        array $options = ['convertNullToXsiNil' => false]
+        array | null $options = ['convertNullToXsiNil' => false]
     ) {
         $this->document = new DOMDocument($xmlVersion, $xmlEncoding ?? '');
 
