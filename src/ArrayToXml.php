@@ -19,6 +19,8 @@ class ArrayToXml
 
     protected string $numericTagNamePrefix = 'numeric_';
 
+    protected array $options = ['convertNullToXsiNil' => false];
+
     public function __construct(
         array $array,
         string | array $rootElement = '',
@@ -27,7 +29,8 @@ class ArrayToXml
         string $xmlVersion = '1.0',
         array $domProperties = [],
         bool | null $xmlStandalone = null,
-        bool $addXmlDeclaration = true
+        bool $addXmlDeclaration = true,
+        array | null $options = ['convertNullToXsiNil' => false]
     ) {
         $this->document = new DOMDocument($xmlVersion, $xmlEncoding ?? '');
 
@@ -40,6 +43,8 @@ class ArrayToXml
         }
 
         $this->addXmlDeclaration = $addXmlDeclaration;
+
+        $this->options = array_merge($this->options, $options);
 
         $this->replaceSpacesByUnderScoresInKeyNames = $replaceSpacesByUnderScoresInKeyNames;
 
@@ -68,6 +73,7 @@ class ArrayToXml
         array $domProperties = [],
         bool $xmlStandalone = null,
         bool $addXmlDeclaration = true,
+        array $options = ['convertNullToXsiNil' => false]
     ): string {
         $converter = new static(
             $array,
@@ -77,7 +83,8 @@ class ArrayToXml
             $xmlVersion,
             $domProperties,
             $xmlStandalone,
-            $addXmlDeclaration
+            $addXmlDeclaration,
+            $options
         );
 
         return $converter->toXml();
@@ -211,7 +218,7 @@ class ArrayToXml
 
     protected function addNodeTypeAttribute(DOMElement $element, mixed $value): void
     {
-        if (is_null($value)) {
+        if ($this->options['convertNullToXsiNil'] && is_null($value)) {
             if (! $this->rootNode->hasAttribute('xmlns:xsi')) {
                 $this->rootNode->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
             }
