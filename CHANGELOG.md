@@ -2,6 +2,15 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 3.2.2 - 2023-11-14
+
+### What's Changed
+
+- Bump stefanzweifel/git-auto-commit-action from 4 to 5 by @dependabot in https://github.com/spatie/array-to-xml/pull/224
+- Conver null based on option by @radeno in https://github.com/spatie/array-to-xml/pull/226
+
+**Full Changelog**: https://github.com/spatie/array-to-xml/compare/3.2.1...3.2.2
+
 ## 3.2.1 - 2023-11-08
 
 ### What's Changed
