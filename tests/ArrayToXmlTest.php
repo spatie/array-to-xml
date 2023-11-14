@@ -480,6 +480,15 @@ it('can drop xml declaration', function () {
     assertMatchesSnapshot($arrayToXml->dropXmlDeclaration()->toXml());
 });
 
+it('can convert an array with empty string and null value to xml with option', function () {
+    $arr = [
+        'testString' => '',
+        'testNull' => null,
+    ];
+
+    assertMatchesXmlSnapshot(ArrayToXml::convert($arr, '', true, null, '1.0', [], null, true, ['convertNullToXsiNil' => true]));
+});
+
 it('can convert an array with empty string and null value to xml', function () {
     $arr = [
         'testString' => '',
