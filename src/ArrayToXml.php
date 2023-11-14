@@ -216,7 +216,7 @@ class ArrayToXml
 
     protected function addNodeTypeAttribute(DOMElement $element, mixed $value): void
     {
-        if (is_null($value) && $this->options['convertNullToXsiNil']) {
+        if ($this->options['convertNullToXsiNil'] && is_null($value)) {
             if (! $this->rootNode->hasAttribute('xmlns:xsi')) {
                 $this->rootNode->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
             }
