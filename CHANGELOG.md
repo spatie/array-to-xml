@@ -2,11 +2,11 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
-## 3.2.3 - 2023-11-14
+## 3.2.3 - 2024-XX-XX
 
 ### What's Changed
 
-- Convert boolean values to proper xml representation by @radeno in https://github.com/spatie/array-to-xml/pull/XXX
+- Convert boolean values to proper xml representation by @radeno in https://github.com/spatie/array-to-xml/pull/228
 
 ## 3.2.2 - 2023-11-14
 
