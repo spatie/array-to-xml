@@ -489,6 +489,24 @@ it('can convert an array with empty string and null value to xml with option', f
     assertMatchesXmlSnapshot(ArrayToXml::convert($arr, '', true, null, '1.0', [], null, true, ['convertNullToXsiNil' => true]));
 });
 
+it('can convert boolean values to xml representation', function () {
+    $arr = [
+        'testFalse' => false,
+        'testTrue' => true,
+    ];
+
+    assertMatchesXmlSnapshot(ArrayToXml::convert($arr, '', true, null, '1.0', [], null, true, ['convertBoolToString' => true]));
+});
+
+it('can not convert boolean values to xml representation', function () {
+    $arr = [
+        'testFalse' => false,
+        'testTrue' => true,
+    ];
+
+    assertMatchesXmlSnapshot(ArrayToXml::convert($arr));
+});
+
 it('can convert an array with empty string and null value to xml', function () {
     $arr = [
         'testString' => '',

@@ -19,7 +19,7 @@ class ArrayToXml
 
     protected string $numericTagNamePrefix = 'numeric_';
 
-    protected array $options = ['convertNullToXsiNil' => false];
+    protected array $options = ['convertNullToXsiNil' => false, 'convertBoolToString' => false];
 
     public function __construct(
         array $array,
@@ -30,7 +30,7 @@ class ArrayToXml
         array $domProperties = [],
         bool | null $xmlStandalone = null,
         bool $addXmlDeclaration = true,
-        array | null $options = ['convertNullToXsiNil' => false]
+        array | null $options = ['convertNullToXsiNil' => false, 'convertBoolToString' => false]
     ) {
         $this->document = new DOMDocument($xmlVersion, $xmlEncoding ?? '');
 
@@ -213,7 +213,19 @@ class ArrayToXml
         $this->addNodeTypeAttribute($child, $value);
 
         $element->appendChild($child);
+
+        $value = $this->convertNodeValue($child, $value);
+
         $this->convertElement($child, $value);
+    }
+
+    protected function convertNodeValue(DOMElement $element, mixed $value): mixed
+    {
+        if ($this->options['convertBoolToString'] && is_bool($value)) {
+            $value = $value ? 'true' : 'false';
+        }
+
+        return $value;
     }
 
     protected function addNodeTypeAttribute(DOMElement $element, mixed $value): void
