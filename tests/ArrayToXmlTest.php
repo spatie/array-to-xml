@@ -504,7 +504,7 @@ it('can not convert boolean values to xml representation', function () {
         'testTrue' => true,
     ];
 
-    assertMatchesXmlSnapshot(ArrayToXml::convert($arr, '', true, null, '1.0', [], null, true, ['convertBoolToString' => false]));
+    assertMatchesXmlSnapshot(ArrayToXml::convert($arr));
 });
 
 it('can convert an array with empty string and null value to xml', function () {
