@@ -165,7 +165,7 @@ You could specify specific values in for:
  - encoding as the fourth argument (string)
  - version as the fifth argument (string)
  - DOM properties as the sixth argument (array)
- - standalone as sevnth argument (boolean)
+ - standalone as seventh argument (boolean)
 
 ```php
 $result = ArrayToXml::convert($array, [], true, 'UTF-8', '1.1', [], true);
