@@ -164,7 +164,8 @@ If your input contains something that cannot be parsed a `DOMException` will be 
 You could specify specific values in for:
  - encoding as the fourth argument (string)
  - version as the fifth argument (string)
- - standalone as sixth argument (boolean)
+ - DOM properties as the sixth argument (array)
+ - standalone as seventh argument (boolean)
 
 ```php
 $result = ArrayToXml::convert($array, [], true, 'UTF-8', '1.1', [], true);
