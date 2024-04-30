@@ -40,5 +40,6 @@ return $config->setFinder($finder)
             'keep_multiple_spaces_after_comma' => true,
         ],
         'single_trait_insert_per_statement' => true,
+        'nullable_type_declaration_for_default_null_value' => true,
     ])
     ->setRiskyAllowed(true);
