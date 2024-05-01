@@ -2,6 +2,20 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 3.3.0 - 2024-05-01
+
+### What's Changed
+
+* Update README.md by @trippo in https://github.com/spatie/array-to-xml/pull/229
+* Fix explicit nullable parameter for PHP 8.4 compatibility by @GromNaN in https://github.com/spatie/array-to-xml/pull/233
+
+### New Contributors
+
+* @trippo made their first contribution in https://github.com/spatie/array-to-xml/pull/229
+* @GromNaN made their first contribution in https://github.com/spatie/array-to-xml/pull/233
+
+**Full Changelog**: https://github.com/spatie/array-to-xml/compare/3.2.3...3.3.0
+
 ## 3.2.3 - 2024-XX-XX
 
 ### What's Changed
