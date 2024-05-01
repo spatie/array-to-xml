@@ -68,10 +68,10 @@ class ArrayToXml
         array $array,
         $rootElement = '',
         bool $replaceSpacesByUnderScoresInKeyNames = true,
-        string $xmlEncoding = null,
+        ?string $xmlEncoding = null,
         string $xmlVersion = '1.0',
         array $domProperties = [],
-        bool $xmlStandalone = null,
+        ?bool $xmlStandalone = null,
         bool $addXmlDeclaration = true,
         array $options = ['convertNullToXsiNil' => false]
     ): string {
