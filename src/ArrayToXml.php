@@ -93,7 +93,7 @@ class ArrayToXml
     public function toXml($options = 0): string
     {
         return $this->addXmlDeclaration
-            ? $this->document->saveXML(null, $options)
+            ? $this->document->saveXML(options: $options)
             : $this->document->saveXML($this->document->documentElement, $options);
     }
 
