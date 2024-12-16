@@ -90,11 +90,11 @@ class ArrayToXml
         return $converter->toXml();
     }
 
-    public function toXml(): string
+    public function toXml($options = 0): string
     {
         return $this->addXmlDeclaration
-            ? $this->document->saveXML()
-            : $this->document->saveXML($this->document->documentElement);
+            ? $this->document->saveXML(options: $options)
+            : $this->document->saveXML($this->document->documentElement, $options);
     }
 
     public function toDom(): DOMDocument
