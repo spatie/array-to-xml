@@ -306,7 +306,7 @@ class ArrayToXml
                 continue;
             }
 
-            $this->addAttributes($element, $rootElement[$key]);
+            $this->addAttributes($element, $value);
         }
 
         return $element;
