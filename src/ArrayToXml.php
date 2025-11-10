@@ -184,6 +184,8 @@ class ArrayToXml
                     $this->addNumericNode($element, $data);
                 } elseif (str_starts_with($key, '__custom:')) {
                     $this->addNode($element, str_replace('\:', ':', preg_split('/(?<!\\\):/', $key)[1]), $data);
+                } elseif (($key === '_comment') || ($key === '@comment')) {
+                    $element->appendChild(new \DOMComment($data));
                 } else {
                     $this->addNode($element, $key, $data);
                 }
