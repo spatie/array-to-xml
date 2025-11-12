@@ -2,6 +2,24 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 3.4.1 - 2025-11-12
+
+### What's Changed
+
+* Replace array access with foreach value by @xHeaven in https://github.com/spatie/array-to-xml/pull/236
+* Bump dependabot/fetch-metadata from 2.2.0 to 2.3.0 by @dependabot[bot] in https://github.com/spatie/array-to-xml/pull/237
+* Bump dependabot/fetch-metadata from 2.3.0 to 2.4.0 by @dependabot[bot] in https://github.com/spatie/array-to-xml/pull/239
+* Update issue template by @AlexVanderbist in https://github.com/spatie/array-to-xml/pull/242
+* Add comment feature by @dimitri-koenig in https://github.com/spatie/array-to-xml/pull/244
+
+### New Contributors
+
+* @xHeaven made their first contribution in https://github.com/spatie/array-to-xml/pull/236
+* @AlexVanderbist made their first contribution in https://github.com/spatie/array-to-xml/pull/242
+* @dimitri-koenig made their first contribution in https://github.com/spatie/array-to-xml/pull/244
+
+**Full Changelog**: https://github.com/spatie/array-to-xml/compare/3.4.0...3.4.1
+
 ## 3.4.0 - 2024-12-16
 
 ### What's Changed
