@@ -119,6 +119,51 @@ This code will result in:
 
 *Note, that the value of the `_value` field must be a string. [(More)](https://github.com/spatie/array-to-xml/issues/75#issuecomment-413726065)* 
 
+### Adding comments
+
+You can use a key named `_comment` to add a comment to a node. The exact placement depends on where you put the key in your array.`
+
+```php
+$array = [
+    'Good guy' => [
+        '_comment' => 'Our hero',
+        'name' => 'Luke Skywalker',
+        'weapon' => 'Lightsaber'
+    ],
+    'Bad guy' => [
+        'name' => 'Sauron',
+        'weapon' => 'Evil Eye',
+        '_comment' => 'Finally gone',
+    ],
+    'The survivor' => [
+        '_attributes' => ['house'=>'Hogwarts'],
+        '_value' => 'Harry Potter',
+        '_comment' => 'He made it',
+    ]
+];
+
+$result = ArrayToXml::convert($array);
+```
+
+This code will result in:
+
+```xml
+<?xml version="1.0"?>
+<root>
+    <Good_guy>
+        <!--Our hero-->
+        <name>Luke Skywalker</name>
+        <weapon>Lightsaber</weapon>
+    </Good_guy>
+    <Bad_guy>
+        <name>Sauron</name>
+        <weapon>Evil Eye</weapon>
+        <!--Finally gone-->
+    </Bad_guy>
+    <The_survivor house="Hogwarts">Harry Potter<!--He made it--></The_survivor>
+</root>
+```
+
 ### Using reserved characters
 
 It is also possible to wrap the value of a node into a CDATA section. This allows you to use reserved characters.

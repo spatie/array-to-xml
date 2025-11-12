@@ -174,6 +174,20 @@ test('and attributes also can be set in SimpleXMLElement style', function () {
     assertMatchesXmlSnapshot(ArrayToXml::convert($withAttributes));
 });
 
+it('can add a comment to xml', function () {
+    $withAttributes = $this->testArray;
+    $withAttributes['Good guy']['_comment'] = 'Short list';
+
+    assertMatchesXmlSnapshot(ArrayToXml::convert($withAttributes));
+});
+
+test('and a comment also can be set in SimpleXMLElement style', function () {
+    $withAttributes = $this->testArray;
+    $withAttributes['Good guy']['@comment'] = 'Very short list';
+
+    assertMatchesXmlSnapshot(ArrayToXml::convert($withAttributes));
+});
+
 it('can handle values set with attributes with special characters', function () {
     assertMatchesXmlSnapshot(ArrayToXml::convert([
         'movie' => [
