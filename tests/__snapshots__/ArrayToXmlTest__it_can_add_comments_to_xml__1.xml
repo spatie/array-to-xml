@@ -3,10 +3,16 @@
   <Good_guy>
     <name>Luke Skywalker</name>
     <weapon>Lightsaber</weapon>
-    <!--Short list-->
   </Good_guy>
   <Bad_guy>
     <name>Sauron</name>
     <weapon>Evil Eye</weapon>
   </Bad_guy>
+  <Another_guy>
+    <!--The GOAT-->
+    <name>John Wick</name>
+    <!--famous for-->
+    <weapon>Pencil</weapon>
+    <!--His dog needs an entry-->
+  </Another_guy>
 </root>
