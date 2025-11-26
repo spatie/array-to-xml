@@ -2,6 +2,16 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 3.4.2 - 2025-11-26
+
+### What's Changed
+
+* Extend comments feature for multiple comments by @dimitri-koenig in https://github.com/spatie/array-to-xml/pull/246
+* Bump actions/checkout from 4 to 6 by @dependabot[bot] in https://github.com/spatie/array-to-xml/pull/245
+* Bump stefanzweifel/git-auto-commit-action from 5 to 7 by @dependabot[bot] in https://github.com/spatie/array-to-xml/pull/243
+
+**Full Changelog**: https://github.com/spatie/array-to-xml/compare/3.4.1...3.4.2
+
 ## 3.4.1 - 2025-11-12
 
 ### What's Changed
