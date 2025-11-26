@@ -174,9 +174,15 @@ test('and attributes also can be set in SimpleXMLElement style', function () {
     assertMatchesXmlSnapshot(ArrayToXml::convert($withAttributes));
 });
 
-it('can add a comment to xml', function () {
+it('can add comments to xml', function () {
     $withAttributes = $this->testArray;
-    $withAttributes['Good guy']['_comment'] = 'Short list';
+    $withAttributes['Another guy'] = [
+        '_comment' => 'The GOAT',
+        'name' => 'John Wick',
+        '_comment2' => 'famous for',
+        'weapon' => 'Pencil',
+        '_comment_other' => 'His dog needs an entry',
+    ];
 
     assertMatchesXmlSnapshot(ArrayToXml::convert($withAttributes));
 });

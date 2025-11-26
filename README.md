@@ -121,7 +121,7 @@ This code will result in:
 
 ### Adding comments
 
-You can use a key named `_comment` to add a comment to a node. The exact placement depends on where you put the key in your array.`
+You can use a key named `_comment` to add a comment to a node. The exact placement depends on where you put the key in your array. You can also add multiple keys *starting with* `_comment` to add multiple comments.
 
 ```php
 $array = [
@@ -135,6 +135,13 @@ $array = [
         'weapon' => 'Evil Eye',
         '_comment' => 'Finally gone',
     ],
+    'Another guy' => [
+        '_comment' => 'The GOAT',
+        'name' => 'John Wick',
+        '_comment2' => 'famous for',
+        'weapon' => 'Pencil',
+        '_comment_other' => 'His dog needs an entry',
+    ];
     'The survivor' => [
         '_attributes' => ['house'=>'Hogwarts'],
         '_value' => 'Harry Potter',
@@ -160,6 +167,13 @@ This code will result in:
         <weapon>Evil Eye</weapon>
         <!--Finally gone-->
     </Bad_guy>
+    <Another_guy>
+        <!--The GOAT-->
+        <name>John Wick</name>
+        <!--famous for-->
+        <weapon>Pencil</weapon>
+        <!--His dog needs an entry-->
+    </Another_guy>
     <The_survivor house="Hogwarts">Harry Potter<!--He made it--></The_survivor>
 </root>
 ```
