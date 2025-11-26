@@ -92,7 +92,11 @@ $array = [
     'The survivor' => [
         '_attributes' => ['house'=>'Hogwarts'],
         '_value' => 'Harry Potter'
-    ]
+    ],
+    'Good movie' => [
+        '_attributes' => ['category' => 'Action'],
+        '_value' => 300,
+    ],
 ];
 
 $result = ArrayToXml::convert($array);
@@ -114,6 +118,7 @@ This code will result in:
     <The_survivor house="Hogwarts">
         Harry Potter
     </The_survivor>
+    <Good_movie category="Action">300</Good_movie>
 </root>
 ```
 
