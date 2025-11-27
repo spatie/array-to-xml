@@ -6,4 +6,7 @@
   <movie>
     <title category="Children">tom &amp; jerry</title>
   </movie>
+  <movie>
+    <title category="Action">300</title>
+  </movie>
 </root>

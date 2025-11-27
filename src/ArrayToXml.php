@@ -172,11 +172,11 @@ class ArrayToXml
             if (! $sequential) {
                 if (($key === '_attributes') || ($key === '@attributes')) {
                     $this->addAttributes($element, $data);
-                } elseif ((($key === '_value') || ($key === '@value')) && is_string($data)) {
+                } elseif ((($key === '_value') || ($key === '@value')) && is_scalar($data)) {
                     $element->nodeValue = htmlspecialchars($data);
-                } elseif ((($key === '_cdata') || ($key === '@cdata')) && is_string($data)) {
+                } elseif ((($key === '_cdata') || ($key === '@cdata')) && is_scalar($data)) {
                     $element->appendChild($this->document->createCDATASection($data));
-                } elseif ((($key === '_mixed') || ($key === '@mixed')) && is_string($data)) {
+                } elseif ((($key === '_mixed') || ($key === '@mixed')) && is_scalar($data)) {
                     $fragment = $this->document->createDocumentFragment();
                     $fragment->appendXML($data);
                     $element->appendChild($fragment);

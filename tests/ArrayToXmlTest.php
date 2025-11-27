@@ -209,6 +209,12 @@ it('can handle values set with attributes with special characters', function () 
                     '_value' => 'tom & jerry',
                 ],
             ],
+            [
+                'title' => [
+                    '_attributes' => ['category' => 'Action'],
+                    '_value' => 300,
+                ],
+            ],
         ],
     ]));
 });
