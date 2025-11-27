@@ -2,6 +2,15 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 3.4.3 - 2025-11-27
+
+### What's Changed
+
+* Allow _value content to be numeric by @dimitri-koenig in https://github.com/spatie/array-to-xml/pull/248
+* Replace strpos with str_starts_with by @dimitri-koenig in https://github.com/spatie/array-to-xml/pull/247
+
+**Full Changelog**: https://github.com/spatie/array-to-xml/compare/3.4.2...3.4.3
+
 ## 3.4.2 - 2025-11-26
 
 ### What's Changed
