@@ -187,6 +187,20 @@ it('can add comments to xml', function () {
     assertMatchesXmlSnapshot(ArrayToXml::convert($withAttributes));
 });
 
+it('null and empty comments are ignored', function () {
+    $withAttributes = $this->testArray;
+    $withAttributes['Another guy'] = [
+        '_comment' => null,
+        'name' => 'John Wick',
+        '_comment2' => '',
+        'weapon' => 'Pencil',
+        '_comment_deaths' => 0,
+        'lives' => 'more than 9 lives'
+    ];
+
+    assertMatchesSnapshot(ArrayToXml::convert($withAttributes, domProperties: ['formatOutput' => true]));
+});
+
 test('and a comment also can be set in SimpleXMLElement style', function () {
     $withAttributes = $this->testArray;
     $withAttributes['Good guy']['@comment'] = 'Very short list';

@@ -183,6 +183,9 @@ This code will result in:
 </root>
 ```
 
+> [!NOTE]
+> A comment will be omitted if the value is an empty string "" or `null`.
+
 ### Using reserved characters
 
 It is also possible to wrap the value of a node into a CDATA section. This allows you to use reserved characters.
