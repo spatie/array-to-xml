@@ -185,7 +185,9 @@ class ArrayToXml
                 } elseif (str_starts_with($key, '__custom:')) {
                     $this->addNode($element, str_replace('\:', ':', preg_split('/(?<!\\\):/', $key)[1]), $data);
                 } elseif (str_starts_with($key, '_comment') || str_starts_with($key, '@comment')) {
-                    $element->appendChild(new \DOMComment($data));
+                    if ($data !== null && $data !== '') {
+                        $element->appendChild(new \DOMComment($data));
+                    }
                 } else {
                     $this->addNode($element, $key, $data);
                 }
