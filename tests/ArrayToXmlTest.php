@@ -195,7 +195,7 @@ it('null and empty comments are ignored', function () {
         '_comment2' => '',
         'weapon' => 'Pencil',
         '_comment_deaths' => 0,
-        'lives' => 'more than 9 lives'
+        'lives' => 'more than 9 lives',
     ];
 
     assertMatchesSnapshot(ArrayToXml::convert($withAttributes, domProperties: ['formatOutput' => true]));
