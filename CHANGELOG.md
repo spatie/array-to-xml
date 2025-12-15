@@ -2,6 +2,14 @@
 
 All notable changes to `array-to-xml` will be documented in this file
 
+## 3.4.4 - 2025-12-15
+
+### What's Changed
+
+* Ignore empty or null comment values by @dimitri-koenig in https://github.com/spatie/array-to-xml/pull/249
+
+**Full Changelog**: https://github.com/spatie/array-to-xml/compare/3.4.3...3.4.4
+
 ## 3.4.3 - 2025-11-27
 
 ### What's Changed
