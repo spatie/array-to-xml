@@ -21,9 +21,9 @@
         "ext-dom": "*"
     },
     "require-dev": {
-        "mockery/mockery": "^1.2",
-        "pestphp/pest": "^1.21",
-        "spatie/pest-plugin-snapshots": "^1.1"
+        "mockery/mockery": "^1.6",
+        "pestphp/pest": "^1.23 || ^2.0 || ^3.0 || ^4.0",
+        "spatie/pest-plugin-snapshots": "^1.1 || ^2.0"
     },
     "autoload": {
         "psr-4": {
