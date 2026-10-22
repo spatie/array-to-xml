@@ -9,7 +9,7 @@ This package provides a very simple class to convert an array to an xml string.
 
 ## Support us
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/array-to-xml.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/array-to-xml)
+[<img src="https://spatie.be/github-ad-image/array-to-xml.jpg" width="419px" />](https://spatie.be/github-ad-click/array-to-xml)
 
 We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
 
